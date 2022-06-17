@@ -1,0 +1,78 @@
+.palette {
+  width: 15em;
+  margin: 1em;
+}
+
+.palette .sliver:first-child {
+  border-radius: 1em 1em 0 0;
+}
+
+.palette .sliver:last-child {
+  border-radius: 0 0 1em 1em;
+}
+
+.sliver {
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.sliver span {
+  background: #2b2b2b;
+  color: white;
+  padding: 0.25em;
+}
+
+.sliver span,
+.sliver .copyIcon {
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}
+
+.sliver:hover span,
+.sliver:hover .copyIcon {
+  opacity: 1;
+  transition: opacity 150ms ease-in-out;
+}
+
+.copyIcon {
+  width: 2em;
+  height: 2em;
+  background: #2b2b2b;
+  padding: 0.5em;
+  border-radius: 4em;
+}
+
+.copyIcon:hover svg {
+    transform: scale(1.1);
+    transition: transform 150ms ease-in-out;
+}
+
+.copyIcon svg {
+  width: 100%;
+  height: 100%;
+
+  fill: white;
+  stroke: white;
+}
+
+
+.copySuccess {
+    background: #2b2b2b;
+    padding: 0.5em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.copySuccess.hide {
+    display: block;
+}
+
+.copySuccess.hide {
+    display: none;
+}
