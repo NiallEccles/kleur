@@ -28,15 +28,15 @@
 
 .sliver span,
 .sliver .copyIcon {
-  opacity: 0;
-  transition: opacity 150ms ease-in-out;
-}
-
-.sliver:hover span,
-.sliver:hover .copyIcon {
   opacity: 1;
   transition: opacity 150ms ease-in-out;
 }
+
+/* .sliver:hover span,
+.sliver:hover .copyIcon {
+  opacity: 1;
+  transition: opacity 150ms ease-in-out;
+} */
 
 .copyIcon {
   width: 2em;
