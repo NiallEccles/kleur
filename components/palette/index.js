@@ -4,17 +4,19 @@ import styles from "./palette.module.css";
 export default function Palette({ colours }) {
   const [copiedColour, setCopiedColour] = useState("");
   return (
-    <div className={styles.palette}>
+    <div className={styles.palette} aria-label="Palette">
       {colours.map((colour, index) => {
         return (
           <div
             className={styles.sliver}
             style={{ background: colour }}
             key={index}
+            aria-label="Palette Sliver"
           >
-            <span>{colour}</span>
+            <span tabIndex={0}>{colour}</span>
             <button
               className={styles.copyIcon}
+              aria-label="Copy to clipboard"
               onClick={() => {
                 navigator.clipboard.writeText(colour);
                 setCopiedColour(colour);
