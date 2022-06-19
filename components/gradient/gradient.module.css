@@ -54,6 +54,18 @@
   stroke: white;
 }
 
+.copyIcon:focus,
+.rotateIcon:focus {
+  outline: 4px solid #2b2b2b;
+  background: white;
+}
+
+.copyIcon:focus svg,
+.rotateIcon:focus svg {
+  fill: #2b2b2b;
+  stroke: #2b2b2b;
+}
+
 .copySuccess {
   background: #2b2b2b;
   padding: 0.5em;
