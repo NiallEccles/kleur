@@ -1,0 +1,13 @@
+.skeleton {
+  height: 15em;
+  width: 15em;
+  border-radius: 1em;
+  margin: 1em;
+  position: relative;
+  border: 5px dashed #2b2b2b;
+}
+
+.skeleton:focus {
+    background: #2b2b2b;
+    border: 5px dashed white;
+}
