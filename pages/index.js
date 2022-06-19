@@ -5,6 +5,7 @@ import Palette from "../components/palette";
 import Gradient from "../components/gradient";
 import { gradients } from "../data/gradients";
 import { palettes } from "../data/palettes";
+import Skeleton from "../components/skeleton";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
           </a>
         </div>
       </div>
+      <Skeleton/>
       <div className={styles.paletteGrid}>
         {palettes.map((palette, index) => {
           return <Palette key={index} colours={palette.colours} />;
