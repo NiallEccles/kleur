@@ -1,34 +1,28 @@
 export const gradients = [
   {
-    colours: ["#F47C7C", "#EF9F9F", "#FAD4D4", "#FFF2F2"],
-    tags: ["warm"],
+    colours: ["#30cfd0", "#330867"],
+    tags: ["blue", "space", "dark"],
   },
   {
-    colours: ["#293462", "#F24C4C", "#EC9B3B", "#F7D716"],
-    tags: ["warm"],
+    colours: ["#ff0844", "#ffb199"],
+    tags: ["warm", "sunset", "red", "pink"],
   },
   {
-    colours: ["#293462", "#F24C4C", "#F7D716"],
-    tags: ["warm"],
+    colours: [
+      "#3f51b1",
+      "#5a55ae",
+      "#7b5fac",
+      "#8f6aae",
+      "#a86aa4",
+      "#cc6b8e",
+      "#f18271",
+      "#f3a469",
+      "#f7c978",
+    ],
+    tags: ["sunset", "rainbow"],
   },
   {
-    colours: ["#F7D716", "#F24C4C"],
-    tags: ["warm"],
-  },
-  {
-    colours: ["#293462", "#F24C4C", "#F7D716"],
-    tags: ["warm"],
-  },
-  {
-    colours: ["#293462", "#F24C4C", "#EC9B3B", "#F7D716"],
-    tags: ["warm"],
-  },
-  {
-    colours: ["#F7D716", "#F24C4C"],
-    tags: ["warm"],
-  },
-  {
-    colours: ["#293462", "#F24C4C", "#EC9B3B", "#F7D716"],
-    tags: ["warm"],
+    colours: ["#231557", "#44107A", "#FF1361", "#FFF800"],
+    tags: ["sunset"],
   },
 ];
