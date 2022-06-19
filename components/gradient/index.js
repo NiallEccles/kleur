@@ -4,13 +4,13 @@ import CircularSlider from "@fseehawer/react-circular-slider";
 
 export default function Gradient({ colours }) {
   const [copiedColour, setCopiedColour] = useState("");
-  const [degres, setDegres] = useState("180deg");
+  const [degrees, setDegrees] = useState(180);
   const [showRotate, setShowRotate] = useState(false);
   return (
     <div
       className={styles.gradient}
       style={{
-        background: `linear-gradient(${degres}, ${colours.toString()}`,
+        background: `linear-gradient(${degrees}deg, ${colours.toString()}`,
       }}
     >
       <button
@@ -27,7 +27,7 @@ export default function Gradient({ colours }) {
       <button
         className={styles.copyIcon}
         onClick={() => {
-          const gradient = `linear-gradient(${degres}, ${colours.toString()})`;
+          const gradient = `linear-gradient(${degrees}deg, ${colours.toString()})`;
           navigator.clipboard.writeText(gradient);
           setCopiedColour(colours);
           setTimeout(() => {
@@ -37,7 +37,7 @@ export default function Gradient({ colours }) {
       >
         {copiedColour === colours ? successIcon() : copyIcon()}
       </button>
-      <Rotate setDegres={setDegres} showRotate={showRotate} />
+      <Rotate degrees={degrees} setDegrees={setDegrees} showRotate={showRotate} />
     </div>
   );
 }
@@ -68,11 +68,17 @@ function successIcon() {
 
 function rotateToggle() {
   return (
-    <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.15 42.15"><path d="M21.05,30.25c2.57,0,4.73-.88,6.5-2.65,1.77-1.77,2.65-3.93,2.65-6.5s-.88-4.73-2.65-6.5c-1.77-1.77-3.93-2.65-6.5-2.65-2.57,0-4.73,.88-6.5,2.65s-2.65,3.93-2.65,6.5c0,2.57,.88,4.73,2.65,6.5,1.77,1.77,3.93,2.65,6.5,2.65Zm0,11.9c-2.87,0-5.59-.55-8.18-1.65-2.58-1.1-4.82-2.6-6.72-4.5-1.9-1.9-3.4-4.14-4.5-6.73-1.1-2.58-1.65-5.31-1.65-8.17s.55-5.58,1.65-8.15c1.1-2.57,2.6-4.8,4.5-6.7,1.9-1.9,4.14-3.42,6.72-4.55C15.46,.57,18.18,0,21.05,0c2.9,0,5.62,.57,8.17,1.7,2.55,1.13,4.78,2.65,6.67,4.55,1.9,1.9,3.42,4.13,4.55,6.68,1.13,2.55,1.7,5.28,1.7,8.18,0,2.87-.57,5.59-1.7,8.17-1.13,2.58-2.65,4.83-4.55,6.73s-4.12,3.4-6.67,4.5c-2.55,1.1-5.27,1.65-8.17,1.65Zm0-21.05h0Zm-.05,16.5c4.53,0,8.42-1.6,11.67-4.8,3.25-3.2,4.88-7.08,4.88-11.65s-1.62-8.47-4.85-11.7c-3.23-3.23-7.12-4.85-11.65-4.85s-8.46,1.61-11.68,4.82c-3.22,3.22-4.82,7.11-4.82,11.68s1.61,8.5,4.82,11.7c3.22,3.2,7.09,4.8,11.63,4.8Z"/></svg>
+    <svg
+      id="Layer_1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 42.15 42.15"
+    >
+      <path d="M21.05,30.25c2.57,0,4.73-.88,6.5-2.65,1.77-1.77,2.65-3.93,2.65-6.5s-.88-4.73-2.65-6.5c-1.77-1.77-3.93-2.65-6.5-2.65-2.57,0-4.73,.88-6.5,2.65s-2.65,3.93-2.65,6.5c0,2.57,.88,4.73,2.65,6.5,1.77,1.77,3.93,2.65,6.5,2.65Zm0,11.9c-2.87,0-5.59-.55-8.18-1.65-2.58-1.1-4.82-2.6-6.72-4.5-1.9-1.9-3.4-4.14-4.5-6.73-1.1-2.58-1.65-5.31-1.65-8.17s.55-5.58,1.65-8.15c1.1-2.57,2.6-4.8,4.5-6.7,1.9-1.9,4.14-3.42,6.72-4.55C15.46,.57,18.18,0,21.05,0c2.9,0,5.62,.57,8.17,1.7,2.55,1.13,4.78,2.65,6.67,4.55,1.9,1.9,3.42,4.13,4.55,6.68,1.13,2.55,1.7,5.28,1.7,8.18,0,2.87-.57,5.59-1.7,8.17-1.13,2.58-2.65,4.83-4.55,6.73s-4.12,3.4-6.67,4.5c-2.55,1.1-5.27,1.65-8.17,1.65Zm0-21.05h0Zm-.05,16.5c4.53,0,8.42-1.6,11.67-4.8,3.25-3.2,4.88-7.08,4.88-11.65s-1.62-8.47-4.85-11.7c-3.23-3.23-7.12-4.85-11.65-4.85s-8.46,1.61-11.68,4.82c-3.22,3.22-4.82,7.11-4.82,11.68s1.61,8.5,4.82,11.7c3.22,3.2,7.09,4.8,11.63,4.8Z" />
+    </svg>
   );
 }
 
-function Rotate({ setDegres, showRotate }) {
+function Rotate({ degrees, setDegrees, showRotate }) {
   const [value, setValue] = useState(180);
   return (
     <div
@@ -96,9 +102,10 @@ function Rotate({ setDegres, showRotate }) {
         trackColor="#ffffff"
         hideLabelValue={true}
         label=""
+        value={degrees}
         onChange={(v) => {
           setValue(v);
-          setDegres(v + "deg");
+          setDegrees(v);
         }}
       />
     </div>
