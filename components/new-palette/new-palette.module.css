@@ -1,6 +1,7 @@
 .paletteContainer {
   width: 15em;
   margin: 1em;
+  position: relative;
 }
 
 .palette {

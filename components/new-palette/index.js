@@ -2,15 +2,14 @@ import { useState } from "react";
 import styles from "./new-palette.module.css";
 import { HexColorPicker } from "react-colorful";
 
-// const controls = [{ colour: "#E23E57" }, { colour: "#88304E" }];
-
 export default function NewPalette() {
   const [controls, setControl] = useState([
-    { colour: "#" },
-    { colour: "#" },
-    { colour: "#" },
-    { colour: "#" },
+    { colour: "#", showPicker: false },
+    { colour: "#", showPicker: false },
+    { colour: "#", showPicker: false },
+    { colour: "#", showPicker: false },
   ]);
+  const [currentControl, setCurrentControl] = useState(-1);
   return (
     <div className={styles.paletteContainer}>
       <div className={styles.palette} aria-label="Palette">
@@ -25,39 +24,52 @@ export default function NewPalette() {
               type="text"
               value={control.colour}
               onChange={(e) => {
+                setCurrentControl(index);
                 updateControl(controls, setControl, index, {
                   colour: e.target.value,
                 });
               }}
             />
-            <button className={styles.paletteIcon}>{paletteIcon()}</button>
-            {/* {colourPicker(showPicker, setShowPicker, controls, setControl, index)} */}
+            <button
+              className={styles.paletteIcon}
+              onClick={() => {
+                setCurrentControl(index);
+              }}
+            >
+              {paletteIcon()}
+            </button>
           </div>
         ))}
       </div>
-      <button className={`btn btn-ghost mt-4 w-full ${styles.addIcon}`}>
+      <button
+        className={`btn btn-ghost mt-4 w-full ${styles.addIcon}`}
+        onClick={() => console.log(controls)}
+      >
         Create Palette
       </button>
+      {colourPicker(controls, setControl, currentControl)}
     </div>
   );
 }
 
-function colourPicker(showPicker, setShowPicker, controls, setControl, index) {
-  return (
+function colourPicker(controls, setControl, currentControl, color) {
+  return currentControl > -1 ? (
     <div
       className={`${styles.colourPicker} ${
-        controls[index].showPicker ? styles.showPicker : ""
+        controls[currentControl].showPicker ? styles.showPicker : ""
       }`}
     >
       <HexColorPicker
-        color={"#ffffff"}
+        color={controls[currentControl].colour}
         onChange={(e) => {
-          updateControl(controls, setControl, index, {
-            colour: e,
+          updateControl(controls, setControl, currentControl, {
+            colour: e.includes("NaN") ? "#ffffff" : e,
           });
         }}
       />
     </div>
+  ) : (
+    ""
   );
 }
 
@@ -77,11 +89,4 @@ function updateControl(controls, setControls, index, newValue) {
   let newArr = [...controls];
   newArr[index] = newValue;
   setControls(newArr);
-}
-
-function togglePicker(controls, setControls, index) {
-  let newArr = [...controls];
-  newArr[index].showPicker = !newArr[index].showPicker;
-  setControls(newArr);
-  console.log(controls);
 }
