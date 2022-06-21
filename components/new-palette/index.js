@@ -35,14 +35,9 @@ export default function NewPalette() {
           </div>
         ))}
       </div>
-      {/* <button
-        className={`btn btn-ghost mt-4 w-full ${styles.addIcon}`}
-        onClick={() => {
-          newControl(controls, setControl);
-        }}
-      >
-        {controls.length < 4 ? "Add Sliver" : "Max Slivers Reached"} {addIcon()}
-      </button> */}
+      <button className={`btn btn-ghost mt-4 w-full ${styles.addIcon}`}>
+        Create Palette
+      </button>
     </div>
   );
 }
