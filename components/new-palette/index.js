@@ -43,7 +43,7 @@ export default function NewPalette() {
       </div>
       <button
         className={`btn btn-ghost mt-4 w-full ${styles.addIcon}`}
-        onClick={() => console.log(controls)}
+        onClick={() => createPalette(controls)}
       >
         Create Palette
       </button>
@@ -89,4 +89,8 @@ function updateControl(controls, setControls, index, newValue) {
   let newArr = [...controls];
   newArr[index] = newValue;
   setControls(newArr);
+}
+
+function createPalette(controls) {
+  console.log(controls);
 }
