@@ -4,10 +4,10 @@ import { HexColorPicker } from "react-colorful";
 
 export default function NewPalette() {
   const [controls, setControl] = useState([
-    { colour: "#", showPicker: false },
-    { colour: "#", showPicker: false },
-    { colour: "#", showPicker: false },
-    { colour: "#", showPicker: false },
+    { colour: "#" },
+    { colour: "#" },
+    { colour: "#" },
+    { colour: "#" },
   ]);
   const [currentControl, setCurrentControl] = useState(-1);
   return (
@@ -16,7 +16,7 @@ export default function NewPalette() {
         {controls.map((control, index) => (
           <div
             className={styles.sliver}
-            style={{ background: control.colour }}
+            style={{ background: control.colour?.charAt(0) !== '#' ? `#${control.colour}` : control.colour }}
             aria-label="Palette Sliver"
             key={index}
           >
@@ -26,7 +26,7 @@ export default function NewPalette() {
               onChange={(e) => {
                 setCurrentControl(index);
                 updateControl(controls, setControl, index, {
-                  colour: e.target.value,
+                  colour: e.target.value.charAt(0) !== '#' ? `#${e.target.value}` : e.target.value,
                 });
               }}
             />
@@ -56,7 +56,7 @@ function colourPicker(controls, setControl, currentControl, color) {
   return currentControl > -1 ? (
     <div
       className={`${styles.colourPicker} ${
-        controls[currentControl].showPicker ? styles.showPicker : ""
+        currentControl > -1 ? styles.showPicker : ""
       }`}
     >
       <HexColorPicker
