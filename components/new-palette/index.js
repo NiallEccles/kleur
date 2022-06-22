@@ -1,20 +1,22 @@
 import { useState } from "react";
 import styles from "./new-palette.module.css";
-
-// const controls = [{ colour: "#E23E57" }, { colour: "#88304E" }];
+import { HexColorPicker } from "react-colorful";
 
 export default function NewPalette() {
   const [controls, setControl] = useState([
-    { colour: "#E23E57" },
-    { colour: "#88304E" },
+    { colour: "#" },
+    { colour: "#" },
+    { colour: "#" },
+    { colour: "#" },
   ]);
+  const [currentControl, setCurrentControl] = useState(0);
   return (
     <div className={styles.paletteContainer}>
       <div className={styles.palette} aria-label="Palette">
         {controls.map((control, index) => (
           <div
             className={styles.sliver}
-            style={{ background: control.colour }}
+            style={{ background: control.colour?.charAt(0) !== '#' ? `#${control.colour}` : control.colour }}
             aria-label="Palette Sliver"
             key={index}
           >
@@ -22,60 +24,73 @@ export default function NewPalette() {
               type="text"
               value={control.colour}
               onChange={(e) => {
+                setCurrentControl(index);
                 updateControl(controls, setControl, index, {
-                  colour: e.target.value,
+                  colour: e.target.value.charAt(0) !== '#' ? `#${e.target.value}` : e.target.value,
                 });
               }}
             />
-            <button className={styles.copyIcon}>{copyIcon()}</button>
+            <button
+              className={styles.paletteIcon}
+              onClick={() => {
+                setCurrentControl(index);
+              }}
+            >
+              {paletteIcon()}
+            </button>
           </div>
         ))}
       </div>
       <button
         className={`btn btn-ghost mt-4 w-full ${styles.addIcon}`}
-        onClick={() => {
-          newControl(controls, setControl);
-        }}
+        onClick={() => createPalette(controls)}
       >
-        {controls.length < 4 ? "Add Sliver" : "Max Slivers Reached"} {addIcon()}
+        Create Palette
       </button>
+      {colourPicker(controls, setControl, currentControl)}
     </div>
   );
 }
 
-function copyIcon() {
+function colourPicker(controls, setControl, currentControl, color) {
+  return currentControl > -1 ? (
+    <div
+      className={`${styles.colourPicker} ${
+        currentControl > -1 ? styles.showPicker : ""
+      }`}
+    >
+      <HexColorPicker
+        color={controls[currentControl].colour}
+        onChange={(e) => {
+          updateControl(controls, setControl, currentControl, {
+            colour: e.includes("NaN") ? "#ffffff" : e,
+          });
+        }}
+      />
+    </div>
+  ) : (
+    ""
+  );
+}
+
+function paletteIcon() {
   return (
     <svg
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 37.65 43.6"
+      viewBox="0 0 37.8 37.8"
     >
-      <path d="M12,36.2c-1.27,0-2.34-.46-3.23-1.38s-1.33-1.97-1.33-3.17V4.55c0-1.2,.44-2.26,1.33-3.17,.88-.92,1.96-1.38,3.23-1.38h21.05c1.27,0,2.35,.46,3.25,1.38,.9,.92,1.35,1.97,1.35,3.17V31.65c0,1.2-.45,2.26-1.35,3.17s-1.98,1.38-3.25,1.38H12Zm0-4.55h21.05V4.55H12V31.65h0Zm-7.4,11.95c-1.27,0-2.35-.46-3.25-1.38s-1.35-1.98-1.35-3.17V9.6H4.6v29.45H27.55v4.55H4.6ZM12,4.55h0V31.65h0V4.55h0Z" />
+      <path d="M0,37.8v-9.5L18.95,9.35l-3.45-3.5,2.8-2.8,4.45,4.5L29.55,.7c.5-.47,1.02-.7,1.55-.7s1.03,.25,1.5,.75l4.45,4.45c.5,.47,.75,.97,.75,1.5,0,.53-.23,1.05-.7,1.55l-6.8,6.75,4.45,4.5-2.8,2.8-3.45-3.5L9.5,37.8H0Zm3.85-3.85h4.25L25.85,16.2l-4.25-4.25L3.85,29.7v4.25Z" />
     </svg>
   );
-}
-
-function addIcon() {
-  return (
-    <svg
-      id="Layer_1"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 29.55 29.5"
-    >
-      <path d="M12.5,29.5v-12.45H0v-4.55H12.5V0h4.55V12.5h12.5v4.55h-12.5v12.45h-4.55Z" />
-    </svg>
-  );
-}
-
-function newControl(controls, setControl) {
-  if (controls.length < 4) {
-    let newArr = [...controls, { colour: "#" }];
-    setControl(newArr);
-  }
 }
 
 function updateControl(controls, setControls, index, newValue) {
   let newArr = [...controls];
   newArr[index] = newValue;
   setControls(newArr);
+}
+
+function createPalette(controls) {
+  console.log(controls);
 }
