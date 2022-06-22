@@ -9,7 +9,7 @@ export default function NewPalette() {
     { colour: "#" },
     { colour: "#" },
   ]);
-  const [currentControl, setCurrentControl] = useState(-1);
+  const [currentControl, setCurrentControl] = useState(0);
   return (
     <div className={styles.paletteContainer}>
       <div className={styles.palette} aria-label="Palette">

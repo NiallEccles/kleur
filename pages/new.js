@@ -19,7 +19,7 @@ export default function New() {
           </a>
         </div>
       </div>
-      {/* <NewPalette /> */}
+      <NewPalette />
       <NewGradient />
     </div>
   );
