@@ -76,6 +76,16 @@
   stroke: white;
 }
 
+.paletteIcon:focus {
+  outline: 4px solid #2b2b2b;
+  background: white;
+}
+
+.paletteIcon:focus svg {
+  fill: #2b2b2b;
+  stroke: #2b2b2b;
+}
+
 .addIcon svg {
   width: 1em;
   height: 1em;
