@@ -7,6 +7,7 @@ import { gradients } from "../data/gradients";
 import { palettes } from "../data/palettes";
 import Skeleton from "../components/skeleton";
 import NewPalette from "../components/new-palette";
+import NewGradient from "../components/new-gradient";
 
 export default function New() {
   return (
@@ -19,6 +20,7 @@ export default function New() {
         </div>
       </div>
       <NewPalette />
+      <NewGradient />
     </div>
   );
 }

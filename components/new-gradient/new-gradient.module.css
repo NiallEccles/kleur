@@ -1,10 +1,14 @@
 .paletteContainer {
-  width: 15em;
-  margin: 1em auto;
+  margin: 1em;
   position: relative;
+  display: inline-flex;
+
+  justify-content: center;
+  width: 100%;
 }
 
 .palette {
+  width: 15em;
   border: 3px solid #2b2b2b;
   border-radius: 1.2em;
 }
@@ -44,18 +48,18 @@
 }
 
 .sliver input,
-.sliver .paletteIcon {
+.sliver .icon {
   opacity: 1;
   transition: opacity 150ms ease-in-out;
 }
 
 /* .sliver:hover span,
-  .sliver:hover .paletteIcon {
-    opacity: 1;
-    transition: opacity 150ms ease-in-out;
-  } */
+    .sliver:hover .paletteIcon {
+      opacity: 1;
+      transition: opacity 150ms ease-in-out;
+    } */
 
-.paletteIcon {
+.icon {
   width: 2em;
   height: 2em;
   background: #2b2b2b;
@@ -63,12 +67,26 @@
   border-radius: 4em;
 }
 
-.paletteIcon:hover svg {
+.icon.active {
+  outline: 4px solid #2b2b2b;
+  background: white;
+}
+
+.icon.active svg {
+  fill: #2b2b2b;
+  stroke: #2b2b2b;
+}
+
+.icon:first-child {
+  margin-right: 0.5em;
+}
+
+.icon:hover svg {
   transform: scale(1.1);
   transition: transform 150ms ease-in-out;
 }
 
-.paletteIcon svg {
+.icon svg {
   width: 100%;
   height: 100%;
 
@@ -76,30 +94,37 @@
   stroke: white;
 }
 
-.paletteIcon:focus {
+.icon:focus {
   outline: 4px solid #2b2b2b;
   background: white;
 }
 
-.paletteIcon:focus svg {
+.icon:focus svg {
   fill: #2b2b2b;
   stroke: #2b2b2b;
 }
 
-.addIcon svg {
-  width: 1em;
-  height: 1em;
-  margin-left: 1em;
+.colourPickerContainer {
+  position: relative;
+  display: flex;
 }
 
 .colourPicker {
-  position: absolute;
-  left: 110%;
-  top: 0;
-  /* display: none; */
+  margin: 1em;
   display: block;
 }
 
 .colourPicker.showPicker {
   display: block;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+}
+
+.createButton {
+  background: #2b2b2b;
+  color: white;
 }
