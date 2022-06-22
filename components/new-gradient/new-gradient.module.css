@@ -67,6 +67,16 @@
   border-radius: 4em;
 }
 
+.icon.active {
+  outline: 4px solid #2b2b2b;
+  background: white;
+}
+
+.icon.active svg {
+  fill: #2b2b2b;
+  stroke: #2b2b2b;
+}
+
 .icon:first-child {
   margin-right: 0.5em;
 }

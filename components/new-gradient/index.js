@@ -85,7 +85,7 @@ export default function NewGradient() {
                 </button>
                 <button
                   style={{ opacity: previewGradient ? 0 : 1 }}
-                  className={styles.icon}
+                  className={`${styles.icon} ${currentControl === index ? styles.active : ''}`}
                   onClick={() => {
                     setCurrentControl(index);
                   }}
