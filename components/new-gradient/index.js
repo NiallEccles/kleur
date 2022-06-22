@@ -62,18 +62,15 @@ export default function NewGradient() {
       </div>
       <div className={styles.options}>
         <button
-          className={`btn btn-ghost mt-4 w-auto`}
+          className={`btn btn-active mt-4 w-auto ${previewGradient ? '' : 'btn-ghost'}`}
           onClick={() => setPreviewGradient(!previewGradient)}
           // onMouseDown={() => setPreviewGradient(true)}
           // onMouseUp={() => setPreviewGradient(false)}
         >
           Preview {previewGradient ? "On" : "Off"}
-          <span className={`ml-2 ${styles.previewIcon}`}>
-            {previewGradient ? previewOn() : previewOff()}
-          </span>
         </button>
         <button
-          className={`btn btn-ghost mt-4 w-full ${styles.addIcon}`}
+          className={`btn btn-active btn-ghost mt-4 w-full ${styles.addIcon}`}
           onClick={() => createControl(controls, setControl)}
         >
           Add Sliver
