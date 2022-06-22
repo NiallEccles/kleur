@@ -4,10 +4,10 @@ import { HexColorPicker } from "react-colorful";
 
 export default function NewPalette() {
   const [controls, setControl] = useState([
-    { colour: "#" },
-    { colour: "#" },
-    { colour: "#" },
-    { colour: "#" },
+    { colour: "#1FAB89" },
+    { colour: "#62D2A2" },
+    { colour: "#9DF3C4" },
+    { colour: "#D7FBE8" },
   ]);
   const [currentControl, setCurrentControl] = useState(0);
   return (
@@ -31,7 +31,7 @@ export default function NewPalette() {
               }}
             />
             <button
-              className={styles.paletteIcon}
+              className={`${styles.icon} ${currentControl === index ? styles.active : ''}`}
               onClick={() => {
                 setCurrentControl(index);
               }}
