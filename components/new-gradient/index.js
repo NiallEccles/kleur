@@ -9,7 +9,7 @@ export default function NewGradient() {
     { colour: "#522546" },
     { colour: "#311D3F" },
   ]);
-  const [currentControl, setCurrentControl] = useState(-1);
+  const [currentControl, setCurrentControl] = useState(0);
   const [previewGradient, setPreviewGradient] = useState(false);
   return (
     <div className={styles.paletteContainer}>
@@ -37,7 +37,7 @@ export default function NewGradient() {
           Create Gradient
         </button>
       </div>
-      <div style={{position: 'relative'}}>
+      <div className={styles.colourPickerContainer}>
         <div
           style={{
             background: `linear-gradient(${180}deg, ${generateGradient(

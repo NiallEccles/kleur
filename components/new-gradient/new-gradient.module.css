@@ -94,17 +94,13 @@
   stroke: #2b2b2b;
 }
 
-/* .addIcon svg {
-  width: 1em;
-  height: 1em;
-  margin-left: 1em;
-} */
+.colourPickerContainer {
+  position: relative;
+  display: flex;
+}
 
 .colourPicker {
-  position: absolute;
-  left: 105%;
-  top: 0;
-  /* display: none; */
+  margin: 1em;
   display: block;
 }
 
