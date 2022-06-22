@@ -13,56 +13,11 @@ export default function NewGradient() {
   const [previewGradient, setPreviewGradient] = useState(false);
   return (
     <div className={styles.paletteContainer}>
-      <div
-        style={{
-          background: `linear-gradient(${180}deg, ${generateGradient(
-            controls
-          )})`,
-        }}
-        className={styles.palette}
-        aria-label="Palette"
-      >
-        {controls.map((control, index) => (
-          <div
-            className={styles.sliver}
-            // style={{
-            //   background:
-            //     control.colour?.charAt(0) !== "#"
-            //       ? `#${control.colour}`
-            //       : control.colour,
-            // }}
-            aria-label="Palette Sliver"
-            key={index}
-          >
-            <input
-              type="text"
-              value={control.colour}
-              style={{ opacity: previewGradient ? 0 : 1 }}
-              onChange={(e) => {
-                setCurrentControl(index);
-                updateControl(controls, setControl, index, {
-                  colour:
-                    e.target.value.charAt(0) !== "#"
-                      ? `#${e.target.value}`
-                      : e.target.value,
-                });
-              }}
-            />
-            <button
-              style={{ opacity: previewGradient ? 0 : 1 }}
-              className={styles.paletteIcon}
-              onClick={() => {
-                setCurrentControl(index);
-              }}
-            >
-              {paletteIcon()}
-            </button>
-          </div>
-        ))}
-      </div>
       <div className={styles.options}>
         <button
-          className={`btn btn-active w-auto ${previewGradient ? '' : 'btn-ghost'}`}
+          className={`btn btn-active w-auto ${
+            previewGradient ? "" : "btn-ghost"
+          }`}
           onClick={() => setPreviewGradient(!previewGradient)}
           // onMouseDown={() => setPreviewGradient(true)}
           // onMouseUp={() => setPreviewGradient(false)}
@@ -76,13 +31,73 @@ export default function NewGradient() {
           Add Sliver
         </button>
         <button
-        className={`btn btn-ghost mt-4 w-full ${styles.createButton}`}
-        onClick={() => createPalette(controls)}
+          className={`btn btn-ghost mt-4 w-full ${styles.createButton}`}
+          onClick={() => createPalette(controls)}
         >
-        Create Gradient
+          Create Gradient
         </button>
       </div>
-      {colourPicker(controls, setControl, currentControl)}
+      <div style={{position: 'relative'}}>
+        <div
+          style={{
+            background: `linear-gradient(${180}deg, ${generateGradient(
+              controls
+            )})`,
+          }}
+          className={styles.palette}
+          aria-label="Palette"
+        >
+          {controls.map((control, index) => (
+            <div
+              className={styles.sliver}
+              // style={{
+              //   background:
+              //     control.colour?.charAt(0) !== "#"
+              //       ? `#${control.colour}`
+              //       : control.colour,
+              // }}
+              aria-label="Palette Sliver"
+              key={index}
+            >
+              <input
+                type="text"
+                value={control.colour}
+                style={{ opacity: previewGradient ? 0 : 1 }}
+                onChange={(e) => {
+                  setCurrentControl(index);
+                  updateControl(controls, setControl, index, {
+                    colour:
+                      e.target.value.charAt(0) !== "#"
+                        ? `#${e.target.value}`
+                        : e.target.value,
+                  });
+                }}
+              />
+              <div>
+                <button
+                  style={{ opacity: previewGradient ? 0 : 1 }}
+                  className={styles.icon}
+                  onClick={() => {
+                    removeControl(controls, setControl, index);
+                  }}
+                >
+                  {removeIcon()}
+                </button>
+                <button
+                  style={{ opacity: previewGradient ? 0 : 1 }}
+                  className={styles.icon}
+                  onClick={() => {
+                    setCurrentControl(index);
+                  }}
+                >
+                  {paletteIcon()}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+        {colourPicker(controls, setControl, currentControl)}
+      </div>
     </div>
   );
 }
@@ -95,7 +110,7 @@ function colourPicker(controls, setControl, currentControl, color) {
       }`}
     >
       <HexColorPicker
-        color={controls[currentControl].colour}
+        color={controls[currentControl].colour ? controls[currentControl].colour : '#ffffff'}
         onChange={(e) => {
           updateControl(controls, setControl, currentControl, {
             colour: e.includes("NaN") ? "#ffffff" : e,
@@ -120,6 +135,18 @@ function paletteIcon() {
   );
 }
 
+function removeIcon() {
+  return (
+    <svg
+      id="Layer_1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 29.5 4.55"
+    >
+      <path d="M0,4.55V0H29.5V4.55H0Z" />
+    </svg>
+  );
+}
+
 function updateControl(controls, setControls, index, newValue) {
   let newArr = [...controls];
   newArr[index] = newValue;
@@ -131,12 +158,20 @@ function createControl(controls, setControl) {
   setControl(newArr);
 }
 
+function removeControl(controls, setControl, index) {
+  // let newArr = controls.slice(index, index);
+  // console.log({newArr, index})
+  console.log(controls.splice(index, 1));
+  console.log(controls);
+
+  setControl([...controls]);
+}
+
 function createPalette(controls) {
   console.log(controls);
 }
 
 function generateGradient(controls) {
-  console.log([controls.map((control) => control.colour)].toString());
   return [controls.map((control) => control.colour)].toString();
 }
 
