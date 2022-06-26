@@ -1,7 +1,7 @@
 import styles from "./palette-manager.module.css";
 import RemoveIcon from "../icons/removeIcon";
 import PaletteIcon from "../icons/paletteIcon";
-import {colourStringSanitizer} from "../../utils/paletteUtils";
+import {hexStringSanitizer} from "../../utils/paletteUtils";
 
 const PalleteManager = ({
                             controls,
@@ -31,7 +31,7 @@ const PalleteManager = ({
             {controls.map((control, index) => (
                 <div
                     className={styles.sliver}
-                    style={isGradientPallete && {background: colourStringSanitizer(control.colour)}}
+                    style={isGradientPallete && {background: hexStringSanitizer(control.colour)}}
                     aria-label="Palette Sliver"
                     key={index}
                 >
@@ -41,7 +41,7 @@ const PalleteManager = ({
                         style={{ opacity: previewGradient ? 0 : 1 }}
                         onChange={(e) => {
                             setCurrentControl(index);
-                            updateSingleControl( index, {  colour: colourStringSanitizer(e.target.value) });
+                            updateSingleControl( index, {  colour: hexStringSanitizer(e.target.value) });
                         }}
                     />
                     <div>
