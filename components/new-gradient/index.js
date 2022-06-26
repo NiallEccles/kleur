@@ -22,7 +22,6 @@ export default function NewGradient() {
 
     const [currentControl, setCurrentControl] = useState(0);
     const [previewGradient, setPreviewGradient] = useState(false);
-
     return (
         <div className={styles.paletteContainer}>
             <div className={styles.options}>

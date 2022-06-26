@@ -7,7 +7,6 @@ const PalleteManager = ({
                             controls,
                             setCurrentControl,
                             removeControl,
-                            setControls,
                             currentControl,
                             previewGradient,
                             updateSingleControl,
@@ -16,6 +15,16 @@ const PalleteManager = ({
 
     function generateGradient(controls) {
         return [controls.map((control) => control.colour)].toString();
+    }
+
+    function removeAndSetNewControlIndex(index){
+        const controlsIndexAfterDelete = controls.length - 2
+        removeControl(index);
+
+        if(controlsIndexAfterDelete < currentControl){
+            setCurrentControl(controlsIndexAfterDelete)
+        }
+
     }
 
     return (
@@ -46,12 +55,12 @@ const PalleteManager = ({
                     />
                     <div>
                         {
-                            !isGradientPallete &&
+                            !isGradientPallete && controls.length > 2 &&
                             <button
                                 style={{ opacity: previewGradient ? 0 : 1 }}
                                 className={styles.icon}
                                 onClick={() => {
-                                    removeControl(controls, setControls, index);
+                                    removeAndSetNewControlIndex(index)
                                 }}
                             >
                                 <RemoveIcon />
