@@ -4,6 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 The goal of this project is to create an app that can be a central point for colours. Whether that is a palette, gradient, individual hex code, or something more.
 
 ## Milestones
+#### 1.0.0
 - [x] Create palette component
 - [x] Create gradient component
 - [ ] Saving a created palette or gradient to localStorage
@@ -11,11 +12,17 @@ The goal of this project is to create an app that can be a central point for col
 - [ ] Featured palettes and gradients on homepage
 - [ ] Navigation menu
 - [ ] Mobile version
+#### 1.1.0
 - [ ] Named palettes and gradients
+ #### 1.2.0
 - [ ] Conic + radial gradient generator
+#### 1.3.0
 - [ ] Mesh gradient generator
+#### 1.4.0
 - [ ] CSS backgrounds
+#### 1.5.0
 - [ ] API for displaying palette or gradient
+#### 2.0.0
 - [ ] User login and remote data storage
 
 ## Getting Started
