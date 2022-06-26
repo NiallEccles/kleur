@@ -2,6 +2,7 @@ import styles from './colour-picker.module.css'
 import {HexColorPicker} from "react-colorful";
 
 function ColourPicker({controls, updateSingleControl, currentControlIndex, color}) {
+
     return  (
         <div
             className={`${styles.colourPicker} ${
