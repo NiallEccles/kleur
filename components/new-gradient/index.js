@@ -77,6 +77,22 @@ export default function NewGradient() {
 
 function createPalette(controls) {
     console.log(controls);
+    const prevLocalStorage =
+		localStorage.getItem("gradients") === null
+			? []
+			: JSON.parse(localStorage.getItem("gradients"));
+
+	const createdAt = new Date().getTime();
+
+	const newGradient = [
+		...prevLocalStorage,
+		{
+			createdAt,
+			pallete: controls,
+		},
+	];
+
+	localStorage.setItem("gradients", JSON.stringify(newGradient));
 }
 
 function previewOff() {
