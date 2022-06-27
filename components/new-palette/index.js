@@ -52,4 +52,20 @@ export default function NewPalette() {
 
 function createPalette(controls) {
     console.log(controls);
+    const prevLocalStorage =
+		localStorage.getItem("palletes") === null
+			? []
+			: JSON.parse(localStorage.getItem("palletes"));
+
+	const createdAt = new Date().getTime();
+
+	const newPallete = [
+		...prevLocalStorage,
+		{
+			createdAt,
+			pallete: controls,
+		},
+	];
+    
+    localStorage.setItem("palletes", JSON.stringify(newPallete));
 }
