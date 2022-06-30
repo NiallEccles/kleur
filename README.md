@@ -8,8 +8,8 @@ The goal of this project is to create an app that can be a central point for col
 - [x] Create palette component
 - [x] Create gradient component
 - [x] Saving a created palette or gradient to localStorage
-- [ ] Allow more slivers to be added to a palette
-- [ ] Featured palettes and gradients on homepage
+- [ ] ~~Allow more slivers to be added to a palette~~ Deferring to a later release
+- [x] Featured palettes and gradients on homepage
 - [ ] Navigation menu
 - [ ] Mobile version
 #### 1.1.0
