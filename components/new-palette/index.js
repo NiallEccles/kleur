@@ -3,6 +3,8 @@ import styles from "./new-palette.module.css";
 import {useUpdateControl} from "../../customHooks/useUpdateControl";
 import PaletteManager from "../palette-manager";
 import ColourPicker from "../colour-picker";
+import { useRouter } from 'next/router';
+import { PAGES } from "/public/shared.constants";
 
 export default function NewPalette() {
     const {
@@ -19,6 +21,8 @@ export default function NewPalette() {
 
     const [currentControl, setCurrentControl] = useState(0);
 
+    const router = useRouter();
+
     return (
         <div className={styles.paletteContainer}>
             <div>
@@ -33,7 +37,7 @@ export default function NewPalette() {
                 />
                 <button
                     className={`btn btn-ghost mt-4 w-full ${styles.addIcon}`}
-                    onClick={() => createPalette(controls)}
+                    onClick={() => createPalette(controls, router)}
                 >
                     Create Palette
                 </button>
@@ -50,7 +54,7 @@ export default function NewPalette() {
     );
 }
 
-function createPalette(controls) {
+function createPalette(controls, router) {
     console.log(controls);
     const prevLocalStorage =
 		localStorage.getItem("palletes") === null
@@ -68,4 +72,6 @@ function createPalette(controls) {
 	];
     
     localStorage.setItem("palletes", JSON.stringify(newPallete));
+
+    router.push(PAGES.HOME);
 }
