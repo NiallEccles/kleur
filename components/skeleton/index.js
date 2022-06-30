@@ -1,10 +1,9 @@
 import Link from "next/link";
 import styles from "./Skeleton.module.css";
-import { PAGES } from "/public/shared.constants";
 
-export default function Skeleton() {
+export default function Skeleton({route}) {
   return (
-    <Link href={PAGES.NEW}>
+    <Link href={route}>
       <button className={styles.skeleton}>
         <h3 className="font-bold">Create your own</h3>
       </button>
