@@ -3,6 +3,8 @@ import styles from "./new-gradient.module.css";
 import ColourPicker from "../colour-picker";
 import PaletteManager from "../palette-manager";
 import {useUpdateControl} from "../../customHooks/useUpdateControl";
+import { useRouter } from 'next/router';
+import { PAGES } from "/public/shared.constants";
 
 
 export default function NewGradient() {
@@ -19,9 +21,12 @@ export default function NewGradient() {
         { colour: "#311D3F" },
     ]);
 
-
     const [currentControl, setCurrentControl] = useState(0);
+
     const [previewGradient, setPreviewGradient] = useState(false);
+
+    const router = useRouter();
+
     return (
         <div className={styles.paletteContainer}>
             <div className={styles.options}>
@@ -43,7 +48,7 @@ export default function NewGradient() {
                 </button>
                 <button
                     className={`btn btn-ghost mt-4 w-full ${styles.createButton}`}
-                    onClick={() => createPalette(controls)}
+                    onClick={() => createPalette(controls, router)}
                 >
                     Create Gradient
                 </button>
@@ -75,7 +80,7 @@ export default function NewGradient() {
     );
 }
 
-function createPalette(controls) {
+function createPalette(controls, router) {
     console.log(controls);
     const prevLocalStorage =
 		localStorage.getItem("gradients") === null
@@ -93,6 +98,8 @@ function createPalette(controls) {
 	];
 
 	localStorage.setItem("gradients", JSON.stringify(newGradient));
+
+    router.push(PAGES.HOME);
 }
 
 function previewOff() {
