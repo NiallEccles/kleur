@@ -17,16 +17,20 @@ export default function Home() {
           </a>
         </div>
       </div>
-      <Skeleton/>
+      <h2 className="text-2xl font-bold ml-5">Featured Palettes</h2>
       <div className={styles.paletteGrid}>
         {palettes.map((palette, index) => {
           return <Palette key={index} colours={palette.colours} />;
         })}
+        <Skeleton/>
       </div>
+      <br />
+      <h2 className="text-2xl font-bold ml-5">Featured Gradients</h2>
       <div className={styles.paletteGrid}>
         {gradients.map((gradient, index) => {
           return <Gradient key={index} colours={gradient.colours} />;
         })}
+        <Skeleton/>
       </div>
     </div>
   );
