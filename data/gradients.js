@@ -21,8 +21,4 @@ export const gradients = [
     ],
     tags: ["sunset", "rainbow"],
   },
-  {
-    colours: ["#231557", "#44107A", "#FF1361", "#FFF800"],
-    tags: ["sunset"],
-  },
 ];
