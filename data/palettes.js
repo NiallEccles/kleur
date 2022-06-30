@@ -11,9 +11,5 @@ export const palettes = [
       colours: ["#1FAB89", "#62D2A2", "#9DF3C4", "#D7FBE8"],
       tags: ["nature", "green"],
     },
-    {
-      colours: ["#293462", "#F24C4C", "#EC9B3B", "#F7D716"],
-      tags: ["navy", "red", "orange", "yellow", "rainbow", "sunset"],
-    },
   ];
   
