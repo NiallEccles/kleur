@@ -6,6 +6,7 @@ import Gradient from "../components/gradient";
 import { gradients } from "../data/gradients";
 import { palettes } from "../data/palettes";
 import Skeleton from "../components/skeleton";
+import { PAGES } from "/public/shared.constants";
 
 export default function Home() {
   return (
@@ -22,7 +23,7 @@ export default function Home() {
         {palettes.map((palette, index) => {
           return <Palette key={index} colours={palette.colours} />;
         })}
-        <Skeleton/>
+        <Skeleton route={PAGES.NEW.PALETTE}/>
       </div>
       <br />
       <h2 className="text-2xl font-bold ml-5">Featured Gradients</h2>
@@ -30,7 +31,7 @@ export default function Home() {
         {gradients.map((gradient, index) => {
           return <Gradient key={index} colours={gradient.colours} />;
         })}
-        <Skeleton/>
+        <Skeleton route={PAGES.NEW.GRADIENT}/>
       </div>
     </div>
   );
