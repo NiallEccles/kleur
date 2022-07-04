@@ -33,7 +33,7 @@ export default function NewPalette() {
                     setControls={setControls}
                     currentControl={currentControl}
                     updateSingleControl={updateSingleControl}
-                    isGradientPallete
+                    isGradientPalette
                 />
                 <button
                     className={`btn btn-ghost mt-4 w-full ${styles.addIcon}`}
@@ -57,21 +57,21 @@ export default function NewPalette() {
 function createPalette(controls, router) {
     console.log(controls);
     const prevLocalStorage =
-		localStorage.getItem("palletes") === null
+		localStorage.getItem("palettes") === null
 			? []
-			: JSON.parse(localStorage.getItem("palletes"));
+			: JSON.parse(localStorage.getItem("palettes"));
 
 	const createdAt = new Date().getTime();
 
-	const newPallete = [
+	const newPalette = [
 		...prevLocalStorage,
 		{
 			createdAt,
-			pallete: controls,
+			palette: controls,
 		},
 	];
     
-    localStorage.setItem("palletes", JSON.stringify(newPallete));
+    localStorage.setItem("palettes", JSON.stringify(newPalette));
 
     router.push(PAGES.HOME);
 }
