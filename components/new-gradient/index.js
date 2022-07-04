@@ -93,7 +93,7 @@ function createPalette(controls, router) {
 		...prevLocalStorage,
 		{
 			createdAt,
-			pallete: controls,
+			palette: controls,
 		},
 	];
 

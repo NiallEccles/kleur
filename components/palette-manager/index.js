@@ -3,14 +3,14 @@ import RemoveIcon from "../icons/removeIcon";
 import PaletteIcon from "../icons/paletteIcon";
 import {hexStringSanitizer} from "../../utils/paletteUtils";
 
-const PalleteManager = ({
+const PaletteManager = ({
                             controls,
                             setCurrentControl,
                             removeControl,
                             currentControl,
                             previewGradient,
                             updateSingleControl,
-                            isGradientPallete
+                            isGradientPalette
                         }) => {
 
     function generateGradient(controls) {
@@ -40,7 +40,7 @@ const PalleteManager = ({
             {controls.map((control, index) => (
                 <div
                     className={styles.sliver}
-                    style={isGradientPallete && {background: hexStringSanitizer(control.colour)}}
+                    style={isGradientPalette && {background: hexStringSanitizer(control.colour)}}
                     aria-label="Palette Sliver"
                     key={index}
                 >
@@ -55,7 +55,7 @@ const PalleteManager = ({
                     />
                     <div>
                         {
-                            !isGradientPallete && controls.length > 2 &&
+                            !isGradientPalette && controls.length > 2 &&
                             <button
                                 style={{ opacity: previewGradient ? 0 : 1 }}
                                 className={styles.icon}
@@ -82,4 +82,4 @@ const PalleteManager = ({
     )
 }
 
-export default PalleteManager;
+export default PaletteManager;
