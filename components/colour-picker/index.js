@@ -10,11 +10,11 @@ function ColourPicker({controls, updateSingleControl, currentControlIndex, color
             }`}
         >
             <HexColorPicker
-                color={controls[currentControlIndex].colour ? controls[currentControlIndex].colour : '#ffffff'}
+                color={controls[currentControlIndex] ? controls[currentControlIndex] : '#ffffff'}
                 onChange={(e) => {
-                    updateSingleControl(currentControlIndex, {
-                        colour: e.includes("NaN") ? "#ffffff" : e,
-                    });
+                    updateSingleControl(currentControlIndex,
+                        e.includes("NaN") ? "#ffffff" : e,
+                    );
                 }}
             />
         </div>

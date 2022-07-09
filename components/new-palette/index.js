@@ -13,10 +13,10 @@ export default function NewPalette() {
         updateSingleControl,
         removeControl,
     } = useUpdateControl([
-        { colour: "#1FAB89" },
-        { colour: "#62D2A2" },
-        { colour: "#9DF3C4" },
-        { colour: "#D7FBE8" },
+        "#1FAB89",
+        "#62D2A2",
+        "#9DF3C4",
+        "#D7FBE8",
     ]);
 
     const [currentControl, setCurrentControl] = useState(0);
@@ -65,10 +65,7 @@ function createPalette(controls, router) {
 
 	const newPalette = [
 		...prevLocalStorage,
-		{
-			createdAt,
-			palette: controls,
-		},
+		controls
 	];
     
     localStorage.setItem("palettes", JSON.stringify(newPalette));

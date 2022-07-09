@@ -18,7 +18,7 @@ export const useUpdateControl = (initialControls) => {
 
 
     function createControl() {
-        let newArr = [...controls, { colour: "#ffffff" }];
+        let newArr = [...controls, "#ffffff"];
         setControls(newArr);
     }
 
