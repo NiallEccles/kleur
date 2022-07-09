@@ -11,17 +11,16 @@ The goal of this project is to create an app that can be a central point for col
 - [ ] ~~Allow more slivers to be added to a palette~~ Deferring to a later release
 - [x] Featured palettes and gradients on homepage
 - [x] Navigation menu
-- [ ] Mobile version
+- [x] Mobile version
 #### 1.1.0
 - [ ] Named palettes and gradients
+- [ ] API for displaying palette or gradient
  #### 1.2.0
 - [ ] Conic + radial gradient generator
 #### 1.3.0
 - [ ] Mesh gradient generator
 #### 1.4.0
 - [ ] CSS backgrounds
-#### 1.5.0
-- [ ] API for displaying palette or gradient
 #### 2.0.0
 - [ ] User login and remote data storage
 
