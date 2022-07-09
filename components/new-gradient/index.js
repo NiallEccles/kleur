@@ -15,10 +15,10 @@ export default function NewGradient() {
         removeControl,
         createControl
     } = useUpdateControl([
-        { colour: "#E23E57" },
-        { colour: "#88304E" },
-        { colour: "#522546" },
-        { colour: "#311D3F" },
+        "#E23E57",
+        "#88304E",
+        "#522546",
+        "#311D3F",
     ]);
 
     const [currentControl, setCurrentControl] = useState(0);
@@ -91,10 +91,7 @@ function createPalette(controls, router) {
 
 	const newGradient = [
 		...prevLocalStorage,
-		{
-			createdAt,
-			palette: controls,
-		},
+		controls,
 	];
 
 	localStorage.setItem("gradients", JSON.stringify(newGradient));

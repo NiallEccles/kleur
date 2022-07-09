@@ -14,7 +14,7 @@ const PaletteManager = ({
                         }) => {
 
     function generateGradient(controls) {
-        return [controls.map((control) => control.colour)].toString();
+        return [controls.map((control) => control)].toString();
     }
 
     function removeAndSetNewControlIndex(index){
@@ -40,13 +40,13 @@ const PaletteManager = ({
             {controls.map((control, index) => (
                 <div
                     className={styles.sliver}
-                    style={isGradientPalette && {background: hexStringSanitizer(control.colour)}}
+                    style={isGradientPalette && {background: hexStringSanitizer(control)}}
                     aria-label="Palette Sliver"
                     key={index}
                 >
                     <input
                         type="text"
-                        value={control.colour}
+                        value={control}
                         style={{ opacity: previewGradient ? 0 : 1 }}
                         onChange={(e) => {
                             setCurrentControl(index);
