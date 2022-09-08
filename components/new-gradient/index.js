@@ -25,13 +25,16 @@ export default function NewGradient() {
 
     const [previewGradient, setPreviewGradient] = useState(false);
 
+    const [name, setName] = useState(null);
+
     const router = useRouter();
 
     return (
         <div className={styles.paletteContainer}>
             <div className={styles.options}>
+                <input type="text" placeholder="Gradient name" className="input w-full font-semibold max-w-xs bg-gray-300 text-black placeholder-gray-800" onChange={(e)=>setName(e.target.value)} />
                 <button
-                    className={`btn btn-active w-auto ${
+                    className={`btn btn-active mt-4 w-auto ${
                         previewGradient ? "" : "btn-ghost"
                     }`}
                     onClick={() => setPreviewGradient(!previewGradient)}
@@ -48,7 +51,7 @@ export default function NewGradient() {
                 </button>
                 <button
                     className={`btn btn-ghost mt-4 w-full ${styles.createButton}`}
-                    onClick={() => createPalette(controls, router)}
+                    onClick={() => createPalette(controls, name, router)}
                 >
                     Create Gradient
                 </button>
@@ -80,7 +83,7 @@ export default function NewGradient() {
     );
 }
 
-function createPalette(controls, router) {
+function createPalette(controls, name, router) {
     console.log(controls);
     const prevLocalStorage =
 		localStorage.getItem("gradients") === null
@@ -91,7 +94,7 @@ function createPalette(controls, router) {
 
 	const newGradient = [
 		...prevLocalStorage,
-		controls,
+		{controls, name},
 	];
 
 	localStorage.setItem("gradients", JSON.stringify(newGradient));

@@ -23,6 +23,8 @@ export default function NewPalette() {
 
     const router = useRouter();
 
+    const [name, setName] = useState(null);
+
     return (
         <div className={styles.paletteContainer}>
             <div>
@@ -35,9 +37,10 @@ export default function NewPalette() {
                     updateSingleControl={updateSingleControl}
                     isGradientPalette
                 />
+                <input type="text" placeholder="Gradient name" className="input w-full font-semibold mt-5 max-w-xs bg-gray-300 text-black placeholder-gray-800" onChange={(e)=>setName(e.target.value)} />
                 <button
                     className={`btn btn-ghost mt-4 w-full ${styles.addIcon}`}
-                    onClick={() => createPalette(controls, router)}
+                    onClick={() => createPalette(controls, name, router)}
                 >
                     Create Palette
                 </button>
@@ -54,7 +57,7 @@ export default function NewPalette() {
     );
 }
 
-function createPalette(controls, router) {
+function createPalette(controls, name,router) {
     console.log(controls);
     const prevLocalStorage =
 		localStorage.getItem("palettes") === null
@@ -65,7 +68,7 @@ function createPalette(controls, router) {
 
 	const newPalette = [
 		...prevLocalStorage,
-		controls
+		{controls, name}
 	];
     
     localStorage.setItem("palettes", JSON.stringify(newPalette));
