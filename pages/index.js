@@ -29,6 +29,13 @@ export default function Home() {
           </a>
         </div>
       </div>
+      <div className="my-52">
+        <h1 className="text-9xl font-bold text-center">kleur</h1>
+        <h2 className="text-xl font-bold text-center"><span className="italic">colour</span> (English)</h2>
+        <h3 className="text-4xl font-bold text-center mt-16">All about colour.</h3>
+      </div>
+      <div>
+      </div>
       <h2 className="text-2xl font-bold ml-5">Featured Palettes</h2>
       <div className={styles.paletteGrid}>
         {palettes.map((palette, index) => {
