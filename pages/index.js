@@ -7,20 +7,11 @@ import { gradients } from "../data/gradients";
 import { palettes } from "../data/palettes";
 import Skeleton from "../components/skeleton";
 import { PAGES } from "/public/shared.constants";
-import { useEffect, useState } from "react";
 import Hero from "../components/hero/hero";
+import LocalGradients from "../fragments/local-gradients";
+import LocalPalettes from "../fragments/local-palettes";
 
 export default function Home() {
-  const [localPalettes, setLocalPalettes] = useState([]);
-  const [localGradients, setLocalGradients] = useState([]);
-
-  useEffect(()=>{
-    if (typeof window !== "undefined") {
-      setLocalPalettes(JSON.parse(window.localStorage.getItem('palettes')));
-      setLocalGradients(JSON.parse(window.localStorage.getItem('gradients')));
-    }
-  },[]);
-
   return (
     <div className={styles.container}>
       <div className="navbar bg-base-100">
@@ -46,32 +37,8 @@ export default function Home() {
         })}
         <Skeleton route={PAGES.NEW.GRADIENT}/>
       </div>
-      {
-        localPalettes != null ? 
-          <>
-            <h2 className="text-2xl font-bold ml-5">My Palettes</h2>
-            <div className={styles.paletteGrid}>
-              {
-                localPalettes.length > 0 ? localPalettes.map((palette, index) => {
-                  return <Palette key={index} colours={palette} />;
-                }) : ''
-              }
-            </div>
-          </> : ''
-      }
-      {
-        localGradients != null ? 
-          <>
-            <h2 className="text-2xl font-bold ml-5">My Gradients</h2>
-            <div className={styles.paletteGrid}>
-              {
-                localGradients.length > 0 ? localGradients.map((gradient, index) => {
-                  return <Gradient key={index} colours={gradient} />;
-                }) : ''
-              }
-            </div>
-          </> : ''
-      }
+      <LocalPalettes/>
+      <LocalGradients/>
     </div>
   );
 }
