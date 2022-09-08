@@ -8,8 +8,8 @@ import { palettes } from "../data/palettes";
 import Skeleton from "../components/skeleton";
 import { PAGES } from "/public/shared.constants";
 import Hero from "../components/hero/hero";
-import LocalGradients from "../fragments/local-gradients";
-import LocalPalettes from "../fragments/local-palettes";
+import LocalGradients from "../components/local-gradients";
+import LocalPalettes from "../components/local-palettes";
 
 export default function Home() {
   return (
