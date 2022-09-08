@@ -7,7 +7,8 @@ export default function LocalGradients() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setLocalGradients(JSON.parse(window.localStorage.getItem("gradients")));
+      const localStorage = JSON.parse(window.localStorage.getItem("gradients"));
+      setLocalGradients(localStorage);
     }
   }, []);
 
@@ -17,7 +18,7 @@ export default function LocalGradients() {
       <div className={styles.paletteGrid}>
         {localGradients.length > 0
           ? localGradients.map((gradient, index) => {
-              return <Gradient key={index} colours={gradient} />;
+              return <Gradient key={index} colours={gradient.controls} name={gradient.name} />;
             })
           : ""}
       </div>
