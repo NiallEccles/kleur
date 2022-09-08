@@ -80,6 +80,22 @@
   display: inline-block;
 }
 
+.sliver {
+  padding: 0 0 0 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  font-weight: 600;
+  margin: 0 1em 0 1em;
+}
+
+.sliver span {
+  background: #2b2b2b;
+  color: white;
+  padding: 0.25em;
+}
+
 .rotateValue {
   position: absolute;
   left: 50%;

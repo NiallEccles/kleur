@@ -20,7 +20,7 @@ export default function Home() {
       <h2 className="text-2xl font-bold ml-5">Featured Palettes</h2>
       <div className={styles.paletteGrid}>
         {palettes.map((palette, index) => {
-          return <Palette key={index} colours={palette.colours} />;
+          return <Palette key={index} colours={palette.colours} name={palette.name} />;
         })}
         <Skeleton route={PAGES.NEW.PALETTE}/>
       </div>
@@ -28,7 +28,7 @@ export default function Home() {
       <h2 className="text-2xl font-bold ml-5">Featured Gradients</h2>
       <div className={styles.paletteGrid}>
         {gradients.map((gradient, index) => {
-          return <Gradient key={index} colours={gradient.colours} />;
+          return <Gradient key={index} colours={gradient.colours} name={gradient.name} />;
         })}
         <Skeleton route={PAGES.NEW.GRADIENT}/>
       </div>

@@ -1,36 +1,41 @@
 import { useState } from "react";
 import styles from "./palette.module.css";
 
-export default function Palette({ colours }) {
+export default function Palette({ colours, name }) {
   console.log(colours);
   const [copiedColour, setCopiedColour] = useState("");
   return (
     <div className={styles.palette} aria-label="Palette">
-      {colours.map((colour, index) => {
-        return (
-          <div
-            className={styles.sliver}
-            style={{ background: colour }}
-            key={index}
-            aria-label="Palette Sliver"
-          >
-            <span tabIndex={0}>{colour}</span>
-            <button
-              className={styles.copyIcon}
-              aria-label="Copy to clipboard"
-              onClick={() => {
-                navigator.clipboard.writeText(colour);
-                setCopiedColour(colour);
-                setTimeout(() => {
-                  setCopiedColour("");
-                }, 1500);
-              }}
+      <div>
+        {colours.map((colour, index) => {
+          return (
+            <div
+              className={styles.sliver}
+              style={{ background: colour }}
+              key={index}
+              aria-label="Palette Sliver"
             >
-              {copiedColour === colour ? successIcon() : copyIcon()}
-            </button>
-          </div>
-        );
-      })}
+              <span tabIndex={0}>{colour}</span>
+              <button
+                className={styles.copyIcon}
+                aria-label="Copy to clipboard"
+                onClick={() => {
+                  navigator.clipboard.writeText(colour);
+                  setCopiedColour(colour);
+                  setTimeout(() => {
+                    setCopiedColour("");
+                  }, 1500);
+                }}
+              >
+                {copiedColour === colour ? successIcon() : copyIcon()}
+              </button>
+            </div>
+          );
+        })}
+      </div>
+      {
+        name ? <div className={styles.sliver}><span>{name}</span></div> : null
+      }
     </div>
   );
 }

@@ -2,11 +2,12 @@ import { useState } from "react";
 import styles from "./gradient.module.css";
 import CircularSlider from "@fseehawer/react-circular-slider";
 
-export default function Gradient({ colours }) {
+export default function Gradient({ colours, name }) {
   const [copiedColour, setCopiedColour] = useState("");
   const [degrees, setDegrees] = useState(180);
   const [showRotate, setShowRotate] = useState(false);
   return (
+    <div>
     <div
       className={styles.gradient}
       style={{
@@ -38,6 +39,10 @@ export default function Gradient({ colours }) {
         {copiedColour === colours ? successIcon() : copyIcon()}
       </button>
       <Rotate degrees={degrees} setDegrees={setDegrees} showRotate={showRotate} />
+    </div>
+    {
+      name ? <div className={styles.sliver}><span>{name}</span></div> : null
+    } 
     </div>
   );
 }

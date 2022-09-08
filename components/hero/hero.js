@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <div className="my-52">
+    <div className="my-8 py-40 rounded-3xl">
       <h1 className="text-9xl font-bold text-center">kleur</h1>
       <h2 className="text-xl font-bold text-center">
         <span className="italic">colour</span> (English)
