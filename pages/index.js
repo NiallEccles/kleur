@@ -10,17 +10,12 @@ import { PAGES } from "/public/shared.constants";
 import Hero from "../components/hero/hero";
 import LocalGradients from "../components/local-gradients";
 import LocalPalettes from "../components/local-palettes";
+import Nav from "../components/nav";
 
 export default function Home() {
   return (
     <div className={styles.container}>
-      <div className="navbar bg-base-100">
-        <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl font-bold kleur-title">
-            kleur
-          </a>
-        </div>
-      </div>
+      <Nav/>
       <Hero/>
       <h2 className="text-2xl font-bold ml-5">Featured Palettes</h2>
       <div className={styles.paletteGrid}>
@@ -37,7 +32,9 @@ export default function Home() {
         })}
         <Skeleton route={PAGES.NEW.GRADIENT}/>
       </div>
+      <br />
       <LocalPalettes/>
+      <br />
       <LocalGradients/>
     </div>
   );
