@@ -4,9 +4,11 @@ export default function Nav() {
   return (
     <nav className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl font-bold kleur-title">
-          kleur
-        </a>
+        <Link href="/">
+          <a className="btn btn-ghost normal-case text-xl font-bold kleur-title">
+            kleur
+          </a>
+        </Link>
       </div>
       <div>
         <ol>
