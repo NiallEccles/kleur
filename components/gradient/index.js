@@ -7,7 +7,7 @@ export default function Gradient({ colours, name }) {
   const [degrees, setDegrees] = useState(180);
   const [showRotate, setShowRotate] = useState(false);
   return (
-    <div>
+    <>
     <div
       className={styles.gradient}
       style={{
@@ -42,8 +42,8 @@ export default function Gradient({ colours, name }) {
     </div>
     {
       name ? <div className={styles.sliver}><span>{name}</span></div> : null
-    } 
-    </div>
+    }
+    </>
   );
 }
 
