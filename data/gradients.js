@@ -36,4 +36,16 @@ export const gradients = [
     name: "",
     colours: ["#8E3200", "#A64B2A", "#D7A86E", "#FFEBC1"],
   },
+  {
+    name: "",
+    colours: ["#323232", "#FA4EAB", "#FE83C6", "#FFF2F9"]
+  },
+  {
+    name: '',
+    colours: ["#F76E11", "#FF9F45", "#FFBC80", "#FC4F4F"]
+  },
+  {
+    name: '',
+    colours: ["#FFF38C", "#F0E161", "#D9CB50", "#C0B236"]
+  }
 ];
