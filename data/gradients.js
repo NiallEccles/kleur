@@ -1,16 +1,16 @@
 export const gradients = [
   {
-    name: 'Deep',
+    name: "Deep",
     colours: ["#30cfd0", "#330867"],
     tags: ["blue", "space", "dark"],
   },
   {
-    name: 'Peach',
+    name: "Peach",
     colours: ["#ff0844", "#ffb199"],
     tags: ["warm", "sunset", "red", "pink"],
   },
   {
-    name: 'Autumn',
+    name: "Autumn",
     colours: [
       "#3f51b1",
       "#5a55ae",
@@ -23,5 +23,17 @@ export const gradients = [
       "#f7c978",
     ],
     tags: ["sunset", "rainbow"],
+  },
+  {
+    name: "",
+    colours: ["#4C0033", "#790252", "#AF0171", "#E80F88"],
+  },
+  {
+    name: "",
+    colours: ["#371B58", "#4C3575", "#5B4B8A", "#7858A6"],
+  },
+  {
+    name: "",
+    colours: ["#8E3200", "#A64B2A", "#D7A86E", "#FFEBC1"],
   },
 ];

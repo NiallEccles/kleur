@@ -46,9 +46,10 @@ export default function Home() {
           animate="visible"
         >
         {palettes.map((palette, index) =>
+          index < 3 ?
           <motion.div key={index} variants={item}>
             <Palette key={index} colours={palette.colours} name={palette.name} />
-          </motion.div>
+          </motion.div> : ""
         )}
         <motion.div variants={item}>
           <Skeleton route={PAGES.NEW.PALETTE}/>
@@ -63,9 +64,10 @@ export default function Home() {
           animate="visible"
         >
         {gradients.map((gradient, index) =>
+          index < 3 ?
           <motion.div key={index} variants={item}>
             <Gradient key={index} colours={gradient.colours} name={gradient.name} />
-          </motion.div>
+          </motion.div> : ""
         )}
         <motion.div variants={item}>
           <Skeleton route={PAGES.NEW.GRADIENT}/>
