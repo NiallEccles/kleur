@@ -14,5 +14,17 @@ export const palettes = [
       colours: ["#1FAB89", "#62D2A2", "#9DF3C4", "#D7FBE8"],
       tags: ["nature", "green"],
     },
+    {
+      name: '',
+      colours: ["#4C0033", "#790252", "#AF0171", "#E80F88"]
+    },
+    {
+      name: '',
+      colours: ["#371B58", "#4C3575", "#5B4B8A", "#7858A6"]
+    },
+    {
+      name: '',
+      colours: ["#8E3200", "#A64B2A", "#D7A86E", "#FFEBC1"]
+    }
   ];
   
