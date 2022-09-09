@@ -5,6 +5,7 @@ import Nav from "../../components/nav";
 import Gradient from "../../components/gradient";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import PageTitle from "../../components/page-title";
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -35,11 +36,7 @@ export default function Index() {
   return (
     <div className={homeStyles.container}>
       <Nav />
-      <motion.div initial={false} animate={{ opacity: isVisible ? 1 : 0 }}>
-        <div className="my-8 py-40 rounded-3xl">
-          <h1 className="text-9xl font-bold text-center">Gradients</h1>
-        </div>
-      </motion.div>
+      <PageTitle title="Gradients" />
       <motion.div
         className={gradientStyles.grid}
         variants={container}
