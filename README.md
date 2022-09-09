@@ -13,8 +13,8 @@ The goal of this project is to create an app that can be a central point for col
 - [x] Navigation menu
 - [x] Mobile version
 #### 1.1.0
-- [ ] Named palettes and gradients
-- [ ] API for displaying palette or gradient
+- [x] Named palettes and gradients
+- [x] API for displaying palette or gradient
  #### 1.2.0
 - [ ] Conic + radial gradient generator
 #### 1.3.0
