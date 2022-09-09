@@ -18,3 +18,10 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.tag {
+  background: #2b2b2b;
+  color: white;
+  padding: 0.25em;
+  font-weight: 600;
+}
