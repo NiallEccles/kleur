@@ -50,7 +50,7 @@ export default function NewGradient() {
                     Add Sliver
                 </button>
                 <button
-                    className={`btn btn-ghost mt-4 w-full ${styles.createButton}`}
+                    className={`btn mt-4 w-full ${styles.createButton}`}
                     onClick={() => createPalette(controls, name, router)}
                 >
                     Create Gradient
