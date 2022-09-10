@@ -39,7 +39,7 @@ export default function NewPalette() {
                 />
                 <input type="text" placeholder="Palette name" className="input w-full font-semibold mt-5 max-w-xs bg-gray-300 text-black placeholder-gray-800" onChange={(e)=>setName(e.target.value)} />
                 <button
-                    className={`btn btn-ghost mt-4 w-full ${styles.addIcon}`}
+                    className={`btn mt-4 w-full ${styles.addIcon}`}
                     onClick={() => createPalette(controls, name, router)}
                 >
                     Create Palette
