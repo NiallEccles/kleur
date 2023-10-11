@@ -77,6 +77,7 @@ export default function Home() {
       <LocalPalettes/>
       <br />
       <LocalGradients/>
+      <span style="position: absolute; bottom: 1em; right: 1em; background: black; color: white; ">Experimental</span>
     </div>
   );
 }
