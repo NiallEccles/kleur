@@ -1,0 +1,28 @@
+import React, { useEffect, useState } from 'react';
+import styles from '../../styles/Home.module.css';
+import Palette from '../palette';
+
+export default function LocalPalettes() {
+  const [localPalettes, setLocalPalettes] = useState([]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const localStorage = JSON.parse(window.localStorage.getItem('palettes'));
+      setLocalPalettes(localStorage);
+    }
+  }, []);
+
+  return localPalettes != null ? (
+    <>
+      <h2 className="text-2xl font-bold ml-5">My Palettes</h2>
+      <div className={styles.paletteGrid}>
+        {localPalettes.length > 0
+        // eslint-disable-next-line max-len
+          ? localPalettes.map((palette) => <Palette key={palette.name} colours={palette.controls} name={palette.name} />)
+          : ''}
+      </div>
+    </>
+  ) : (
+    ''
+  );
+}

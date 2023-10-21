@@ -1,25 +1,25 @@
-import styles from "../../styles/Home.module.css";
-import Nav from "../../components/nav";
-import { useEffect, useState } from "react";
-import Palette from "../../components/palette";
+import React, { useEffect, useState } from 'react';
+import styles from '../../styles/Home.module.css';
+import Nav from '../../components/nav';
+import Palette from '../../components/palette';
 
 export default function Index() {
   const [palette, setPalette] = useState([]);
   const [name, setName] = useState();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      let url = new URL(window.location.href);
-      let params = new URLSearchParams(url.search);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      const params = new URLSearchParams(url.search);
 
-      const paletteColours = params.get("p");
+      const paletteColours = params.get('p');
       const formattedColours = paletteColours
-        .split(",")
+        .split(',')
         .map((colour) => `#${colour}`);
 
       setPalette(formattedColours);
 
-      const paletteName = params.get("name");
+      const paletteName = params.get('name');
       setName(paletteName);
     }
   }, []);

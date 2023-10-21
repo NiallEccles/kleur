@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 
+// eslint-disable-next-line react/prop-types
 export default function PageTitle({ title }) {
   const [isVisible, setIsVisible] = useState(false);
 

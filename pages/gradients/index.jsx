@@ -1,11 +1,11 @@
-import homeStyles from "../../styles/Home.module.css";
-import gradientStyles from "./Gradients.module.css";
-import { gradients } from "../../data/gradients";
-import Nav from "../../components/nav";
-import Gradient from "../../components/gradient";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import PageTitle from "../../components/page-title";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import homeStyles from '../../styles/Home.module.css';
+import gradientStyles from './Gradients.module.css';
+import { gradients } from '../../data/gradients';
+import Nav from '../../components/nav';
+import Gradient from '../../components/gradient';
+import PageTitle from '../../components/page-title';
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -28,6 +28,7 @@ const item = {
 };
 
 export default function Index() {
+  // eslint-disable-next-line no-unused-vars
   const [isVisible, setIsVisible] = useState(false);
 
   setTimeout(() => {
@@ -43,10 +44,10 @@ export default function Index() {
         initial="hidden"
         animate="visible"
       >
-        {gradients.map((palette, index) => (
-          <motion.div key={index} variants={item} className=" mx-auto">
+        {gradients.map((palette) => (
+          <motion.div key={palette.name} variants={item} className=" mx-auto">
             <Gradient
-              key={index}
+              key={palette.name}
               colours={palette.colours}
               name={palette.name}
             />
