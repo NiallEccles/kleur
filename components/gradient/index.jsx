@@ -1,46 +1,50 @@
-import { useState } from "react";
-import styles from "./gradient.module.css";
-import CircularSlider from "@fseehawer/react-circular-slider";
+/* eslint-disable no-use-before-define */
+import React, { useState } from 'react';
+import CircularSlider from '@fseehawer/react-circular-slider';
+import styles from './gradient.module.css';
 
+// eslint-disable-next-line react/prop-types
 export default function Gradient({ colours, name }) {
-  const [copiedColour, setCopiedColour] = useState("");
+  const [copiedColour, setCopiedColour] = useState('');
   const [degrees, setDegrees] = useState(180);
   const [showRotate, setShowRotate] = useState(false);
   return (
     <>
-    <div
-      className={styles.gradient}
-      style={{
-        background: `linear-gradient(${degrees}deg, ${colours.toString()}`,
-      }}
-    >
-      <button
-        className={styles.rotateIcon}
-        onClick={() => {
-          setShowRotate(!showRotate);
-          setTimeout(() => {
-            setCopiedColour("");
-          }, 1500);
+      <div
+        className={styles.gradient}
+        style={{
+          background: `linear-gradient(${degrees}deg, ${colours.toString()}`,
         }}
       >
-        {rotateToggle()}
-      </button>
-      <button
-        className={styles.copyIcon}
-        onClick={() => {
-          const gradient = `linear-gradient(${degrees}deg, ${colours.toString()})`;
-          navigator.clipboard.writeText(gradient);
-          setCopiedColour(colours);
-          setTimeout(() => {
-            setCopiedColour("");
-          }, 1500);
-        }}
-      >
-        {copiedColour === colours ? successIcon() : copyIcon()}
-      </button>
-      <Rotate degrees={degrees} setDegrees={setDegrees} showRotate={showRotate} />
-    </div>
-    {
+        <button
+          type="button"
+          className={styles.rotateIcon}
+          onClick={() => {
+            setShowRotate(!showRotate);
+            setTimeout(() => {
+              setCopiedColour('');
+            }, 1500);
+          }}
+        >
+          {rotateToggle()}
+        </button>
+        <button
+          type="button"
+          className={styles.copyIcon}
+          onClick={() => {
+            const gradient = `linear-gradient(${degrees}deg, ${colours.toString()})`;
+            navigator.clipboard.writeText(gradient);
+            setCopiedColour(colours);
+            setTimeout(() => {
+              setCopiedColour('');
+            }, 1500);
+          }}
+        >
+          {copiedColour === colours ? successIcon() : copyIcon()}
+        </button>
+        <Rotate degrees={degrees} setDegrees={setDegrees} showRotate={showRotate} />
+      </div>
+      {
       name ? <div className={styles.sliver}><span>{name}</span></div> : null
     }
     </>
@@ -83,15 +87,19 @@ function rotateToggle() {
   );
 }
 
+// eslint-disable-next-line react/prop-types
 function Rotate({ degrees, setDegrees, showRotate }) {
   const [value, setValue] = useState(180);
   return (
     <div
       className={`${styles.rotate} ${
-        showRotate ? styles.showCircularControl : ""
+        showRotate ? styles.showCircularControl : ''
       }`}
     >
-      <span className={`font-bold ${styles.rotateValue}`}>{value}°</span>
+      <span className={`font-bold ${styles.rotateValue}`}>
+        {value}
+        °
+      </span>
       <CircularSlider
         min={0}
         max={360}
@@ -105,7 +113,7 @@ function Rotate({ degrees, setDegrees, showRotate }) {
         height="100"
         knobColor="#2b2b2b"
         trackColor="#ffffff"
-        hideLabelValue={true}
+        hideLabelValue
         label=""
         value={degrees}
         onChange={(v) => {

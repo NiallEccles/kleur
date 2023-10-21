@@ -1,10 +1,11 @@
-import homeStyles from "../../styles/Home.module.css";
-import paletteStyles from "./Palettes.module.css";
-import { palettes } from "../../data/palettes";
-import Nav from "../../components/nav";
-import Palette from "../../components/palette";
-import { motion } from "framer-motion";
-import PageTitle from "../../components/page-title";
+import React from 'react';
+import { motion } from 'framer-motion';
+import homeStyles from '../../styles/Home.module.css';
+import paletteStyles from './Palettes.module.css';
+import { palettes } from '../../data/palettes';
+import Nav from '../../components/nav';
+import Palette from '../../components/palette';
+import PageTitle from '../../components/page-title';
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -37,10 +38,10 @@ export default function Index() {
         initial="hidden"
         animate="visible"
       >
-        {palettes.map((palette, index) => (
-          <motion.div key={index} variants={item} className="flex mx-auto">
+        {palettes.map((palette) => (
+          <motion.div key={palette.name} variants={item} className="flex mx-auto">
             <Palette
-              key={index}
+              key={palette.name}
               colours={palette.colours}
               name={palette.name}
             />
