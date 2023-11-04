@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx build",
+    "startTime": "2023-11-04T09:50:24.618Z",
+    "endTime": "2023-11-04T09:50:30.396Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "kleur:build:production",
+      "target": "build",
+      "projectName": "kleur",
+      "hash": "9881226508952601349",
+      "startTime": "2023-11-04T09:50:24.626Z",
+      "endTime": "2023-11-04T09:50:30.396Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 0
+    }
+  ]
+}

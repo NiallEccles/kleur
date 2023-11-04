@@ -2,14 +2,14 @@
   "version": "6.0",
   "nxVersion": "17.0.3",
   "deps": {
+    "@nx/react": "17.0.3",
     "@swc/helpers": "~0.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "@nx/react": "17.0.3",
     "@nx/cypress": "17.0.3",
     "@nx/devkit": "17.0.3",
     "@nx/eslint": "17.0.3",
-    "@nx/eslint-plugin": "17.0.3",
+    "@nx/eslint-plugin": "^17.0.3",
     "@nx/js": "17.0.3",
     "@nx/playwright": "17.0.3",
     "@nx/vite": "17.0.3",
@@ -50,10 +50,36 @@
   "fileMap": {
     "nonProjectFiles": [],
     "projectFileMap": {
+      "e2e": [
+        {
+          "file": "e2e/.eslintrc.json",
+          "hash": "10160352035353809953"
+        },
+        {
+          "file": "e2e/playwright.config.ts",
+          "hash": "16663194279907104369",
+          "deps": [
+            "npm:@playwright/test",
+            "npm:@nx/playwright",
+            "npm:@nx/devkit"
+          ]
+        },
+        {
+          "file": "e2e/project.json",
+          "hash": "5758309382159577873"
+        },
+        {
+          "file": "e2e/src/example.spec.ts",
+          "hash": "16019101014373124625",
+          "deps": [
+            "npm:@playwright/test"
+          ]
+        }
+      ],
       "kleur": [
         {
           "file": ".eslintrc.json",
-          "hash": "599062422099254777"
+          "hash": "15859714553812823958"
         },
         {
           "file": ".gitignore",
@@ -85,31 +111,35 @@
         },
         {
           "file": ".nx/cache/d/daemon.log",
-          "hash": "6704490711105736095"
+          "hash": "16802475224216711551"
         },
         {
           "file": ".nx/cache/d/server-process.json",
-          "hash": "3249017599984328816"
+          "hash": "15661154226324749089"
         },
         {
           "file": ".nx/cache/file-map.json",
-          "hash": "12782429499863625577"
+          "hash": "9003001225266599576"
         },
         {
           "file": ".nx/cache/lockfile.hash",
-          "hash": "4908051722237915129"
+          "hash": "14792969823753197856"
         },
         {
           "file": ".nx/cache/parsed-lock-file.json",
-          "hash": "17023418801885213879"
+          "hash": "16463444103919767667"
         },
         {
           "file": ".nx/cache/project-graph.json",
-          "hash": "14356083328243911790"
+          "hash": "1184805355515820670"
         },
         {
           "file": ".nx/cache/terminalOutputs/10567276614523901270",
           "hash": "13248249549909187839"
+        },
+        {
+          "file": ".nx/cache/terminalOutputs/13396321531203070893",
+          "hash": "4659292408847213229"
         },
         {
           "file": ".nx/cache/terminalOutputs/13404795538545503697",
@@ -137,16 +167,16 @@
         },
         {
           "file": "package-lock.json",
-          "hash": "14768885737365058372"
+          "hash": "17677322488518915441"
         },
         {
           "file": "package.json",
-          "hash": "3975065630962733047",
+          "hash": "4332866787041384293",
           "deps": [
+            "npm:@nx/react",
             "npm:@swc/helpers",
             "npm:react",
             "npm:react-dom",
-            "npm:@nx/react",
             "npm:@nx/cypress",
             "npm:@nx/devkit",
             "npm:@nx/eslint",
@@ -384,7 +414,7 @@
         },
         {
           "file": "src/main.tsx",
-          "hash": "4731961929376199421",
+          "hash": "10942421069411073957",
           "deps": [
             "npm:react",
             "npm:react-dom"
@@ -487,7 +517,7 @@
         },
         {
           "file": "tsconfig.json",
-          "hash": "10138901573215323733"
+          "hash": "14579343542578058580"
         },
         {
           "file": "tsconfig.spec.json",
@@ -503,34 +533,64 @@
           ]
         },
         {
-          "file": ".nx/cache/terminalOutputs/13396321531203070893",
+          "file": ".nx/cache/terminalOutputs/9881226508952601349",
+          "hash": "7104564124520492415"
+        },
+        {
+          "file": "dist/kleur/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": ".nx/cache/9881226508952601349/outputs/dist/kleur/index.html",
+          "hash": "2816271504159019494"
+        },
+        {
+          "file": "dist/kleur/assets/index-122792f5.js",
+          "hash": "3064187645808231812"
+        },
+        {
+          "file": "dist/kleur/index.html",
+          "hash": "2816271504159019494"
+        },
+        {
+          "file": "dist/kleur/assets/index-d5d48b67.css",
+          "hash": "10075520171345632583"
+        },
+        {
+          "file": ".nx/cache/9881226508952601349/outputs/dist/kleur/assets/index-122792f5.js",
+          "hash": "3064187645808231812"
+        },
+        {
+          "file": ".nx/cache/9881226508952601349/terminalOutput",
+          "hash": "7104564124520492415"
+        },
+        {
+          "file": ".nx/cache/9881226508952601349/outputs/dist/kleur/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": ".nx/cache/9881226508952601349/outputs/dist/kleur/assets/index-d5d48b67.css",
+          "hash": "10075520171345632583"
+        },
+        {
+          "file": ".nx/cache/9881226508952601349/code",
+          "hash": "1838281907459330133"
+        },
+        {
+          "file": ".nx/cache/9881226508952601349/source",
+          "hash": "12458687110130929899"
+        },
+        {
+          "file": ".nx/cache/9881226508952601349.commit",
+          "hash": "4664556114322093609"
+        },
+        {
+          "file": ".nx/cache/run.json",
+          "hash": "16369475080360152081"
+        },
+        {
+          "file": ".nx/cache/terminalOutputs/5043004418488577839",
           "hash": "3244421341483603138"
-        }
-      ],
-      "e2e": [
-        {
-          "file": "e2e/.eslintrc.json",
-          "hash": "10160352035353809953"
-        },
-        {
-          "file": "e2e/playwright.config.ts",
-          "hash": "16663194279907104369",
-          "deps": [
-            "npm:@playwright/test",
-            "npm:@nx/playwright",
-            "npm:@nx/devkit"
-          ]
-        },
-        {
-          "file": "e2e/project.json",
-          "hash": "5758309382159577873"
-        },
-        {
-          "file": "e2e/src/example.spec.ts",
-          "hash": "16019101014373124625",
-          "deps": [
-            "npm:@playwright/test"
-          ]
         }
       ]
     }

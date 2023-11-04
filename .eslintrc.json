@@ -1,5 +1,6 @@
 {
   "extends": [
+    "plugin:@nx/react",
     "airbnb",
     "airbnb/hooks"
   ],
@@ -12,6 +13,8 @@
           ".jsx",
           ".ts",
           ".tsx"
-        ] }]
+        ]
+      }
+    ]
   }
 }
