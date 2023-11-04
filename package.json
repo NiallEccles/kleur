@@ -9,16 +9,16 @@
   },
   "private": true,
   "dependencies": {
+    "@nx/react": "17.0.3",
     "@swc/helpers": "~0.5.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "@nx/react": "17.0.3"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@nx/cypress": "17.0.3",
     "@nx/devkit": "17.0.3",
     "@nx/eslint": "17.0.3",
-    "@nx/eslint-plugin": "17.0.3",
+    "@nx/eslint-plugin": "^17.0.3",
     "@nx/js": "17.0.3",
     "@nx/playwright": "17.0.3",
     "@nx/vite": "17.0.3",
