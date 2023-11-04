@@ -1,12 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.css';
-
-import NxWelcome from './nx-welcome';
+import React from 'react';
 
 export function App() {
   return (
     <div>
-      <NxWelcome title="kleur" />
+      <h1 className="bg-indigo-500 p-2 font-mono">kleur</h1>
     </div>
   );
 }

@@ -5,13 +5,13 @@
     "@swc/helpers": "~0.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "@nx/react": "17.0.3",
     "@nx/cypress": "17.0.3",
     "@nx/devkit": "17.0.3",
     "@nx/eslint": "17.0.3",
     "@nx/eslint-plugin": "17.0.3",
     "@nx/js": "17.0.3",
     "@nx/playwright": "17.0.3",
-    "@nx/react": "17.0.3",
     "@nx/vite": "17.0.3",
     "@nx/workspace": "17.0.3",
     "@playwright/test": "^1.36.0",
@@ -27,7 +27,9 @@
     "@vitejs/plugin-react": "~4.0.0",
     "@vitest/coverage-c8": "~0.32.0",
     "@vitest/ui": "~0.32.0",
+    "autoprefixer": "10.4.13",
     "eslint": "~8.46.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsx-a11y": "6.7.1",
@@ -36,7 +38,9 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "jsdom": "~22.1.0",
     "nx": "17.0.3",
+    "postcss": "8.4.21",
     "prettier": "^2.6.2",
+    "tailwindcss": "3.2.7",
     "typescript": "~5.1.3",
     "vite": "~4.3.9",
     "vitest": "~0.32.0"
@@ -49,7 +53,7 @@
       "kleur": [
         {
           "file": ".eslintrc.json",
-          "hash": "901630788042570186"
+          "hash": "599062422099254777"
         },
         {
           "file": ".gitignore",
@@ -81,31 +85,43 @@
         },
         {
           "file": ".nx/cache/d/daemon.log",
-          "hash": "16199667078201520785"
+          "hash": "6704490711105736095"
         },
         {
           "file": ".nx/cache/d/server-process.json",
-          "hash": "10371815417267082785"
+          "hash": "3249017599984328816"
         },
         {
           "file": ".nx/cache/file-map.json",
-          "hash": "447707686402517677"
+          "hash": "12782429499863625577"
         },
         {
           "file": ".nx/cache/lockfile.hash",
-          "hash": "12520651071689888718"
+          "hash": "4908051722237915129"
         },
         {
           "file": ".nx/cache/parsed-lock-file.json",
-          "hash": "4227218441935661520"
+          "hash": "17023418801885213879"
         },
         {
           "file": ".nx/cache/project-graph.json",
-          "hash": "5127083390049501787"
+          "hash": "14356083328243911790"
         },
         {
           "file": ".nx/cache/terminalOutputs/10567276614523901270",
           "hash": "13248249549909187839"
+        },
+        {
+          "file": ".nx/cache/terminalOutputs/13404795538545503697",
+          "hash": "15578235845247555378"
+        },
+        {
+          "file": ".nx/cache/terminalOutputs/15436775063714052636",
+          "hash": "14506618371244499042"
+        },
+        {
+          "file": ".nx/cache/terminalOutputs/17476396568151327872",
+          "hash": "8563762910634986445"
         },
         {
           "file": "README.md",
@@ -121,22 +137,22 @@
         },
         {
           "file": "package-lock.json",
-          "hash": "1415453313575849723"
+          "hash": "14768885737365058372"
         },
         {
           "file": "package.json",
-          "hash": "11109999758536119629",
+          "hash": "3975065630962733047",
           "deps": [
             "npm:@swc/helpers",
             "npm:react",
             "npm:react-dom",
+            "npm:@nx/react",
             "npm:@nx/cypress",
             "npm:@nx/devkit",
             "npm:@nx/eslint",
             "npm:@nx/eslint-plugin",
             "npm:@nx/js",
             "npm:@nx/playwright",
-            "npm:@nx/react",
             "npm:@nx/vite",
             "npm:@nx/workspace",
             "npm:@playwright/test",
@@ -152,7 +168,9 @@
             "npm:@vitejs/plugin-react",
             "npm:@vitest/coverage-c8",
             "npm:@vitest/ui",
+            "npm:autoprefixer",
             "npm:eslint",
+            "npm:eslint-config-airbnb",
             "npm:eslint-config-prettier",
             "npm:eslint-plugin-import",
             "npm:eslint-plugin-jsx-a11y",
@@ -161,10 +179,19 @@
             "npm:eslint-plugin-react-hooks",
             "npm:jsdom",
             "npm:nx",
+            "npm:postcss",
             "npm:prettier",
+            "npm:tailwindcss",
             "npm:typescript",
             "npm:vite",
             "npm:vitest"
+          ]
+        },
+        {
+          "file": "postcss.config.js",
+          "hash": "6490866215745747377",
+          "deps": [
+            "npm:path"
           ]
         },
         {
@@ -188,11 +215,10 @@
         },
         {
           "file": "src/app/app.tsx",
-          "hash": "14004497011956779951"
-        },
-        {
-          "file": "src/app/nx-welcome.tsx",
-          "hash": "4389251527819925043"
+          "hash": "650546120695519546",
+          "deps": [
+            "npm:react"
+          ]
         },
         {
           "file": "src/assets/.gitkeep",
@@ -365,8 +391,95 @@
           ]
         },
         {
+          "file": "src/pages/_app.jsx",
+          "hash": "13101772063563119589",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/pages/api/hello.js",
+          "hash": "16893184054126056223"
+        },
+        {
+          "file": "src/pages/gradient/index.jsx",
+          "hash": "15715705551188232868",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/pages/gradients/Gradients.module.css",
+          "hash": "3120162310945472524"
+        },
+        {
+          "file": "src/pages/gradients/index.jsx",
+          "hash": "16131402573164630410",
+          "deps": [
+            "npm:react",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "src/pages/index.jsx",
+          "hash": "2840450828873600250",
+          "deps": [
+            "npm:react",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "src/pages/new/gradient/index.jsx",
+          "hash": "17706372175769897686",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/pages/new/index.jsx",
+          "hash": "6557634264243953732",
+          "deps": [
+            "npm:react",
+            "npm:next/link"
+          ]
+        },
+        {
+          "file": "src/pages/new/palette/index.jsx",
+          "hash": "268410192878495481",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/pages/palette/index.jsx",
+          "hash": "4487974600193201475",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/pages/palettes/Palettes.module.css",
+          "hash": "3120162310945472524"
+        },
+        {
+          "file": "src/pages/palettes/index.jsx",
+          "hash": "10760542238047167827",
+          "deps": [
+            "npm:react",
+            "npm:framer-motion"
+          ]
+        },
+        {
           "file": "src/styles.css",
-          "hash": "5195668842064076916"
+          "hash": "9540575453073076294"
+        },
+        {
+          "file": "tailwind.config.js",
+          "hash": "9530210127227690419",
+          "deps": [
+            "npm:@nx/react",
+            "npm:path"
+          ]
         },
         {
           "file": "tsconfig.app.json",
@@ -390,87 +503,8 @@
           ]
         },
         {
-          "file": ".nx/cache/terminalOutputs/13404795538545503697",
+          "file": ".nx/cache/terminalOutputs/13396321531203070893",
           "hash": "3244421341483603138"
-        },
-        {
-          "file": "src/pages/new/index.jsx",
-          "hash": "6557634264243953732",
-          "deps": [
-            "npm:react",
-            "npm:next/link"
-          ]
-        },
-        {
-          "file": "src/pages/palettes/Palettes.module.css",
-          "hash": "3120162310945472524"
-        },
-        {
-          "file": "src/pages/palette/index.jsx",
-          "hash": "4487974600193201475",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "src/pages/palettes/index.jsx",
-          "hash": "10760542238047167827",
-          "deps": [
-            "npm:react",
-            "npm:framer-motion"
-          ]
-        },
-        {
-          "file": "src/pages/gradients/index.jsx",
-          "hash": "16131402573164630410",
-          "deps": [
-            "npm:react",
-            "npm:framer-motion"
-          ]
-        },
-        {
-          "file": "src/pages/api/hello.js",
-          "hash": "16893184054126056223"
-        },
-        {
-          "file": "src/pages/index.jsx",
-          "hash": "2840450828873600250",
-          "deps": [
-            "npm:react",
-            "npm:framer-motion"
-          ]
-        },
-        {
-          "file": "src/pages/gradient/index.jsx",
-          "hash": "15715705551188232868",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "src/pages/_app.jsx",
-          "hash": "13101772063563119589",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "src/pages/gradients/Gradients.module.css",
-          "hash": "3120162310945472524"
-        },
-        {
-          "file": "src/pages/new/gradient/index.jsx",
-          "hash": "17706372175769897686",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "src/pages/new/palette/index.jsx",
-          "hash": "268410192878495481",
-          "deps": [
-            "npm:react"
-          ]
         }
       ],
       "e2e": [
