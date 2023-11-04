@@ -1,0 +1,504 @@
+{
+  "version": "6.0",
+  "nxVersion": "17.0.3",
+  "deps": {
+    "@swc/helpers": "~0.5.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@nx/cypress": "17.0.3",
+    "@nx/devkit": "17.0.3",
+    "@nx/eslint": "17.0.3",
+    "@nx/eslint-plugin": "17.0.3",
+    "@nx/js": "17.0.3",
+    "@nx/playwright": "17.0.3",
+    "@nx/react": "17.0.3",
+    "@nx/vite": "17.0.3",
+    "@nx/workspace": "17.0.3",
+    "@playwright/test": "^1.36.0",
+    "@swc-node/register": "~1.6.7",
+    "@swc/cli": "~0.1.62",
+    "@swc/core": "~1.3.85",
+    "@testing-library/react": "14.0.0",
+    "@types/node": "18.14.2",
+    "@types/react": "18.2.33",
+    "@types/react-dom": "18.2.14",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "@vitejs/plugin-react": "~4.0.0",
+    "@vitest/coverage-c8": "~0.32.0",
+    "@vitest/ui": "~0.32.0",
+    "eslint": "~8.46.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-plugin-playwright": "^0.15.3",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "jsdom": "~22.1.0",
+    "nx": "17.0.3",
+    "prettier": "^2.6.2",
+    "typescript": "~5.1.3",
+    "vite": "~4.3.9",
+    "vitest": "~0.32.0"
+  },
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "nonProjectFiles": [],
+    "projectFileMap": {
+      "kleur": [
+        {
+          "file": ".eslintrc.json",
+          "hash": "901630788042570186"
+        },
+        {
+          "file": ".gitignore",
+          "hash": "707631174470455558"
+        },
+        {
+          "file": ".idea/.gitignore",
+          "hash": "7651118417904998994"
+        },
+        {
+          "file": ".idea/inspectionProfiles/Project_Default.xml",
+          "hash": "8912173605315939135"
+        },
+        {
+          "file": ".idea/jsLinters/eslint.xml",
+          "hash": "18083841587358857684"
+        },
+        {
+          "file": ".idea/kleur.iml",
+          "hash": "2091662290190038625"
+        },
+        {
+          "file": ".idea/modules.xml",
+          "hash": "811686037544701423"
+        },
+        {
+          "file": ".idea/vcs.xml",
+          "hash": "14600148892634157659"
+        },
+        {
+          "file": ".nx/cache/d/daemon.log",
+          "hash": "16199667078201520785"
+        },
+        {
+          "file": ".nx/cache/d/server-process.json",
+          "hash": "10371815417267082785"
+        },
+        {
+          "file": ".nx/cache/file-map.json",
+          "hash": "447707686402517677"
+        },
+        {
+          "file": ".nx/cache/lockfile.hash",
+          "hash": "12520651071689888718"
+        },
+        {
+          "file": ".nx/cache/parsed-lock-file.json",
+          "hash": "4227218441935661520"
+        },
+        {
+          "file": ".nx/cache/project-graph.json",
+          "hash": "5127083390049501787"
+        },
+        {
+          "file": ".nx/cache/terminalOutputs/10567276614523901270",
+          "hash": "13248249549909187839"
+        },
+        {
+          "file": "README.md",
+          "hash": "2923420880361674817"
+        },
+        {
+          "file": "index.html",
+          "hash": "8180694336034001125"
+        },
+        {
+          "file": "nx.json",
+          "hash": "6103155735526285028"
+        },
+        {
+          "file": "package-lock.json",
+          "hash": "1415453313575849723"
+        },
+        {
+          "file": "package.json",
+          "hash": "11109999758536119629",
+          "deps": [
+            "npm:@swc/helpers",
+            "npm:react",
+            "npm:react-dom",
+            "npm:@nx/cypress",
+            "npm:@nx/devkit",
+            "npm:@nx/eslint",
+            "npm:@nx/eslint-plugin",
+            "npm:@nx/js",
+            "npm:@nx/playwright",
+            "npm:@nx/react",
+            "npm:@nx/vite",
+            "npm:@nx/workspace",
+            "npm:@playwright/test",
+            "npm:@swc-node/register",
+            "npm:@swc/cli",
+            "npm:@swc/core",
+            "npm:@testing-library/react",
+            "npm:@types/node",
+            "npm:@types/react",
+            "npm:@types/react-dom",
+            "npm:@typescript-eslint/eslint-plugin",
+            "npm:@typescript-eslint/parser",
+            "npm:@vitejs/plugin-react",
+            "npm:@vitest/coverage-c8",
+            "npm:@vitest/ui",
+            "npm:eslint",
+            "npm:eslint-config-prettier",
+            "npm:eslint-plugin-import",
+            "npm:eslint-plugin-jsx-a11y",
+            "npm:eslint-plugin-playwright",
+            "npm:eslint-plugin-react",
+            "npm:eslint-plugin-react-hooks",
+            "npm:jsdom",
+            "npm:nx",
+            "npm:prettier",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "project.json",
+          "hash": "12338762689432444827"
+        },
+        {
+          "file": "public/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": "src/app/app.module.css",
+          "hash": "8887387885984320532"
+        },
+        {
+          "file": "src/app/app.spec.tsx",
+          "hash": "10573451681270549164",
+          "deps": [
+            "npm:@testing-library/react"
+          ]
+        },
+        {
+          "file": "src/app/app.tsx",
+          "hash": "14004497011956779951"
+        },
+        {
+          "file": "src/app/nx-welcome.tsx",
+          "hash": "4389251527819925043"
+        },
+        {
+          "file": "src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/components/colour-picker/colour-picker.module.css",
+          "hash": "17971094330594078288"
+        },
+        {
+          "file": "src/components/colour-picker/index.jsx",
+          "hash": "2307178942429462647",
+          "deps": [
+            "npm:react",
+            "npm:react-colorful"
+          ]
+        },
+        {
+          "file": "src/components/footer/index.jsx",
+          "hash": "16392725348524683949",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/gradient/gradient.module.css",
+          "hash": "10398924975258677222"
+        },
+        {
+          "file": "src/components/gradient/index.jsx",
+          "hash": "15384523986939182413",
+          "deps": [
+            "npm:react",
+            "npm:@fseehawer/react-circular-slider"
+          ]
+        },
+        {
+          "file": "src/components/hero/hero.jsx",
+          "hash": "10169272159723559562",
+          "deps": [
+            "npm:framer-motion",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/icons/paletteIcon.jsx",
+          "hash": "12691805935513541343",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/icons/removeIcon.jsx",
+          "hash": "17072869675966514886",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/local-gradients/index.jsx",
+          "hash": "10590214492897121393",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/local-palettes/index.jsx",
+          "hash": "9001836147710646137",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/nav/index.jsx",
+          "hash": "14222061596982685551",
+          "deps": [
+            "npm:react",
+            "npm:next/link"
+          ]
+        },
+        {
+          "file": "src/components/new-gradient/index.jsx",
+          "hash": "700834189162251370",
+          "deps": [
+            "npm:react",
+            "npm:next/router",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "src/components/new-gradient/new-gradient.module.css",
+          "hash": "17629913174968770568"
+        },
+        {
+          "file": "src/components/new-palette/index.jsx",
+          "hash": "13807998727356297326",
+          "deps": [
+            "npm:react",
+            "npm:next/router",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "src/components/new-palette/new-palette.module.css",
+          "hash": "17533622193207812324"
+        },
+        {
+          "file": "src/components/page-title/index.jsx",
+          "hash": "17531506095089586515",
+          "deps": [
+            "npm:framer-motion",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/palette/index.jsx",
+          "hash": "4025567318838769569",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/palette/palette.module.css",
+          "hash": "723013248554337528"
+        },
+        {
+          "file": "src/components/palette-manager/index.jsx",
+          "hash": "320024024682929201",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/palette-manager/palette-manager.module.css",
+          "hash": "10895836593821246380"
+        },
+        {
+          "file": "src/components/skeleton/Skeleton.module.css",
+          "hash": "13987159508781060075"
+        },
+        {
+          "file": "src/components/skeleton/index.jsx",
+          "hash": "11654162222562947859",
+          "deps": [
+            "npm:react",
+            "npm:next/link"
+          ]
+        },
+        {
+          "file": "src/customHooks/useUpdateControl.js",
+          "hash": "12255676817967810267",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/data/gradients.js",
+          "hash": "2023876107360071908"
+        },
+        {
+          "file": "src/data/palettes.js",
+          "hash": "16059564663488935969"
+        },
+        {
+          "file": "src/main.tsx",
+          "hash": "4731961929376199421",
+          "deps": [
+            "npm:react",
+            "npm:react-dom"
+          ]
+        },
+        {
+          "file": "src/styles.css",
+          "hash": "5195668842064076916"
+        },
+        {
+          "file": "tsconfig.app.json",
+          "hash": "17525272060780948891"
+        },
+        {
+          "file": "tsconfig.json",
+          "hash": "10138901573215323733"
+        },
+        {
+          "file": "tsconfig.spec.json",
+          "hash": "17874504027954657085"
+        },
+        {
+          "file": "vite.config.ts",
+          "hash": "14127022245893809616",
+          "deps": [
+            "npm:vite",
+            "npm:@vitejs/plugin-react",
+            "npm:@nx/vite"
+          ]
+        },
+        {
+          "file": ".nx/cache/terminalOutputs/13404795538545503697",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/pages/new/index.jsx",
+          "hash": "6557634264243953732",
+          "deps": [
+            "npm:react",
+            "npm:next/link"
+          ]
+        },
+        {
+          "file": "src/pages/palettes/Palettes.module.css",
+          "hash": "3120162310945472524"
+        },
+        {
+          "file": "src/pages/palette/index.jsx",
+          "hash": "4487974600193201475",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/pages/palettes/index.jsx",
+          "hash": "10760542238047167827",
+          "deps": [
+            "npm:react",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "src/pages/gradients/index.jsx",
+          "hash": "16131402573164630410",
+          "deps": [
+            "npm:react",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "src/pages/api/hello.js",
+          "hash": "16893184054126056223"
+        },
+        {
+          "file": "src/pages/index.jsx",
+          "hash": "2840450828873600250",
+          "deps": [
+            "npm:react",
+            "npm:framer-motion"
+          ]
+        },
+        {
+          "file": "src/pages/gradient/index.jsx",
+          "hash": "15715705551188232868",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/pages/_app.jsx",
+          "hash": "13101772063563119589",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/pages/gradients/Gradients.module.css",
+          "hash": "3120162310945472524"
+        },
+        {
+          "file": "src/pages/new/gradient/index.jsx",
+          "hash": "17706372175769897686",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/pages/new/palette/index.jsx",
+          "hash": "268410192878495481",
+          "deps": [
+            "npm:react"
+          ]
+        }
+      ],
+      "e2e": [
+        {
+          "file": "e2e/.eslintrc.json",
+          "hash": "10160352035353809953"
+        },
+        {
+          "file": "e2e/playwright.config.ts",
+          "hash": "16663194279907104369",
+          "deps": [
+            "npm:@playwright/test",
+            "npm:@nx/playwright",
+            "npm:@nx/devkit"
+          ]
+        },
+        {
+          "file": "e2e/project.json",
+          "hash": "5758309382159577873"
+        },
+        {
+          "file": "e2e/src/example.spec.ts",
+          "hash": "16019101014373124625",
+          "deps": [
+            "npm:@playwright/test"
+          ]
+        }
+      ]
+    }
+  }
+}
