@@ -16,7 +16,7 @@ The goal of this project is to create an app that can be a central point for col
 - [x] Named palettes and gradients
 - [x] API for displaying palette or gradient
  #### 1.2.0
-- [ ] Conic + radial gradient generator
+- [x] Radial gradient generator
 #### 1.3.0
 - [ ] Mesh gradient generator
 #### 1.4.0
