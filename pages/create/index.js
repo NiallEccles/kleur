@@ -1,11 +1,35 @@
 import styles from "../../styles/Home.module.css";
 import Nav from "../../components/nav";
-import Gradient from "../../components/gradient";
+import PageTitle from "../../components/page-title";
+import Tile from '../../components/tile/tile';
 
 export default function New() {
-  return (
-      <div className={styles.container}>
-          <Nav/>
-      </div>
-  );
+    const actionItems = [
+        {
+            name: 'Palette',
+            route: '/create/palette',
+        },
+        {
+            name: 'Gradient',
+            route: '/create/gradient',
+        },
+        {
+            name: 'Radial Gradient',
+            route: '/create/radial-gradient',
+        },
+    ];
+
+    return (
+        <div className={styles.container}>
+            <Nav/>
+            <PageTitle title="Create"/>
+            <div className="grid grid-flow-row-dense grid-cols-2 grid-rows-2 gap-4">
+                {
+                    actionItems.map((item, index) => (
+                        <Tile key={index} label={item.name} route={item.route}/>
+                    ))
+                }
+            </div>
+        </div>
+    );
 }
