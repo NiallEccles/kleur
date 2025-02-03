@@ -1,0 +1,26 @@
+.tile{
+    border: 3px solid #2b2b2b;
+    border-radius: 1.7em;
+    height: 15em;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 0 1em 0;
+}
+
+.Palette {
+    background: linear-gradient(180deg,
+    #1FAB89 0%, #1FAB89 25%,
+    #62D2A2 25%, #62D2A2 50%,
+    #9DF3C4 50%, #9DF3C4 75%,
+    #D7FBE8 75%, #D7FBE8 100%);
+
+}
+
+.Gradient {
+    background: linear-gradient(135deg, #E23E57, #88304E, #522546, #311D3F);
+}
+
+.RadialGradient {
+    /*background: radial-gradient(circle, #ff6b6b, #6b6bff, #1e1e1e);*/
+    background: radial-gradient(circle, #ffb4bf,#ff6498,#d30b9e,#311D3F);
+}
