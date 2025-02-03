@@ -1,38 +1,49 @@
 import styles from "../../styles/Home.module.css";
 import Nav from "../../components/nav";
-import { useEffect, useState } from "react";
-import { useRouter } from 'next/router';import useColourHarmonies from "../../customHooks/useColourHarmonies";
+import {useEffect, useState} from "react";
+import useColourHarmonies from "../../customHooks/useColourHarmonies";
+import PaletteManager from "../../components/palette-manager";
+import {useUpdateControl} from "../../customHooks/useUpdateControl";
+import ColourPicker from "../../components/colour-picker";
+import {hexStringSanitizer} from "../../utils/paletteUtils";
 
-export default function ColourHarmony() {
-    const [palette, setPalette] = useState([]);
-    const [name, setName] = useState();
-    const router = useRouter();
-    const selectedColour = router.query.hex;
+export default function Index() {
+    const [selectedColour, setSelectedColour] = useState('#FF9F45');
+
+    const {controls, setControls, updateSingleControl, removeControl} =
+        useUpdateControl(["#FF9F45"]);
+
+    const [currentControl, setCurrentControl] = useState(0);
 
     const {
         complementary,
         analogous,
         triadic,
         monochromatic,
-    } = useColourHarmonies(`#${selectedColour}`);
-
-    console.log({
-        complementary,
-        analogous,
-        triadic,
-        monochromatic,
-    })
+    } = useColourHarmonies(controls[0]);
 
     return (
         <div className={styles.container}>
             <Nav/>
             <section className="my-10">
                 <h2 className="text-3xl sm:text-7xl font-bold px-5">Colour Harmony</h2>
-                <div className="grid grid-row-dense grid-cols-1 gap-4 my-20">
-                    <div className='m-auto'>
-                        <div className='w-60 h-60 rounded-full' style={{background: `#${selectedColour}`}}></div>
-                        <h2 className="bg-zinc-800 text-white p-1 w-20 font-semibold mt-2 mx-auto text-center">{selectedColour}</h2>
+                <div className="flex flex-col items-center sm:flex-row max-w-lg mx-auto my-20">
+                    <div className='m-auto flex flex-col items-center'>
+                        <div className='w-60 h-60 rounded-full' style={{background: controls[0]}}></div>
+                        <input
+                            type="text"
+                            className="bg-zinc-800 text-white p-1 w-20 font-semibold mt-2 mx-auto text-center"
+                            value={controls[0]}
+                            onChange={(e) =>
+                                updateSingleControl( 0, hexStringSanitizer(e.target.value))
+                        }
+                        />
                     </div>
+                    <ColourPicker
+                        controls={controls}
+                        updateSingleControl={updateSingleControl}
+                        currentControlIndex={currentControl}
+                    />
                 </div>
                 <h2 className="text-3xl sm:text-7xl font-bold px-5">Complementary</h2>
                 <div className="grid grid-row-dense grid-cols-1 gap-4 my-20">
