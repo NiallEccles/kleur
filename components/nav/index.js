@@ -1,12 +1,22 @@
 import Link from "next/link";
 import NavLink from "../nav-link/nav-link";
-import { PaletteIcon, SwatchBook, CirclePlus, Menu } from "lucide-react";
+import { PaletteIcon, SwatchBook, CirclePlus, Menu, PaintBucket, Blend } from "lucide-react";
 import { useState } from "react";
 
 export default function Nav() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const menuItems = [
+        {
+            path: '/colour-harmony',
+            label: 'Colour Harmony',
+            icon: <Blend />,
+        },
+        {
+            path: '/colours',
+            label: 'Colours',
+            icon: <PaintBucket />,
+        },
         {
             path: '/palettes',
             label: 'Palettes',
@@ -36,12 +46,12 @@ export default function Nav() {
                 </Link>
             </div>
             {/* Mobile Menu Button */}
-            <div className='btn btn-ghost btn-circle md:hidden' onClick={toggleMenu}>
+            <div className='btn btn-ghost btn-circle lg:hidden' onClick={toggleMenu}>
                 <Menu />
             </div>
             {/* Menu Items */}
             {isMenuOpen && (
-                <div className="flex flex-col md:hidden absolute right-2 top-16 bg-white p-3 rounded-lg shadow-2xl z-10">
+                <div className="flex flex-col lg:hidden absolute right-2 top-16 bg-white p-3 rounded-lg shadow-2xl z-10">
                     {
                         menuItems.map((item, index) => (
                             <NavLink key={index} path={item.path} label={item.label} icon={item.icon} />
@@ -50,7 +60,7 @@ export default function Nav() {
                 </div>
             )}
             {/* Desktop Menu Items */}
-            <div className="hidden md:flex">
+            <div className="hidden lg:flex">
                 {
                     menuItems.map((item, index) => (
                         <NavLink key={index} path={item.path} label={item.label} icon={item.icon} />
