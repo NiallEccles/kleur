@@ -4,7 +4,7 @@ import Gradient from "../components/gradient/gradient";
 import {gradients} from "../data/gradients";
 import {palettes} from "../data/palettes";
 import Skeleton from "../components/skeleton/skeleton";
-import {PAGES} from "/public/shared.constants";
+import {PAGES} from "/public/constants";
 import Hero from "../components/hero/hero";
 import LocalGradients from "../components/local-gradients/local-gradients";
 import LocalPalettes from "../components/local-palettes/local-gradients";
