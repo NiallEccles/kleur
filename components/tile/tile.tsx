@@ -1,7 +1,7 @@
 import styles from "./tile.module.css";
 import Link from "next/link";
 
-const Tile = ({label, route}) => {
+const Tile = ({label, route}: {label: string, route: string}) => {
     console.log(label.replace(/\s/g, ''));
     return(
         <Link href={route}>
