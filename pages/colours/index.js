@@ -1,6 +1,6 @@
 import styles from "../../styles/Home.module.css";
-import Nav from "../../components/nav";
-import PageTitle from "../../components/page-title";
+import Nav from "../../components/nav/nav";
+import PageTitle from "../../components/page-title/page-title";
 import ColourCombinations from "../../components/colour-combinations/colour-combinations";
 
 export const Index = () => {

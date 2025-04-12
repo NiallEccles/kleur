@@ -1,6 +1,6 @@
 import styles from "../../styles/Home.module.css";
 import { useEffect, useState } from "react";
-import Gradient from "../gradient";
+import Gradient from "../gradient/gradient";
 
 export default function LocalGradients() {
   const [localGradients, setLocalGradients] = useState([]);

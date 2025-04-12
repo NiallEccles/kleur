@@ -1,7 +1,7 @@
 import styles from "../../styles/Home.module.css";
-import Nav from "../../components/nav";
+import Nav from "../../components/nav/nav";
 import { useEffect, useState } from "react";
-import Palette from "../../components/palette";
+import Palette from "../../components/palette/palette";
 
 export default function Index() {
   const [palette, setPalette] = useState([]);

@@ -1,6 +1,6 @@
 import styles from "../../styles/Home.module.css";
 import { useEffect, useState } from "react";
-import Palette from "../../components/palette";
+import Palette from "../palette/palette";
 
 export default function LocalPalettes() {
   const [localPalettes, setLocalPalettes] = useState([]);

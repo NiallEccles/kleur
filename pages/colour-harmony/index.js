@@ -1,10 +1,10 @@
 import styles from "../../styles/Home.module.css";
-import Nav from "../../components/nav";
+import Nav from "../../components/nav/nav";
 import {useEffect, useState} from "react";
 import useColourHarmonies from "../../customHooks/useColourHarmonies";
-import PaletteManager from "../../components/palette-manager";
+import PaletteManager from "../../components/palette-manager/palette-manager";
 import {useUpdateControl} from "../../customHooks/useUpdateControl";
-import ColourPicker from "../../components/colour-picker";
+import ColourPicker from "../../components/colour-picker/colour-picker";
 import {hexStringSanitizer} from "../../utils/paletteUtils";
 
 export default function Index() {
