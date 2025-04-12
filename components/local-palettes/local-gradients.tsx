@@ -7,8 +7,10 @@ export default function LocalPalettes() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const localStorage = JSON.parse(window.localStorage.getItem("palettes"));
-      setLocalPalettes(localStorage);
+        const storedPalettes = window.localStorage.getItem("palettes");
+        if (storedPalettes) {
+            setLocalPalettes(JSON.parse(storedPalettes));
+        }
     }
   }, []);
 
@@ -17,7 +19,7 @@ export default function LocalPalettes() {
       <h2 className="text-2xl font-bold ml-5">My Palettes</h2>
       <div className={styles.paletteGrid}>
         {localPalettes.length > 0
-          ? localPalettes.map((palette, index) => {
+          ? localPalettes.map((palette: {controls: string[], name: string}, index) => {
               return <Palette key={index} colours={palette.controls} name={palette.name} />;
             })
           : ""}
