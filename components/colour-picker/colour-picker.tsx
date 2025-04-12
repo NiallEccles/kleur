@@ -1,9 +1,15 @@
-import styles from './colour-picker.module.css'
-import {HexColorPicker} from "react-colorful";
+import styles from './colour-picker.module.css';
+import { HexColorPicker } from "react-colorful";
 
-function ColourPicker({controls, updateSingleControl, currentControlIndex, color}) {
+type ColourPickerProps = {
+    controls: string[];
+    updateSingleControl: (index: number, color: string) => void;
+    currentControlIndex: number;
+    color: string; // Optional: this prop isn't used in the component
+};
 
-    return  (
+function ColourPicker({ controls, updateSingleControl, currentControlIndex, color }: ColourPickerProps) {
+    return (
         <div
             className={`${styles.colourPicker} ${
                 currentControlIndex > -1 ? styles.showPicker : ""
@@ -12,13 +18,14 @@ function ColourPicker({controls, updateSingleControl, currentControlIndex, color
             <HexColorPicker
                 color={controls[currentControlIndex] ? controls[currentControlIndex] : '#ffffff'}
                 onChange={(e) => {
-                    updateSingleControl(currentControlIndex,
-                        e.includes("NaN") ? "#ffffff" : e,
+                    updateSingleControl(
+                        currentControlIndex,
+                        e.includes("NaN") ? "#ffffff" : e
                     );
                 }}
             />
         </div>
-    )
+    );
 }
 
 export default ColourPicker;
