@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./Skeleton.module.css";
 
-export default function Skeleton({route}) {
+export default function Skeleton({route}: { route: string }) {
   return (
     <Link href={route}>
       <button className={styles.skeleton}>
