@@ -5,7 +5,6 @@ type ColourPickerProps = {
     controls: string[];
     updateSingleControl: (index: number, color: string) => void;
     currentControlIndex: number;
-    color?: string; // Optional: this prop isn't used in the component
 };
 
 function ColourPicker({ controls, updateSingleControl, currentControlIndex, color }: ColourPickerProps) {
