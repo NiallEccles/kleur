@@ -41,17 +41,17 @@ export default function Nav() {
     return (
         <nav className="navbar bg-base-100 relative">
             <div className="flex-1">
-                <Link href="/" className="btn btn-ghost normal-case text-xl font-bold kleur-title">
+                <Link href="/" className="normal-case text-xl font-bold kleur-title">
                     kleur
                 </Link>
             </div>
             {/* Mobile Menu Button */}
-            <div className='btn btn-ghost btn-circle lg:hidden' onClick={toggleMenu}>
+            <div className='btn-circle lg:hidden' onClick={toggleMenu}>
                 <Menu />
             </div>
             {/* Menu Items */}
             {isMenuOpen && (
-                <div className="flex flex-col lg:hidden absolute right-2 top-16 bg-white p-3 rounded-lg shadow-2xl z-10">
+                <div className="flex flex-col lg:hidden absolute right-2 top-16 bg-white p-3 rounded-lg shadow-2xl z-10 items-start">
                     {
                         menuItems.map((item, index) => (
                             <NavLink key={index} path={item.path} label={item.label} icon={item.icon} />
