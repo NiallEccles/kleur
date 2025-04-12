@@ -7,7 +7,7 @@ type ColourPickerProps = {
     currentControlIndex: number;
 };
 
-function ColourPicker({ controls, updateSingleControl, currentControlIndex, color }: ColourPickerProps) {
+function ColourPicker({ controls, updateSingleControl, currentControlIndex }: ColourPickerProps) {
     return (
         <div
             className={`${styles.colourPicker} ${
