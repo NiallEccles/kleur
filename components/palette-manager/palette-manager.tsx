@@ -1,7 +1,7 @@
 import styles from "./palette-manager.module.css";
 import RemoveIcon from "../icons/removeIcon";
 import PaletteIcon from "../icons/paletteIcon";
-import { hexStringSanitizer } from "../../utils/paletteUtils";
+import {hexStringSanitizer} from "../../utils/paletteUtils";
 
 type PaletteManagerProps = {
     controls: string[];
@@ -23,17 +23,18 @@ const PaletteManager = ({
                             isGradientPalette
                         }: PaletteManagerProps) => {
 
-    function generateGradient(controls: string[]): string {
+    function generateGradient(controls: string[]) {
         return [controls.map((control) => control)].toString();
     }
 
-    function removeAndSetNewControlIndex(index: number): void {
-        const controlsIndexAfterDelete = controls.length - 2;
+    function removeAndSetNewControlIndex(index: number){
+        const controlsIndexAfterDelete = controls.length - 2
         removeControl(index);
 
-        if (controlsIndexAfterDelete < currentControl) {
-            setCurrentControl(controlsIndexAfterDelete);
+        if(controlsIndexAfterDelete < currentControl){
+            setCurrentControl(controlsIndexAfterDelete)
         }
+
     }
 
     return (
@@ -57,21 +58,22 @@ const PaletteManager = ({
                         style={{ opacity: previewGradient ? 0 : 1 }}
                         onChange={(e) => {
                             setCurrentControl(index);
-                            updateSingleControl(index, {
-                                colour: hexStringSanitizer(e.target.value),
-                            });
+                            updateSingleControl( index, {  colour: hexStringSanitizer(e.target.value) });
                         }}
                     />
                     <div>
-                        {!isGradientPalette && controls.length > 2 && (
+                        {
+                            !isGradientPalette && controls.length > 2 &&
                             <button
                                 style={{ opacity: previewGradient ? 0 : 1 }}
                                 className={styles.icon}
-                                onClick={() => removeAndSetNewControlIndex(index)}
+                                onClick={() => {
+                                    removeAndSetNewControlIndex(index)
+                                }}
                             >
                                 <RemoveIcon />
                             </button>
-                        )}
+                        }
                         <button
                             style={{ opacity: previewGradient ? 0 : 1 }}
                             className={`${styles.icon} ${currentControl === index ? styles.active : ''}`}
@@ -83,7 +85,7 @@ const PaletteManager = ({
                 </div>
             ))}
         </div>
-    );
-};
+    )
+}
 
 export default PaletteManager;
