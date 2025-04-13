@@ -42,14 +42,6 @@ export default function Nav() {
 
     return (
         <nav className="navbar bg-base-100 relative flex p-5">
-            <p className="text-sm text-muted-foreground">
-                Press{" "}
-                <kbd
-                    className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-                    <span className="text-xs">⌘</span>K
-                </kbd>
-            </p>
-            <Search menuItems={menuItems} />
             <div className="flex-1">
                 <Link href="/" className="normal-case text-xl font-bold kleur-title">
                     kleur
@@ -77,6 +69,7 @@ export default function Nav() {
                         <NavLink key={index} path={item.path} label={item.label} icon={item.icon}/>
                     ))
                 }
+                <Search menuItems={menuItems} />
             </div>
         </nav>
     );
