@@ -1,12 +1,14 @@
 import Link from "next/link";
 import NavLink from "../nav-link/nav-link";
-import { PaletteIcon, SwatchBook, CirclePlus, Menu, PaintBucket, Blend } from "lucide-react";
-import { useState } from "react";
+import {PaletteIcon, SwatchBook, CirclePlus, Menu, PaintBucket, Blend} from "lucide-react";
+import { useState, ReactElement } from "react";
+import Search from "@/components/search/search";
+import {MenuItems} from "@/types/MenuItems";
 
 export default function Nav() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const menuItems = [
+    const menuItems: MenuItems[] = [
         {
             path: '/colour-harmony',
             label: 'Colour Harmony',
@@ -40,6 +42,14 @@ export default function Nav() {
 
     return (
         <nav className="navbar bg-base-100 relative flex p-5">
+            <p className="text-sm text-muted-foreground">
+                Press{" "}
+                <kbd
+                    className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                    <span className="text-xs">⌘</span>K
+                </kbd>
+            </p>
+            <Search menuItems={menuItems} />
             <div className="flex-1">
                 <Link href="/" className="normal-case text-xl font-bold kleur-title">
                     kleur
@@ -47,14 +57,15 @@ export default function Nav() {
             </div>
             {/* Mobile Menu Button */}
             <div className='btn-circle lg:hidden' onClick={toggleMenu}>
-                <Menu />
+                <Menu/>
             </div>
             {/* Menu Items */}
             {isMenuOpen && (
-                <div className="flex flex-col lg:hidden absolute right-2 top-16 bg-white p-3 rounded-lg shadow-2xl z-10 items-start">
+                <div
+                    className="flex flex-col lg:hidden absolute right-2 top-16 bg-white p-3 rounded-lg shadow-2xl z-10 items-start">
                     {
                         menuItems.map((item, index) => (
-                            <NavLink key={index} path={item.path} label={item.label} icon={item.icon} />
+                            <NavLink key={index} path={item.path} label={item.label} icon={item.icon}/>
                         ))
                     }
                 </div>
@@ -63,7 +74,7 @@ export default function Nav() {
             <div className="hidden lg:flex">
                 {
                     menuItems.map((item, index) => (
-                        <NavLink key={index} path={item.path} label={item.label} icon={item.icon} />
+                        <NavLink key={index} path={item.path} label={item.label} icon={item.icon}/>
                     ))
                 }
             </div>
