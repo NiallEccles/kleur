@@ -1,7 +1,7 @@
 import styles from "../../../styles/Home.module.css";
-import NewGradient from "../../../components/new-gradient";
-import Nav from "../../../components/nav";
-import PageTitle from "../../../components/page-title";
+import NewGradient from "../../../components/new-gradient/new-gradient";
+import Nav from "../../../components/nav/nav";
+import PageTitle from "../../../components/page-title/page-title";
 
 export default function GradientNew() {
     return (

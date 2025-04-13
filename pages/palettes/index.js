@@ -1,10 +1,10 @@
 import homeStyles from "../../styles/Home.module.css";
 import paletteStyles from "./Palettes.module.css";
 import { palettes } from "../../data/palettes";
-import Nav from "../../components/nav";
-import Palette from "../../components/palette";
+import Nav from "../../components/nav/nav";
+import Palette from "../../components/palette/palette";
 import { motion } from "framer-motion";
-import PageTitle from "../../components/page-title";
+import PageTitle from "../../components/page-title/page-title";
 
 const container = {
   hidden: { opacity: 1, scale: 0 },

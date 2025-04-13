@@ -1,13 +1,13 @@
 import { useState } from "react";
 import styles from "./palette.module.css";
 
-export default function Palette({ colours, name }) {
+export default function Palette({ colours, name }: { colours: string[], name: string }) {
   console.log(colours);
   const [copiedColour, setCopiedColour] = useState("");
   return (
     <div className={styles.palette} aria-label="Palette">
       <div>
-        {colours.map((colour, index) => {
+        {colours.map((colour: string, index: number) => {
           return (
             <div
               className={styles.sliver}

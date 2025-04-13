@@ -1,11 +1,11 @@
 import homeStyles from "../../styles/Home.module.css";
 import gradientStyles from "./Gradients.module.css";
 import { gradients } from "../../data/gradients";
-import Nav from "../../components/nav";
-import Gradient from "../../components/gradient";
+import Nav from "../../components/nav/nav";
+import Gradient from "../../components/gradient/gradient";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import PageTitle from "../../components/page-title";
+import PageTitle from "../../components/page-title/page-title";
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
