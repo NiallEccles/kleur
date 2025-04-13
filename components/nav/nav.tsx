@@ -39,7 +39,7 @@ export default function Nav() {
     };
 
     return (
-        <nav className="navbar bg-base-100 relative">
+        <nav className="navbar bg-base-100 relative flex p-5">
             <div className="flex-1">
                 <Link href="/" className="normal-case text-xl font-bold kleur-title">
                     kleur
