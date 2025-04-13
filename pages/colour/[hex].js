@@ -1,5 +1,5 @@
 import styles from "../../styles/Home.module.css";
-import Nav from "../../components/nav";
+import Nav from "../../components/nav/nav";
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';import useColourHarmonies from "../../customHooks/useColourHarmonies";
 
