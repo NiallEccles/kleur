@@ -9,12 +9,12 @@ import {
 } from "@/components/ui/command";
 import {Blend, CirclePlus, PaintBucket, Settings, SwatchBook} from "lucide-react";
 import {useEffect, useState} from "react";
-import {MenuItems} from "@/types/MenuItems";
+import {MenuItem} from "@/types/MenuItem";
 import {router} from "next/client";
 import {useRouter} from "next/router";
 import {Button} from "@/components/ui/button";
 
-export const Search = ({ menuItems }: { menuItems: MenuItems[] }) => {
+export const Search = ({ menuItems }: { menuItems: MenuItem[] }) => {
     const [open, setOpen] = useState(false)
     const router = useRouter();
 

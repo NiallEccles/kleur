@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 
-export type MenuItems = {
-    path: string;
+export type MenuItem = {
+    href: string;
     label: string;
     icon: ReactElement;
 }
