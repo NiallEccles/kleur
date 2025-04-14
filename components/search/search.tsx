@@ -37,8 +37,8 @@ export const Search = ({ menuItems }: { menuItems: MenuItem[] }) => {
     };
 
     return (
-        <div className='ml-5'>
-            <div className="hidden w-full flex-1 sm:flex md:w-auto md:flex-none">
+        <div className='ml-5 hidden sm:flex'>
+            <div className="w-full flex-1 md:w-auto md:flex-none">
                 <Button
                     onClick={() => setOpen(true)}
                     className='inline-flex items-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input hover:bg-accent hover:text-accent-foreground px-4 py-2 relative h-8 w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none sm:pr-12 w-40'
