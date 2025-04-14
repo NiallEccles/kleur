@@ -7,14 +7,13 @@ import {
     CommandList,
     CommandSeparator, CommandShortcut
 } from "@/components/ui/command";
-import {Blend, CirclePlus, PaintBucket, Settings, SwatchBook} from "lucide-react";
 import {useEffect, useState} from "react";
-import {MenuItems} from "@/types/MenuItems";
+import {MenuItem} from "@/types/MenuItem";
 import {router} from "next/client";
 import {useRouter} from "next/router";
 import {Button} from "@/components/ui/button";
 
-export const Search = ({ menuItems }: { menuItems: MenuItems[] }) => {
+export const Search = ({ menuItems }: { menuItems: MenuItem[] }) => {
     const [open, setOpen] = useState(false)
     const router = useRouter();
 
@@ -38,8 +37,8 @@ export const Search = ({ menuItems }: { menuItems: MenuItems[] }) => {
     };
 
     return (
-        <div className='ml-5'>
-            <div className="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
+        <div className='ml-5 hidden sm:flex'>
+            <div className="w-full flex-1 md:w-auto md:flex-none">
                 <Button
                     onClick={() => setOpen(true)}
                     className='inline-flex items-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input hover:bg-accent hover:text-accent-foreground px-4 py-2 relative h-8 w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none sm:pr-12 w-40'
@@ -62,8 +61,8 @@ export const Search = ({ menuItems }: { menuItems: MenuItems[] }) => {
                             menuItems.map((item, index) => (
                                 <CommandItem
                                     key={index}
-                                    onSelect={() => navigateTo(item.path)}
-                                    onClick={() => navigateTo(item.path)}
+                                    onSelect={() => navigateTo(item.href)}
+                                    onClick={() => navigateTo(item.href)}
                                 >
                                     {item.icon}
                                     <span>{item.label}</span>
