@@ -11,6 +11,7 @@ import {
     NavigationMenuList, NavigationMenuTrigger
 } from "@/components/ui/navigation-menu";
 import {cn} from "@/lib/utils";
+import {MobileNav} from "@/components/ui/mobile-nav";
 
 export default function Nav() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -74,11 +75,11 @@ export default function Nav() {
     ListItem.displayName = "ListItem"
 
     return (
-        <div className='flex w-full p-5 sticky z-5 bg-white align-baseline items-baseline'>
+        <div className='flex w-full p-5 sticky z-5 bg-white justify-baseline'>
             <Link href="/" className="normal-case text-xl font-bold flex-1">
                 kleur
             </Link>
-            <NavigationMenu>
+            <NavigationMenu className="hidden sm:block">
                 <NavigationMenuList>
                     <NavigationMenuItem>
                         <NavigationMenuTrigger>Library</NavigationMenuTrigger>
@@ -142,9 +143,10 @@ export default function Nav() {
                 </NavigationMenuList>
             </NavigationMenu>
             {/* Mobile Menu Button */}
-            <div className='btn-circle lg:hidden' onClick={toggleMenu}>
-                <Menu/>
-            </div>
+            {/*<div className='btn-circle lg:hidden' onClick={toggleMenu}>*/}
+            {/*    <Menu/>*/}
+            {/*</div>*/}
+            <MobileNav menuItems={menuItems} />
             {/* Menu Items */}
             {isMenuOpen && (
                 <div
