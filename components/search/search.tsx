@@ -7,7 +7,6 @@ import {
     CommandList,
     CommandSeparator, CommandShortcut
 } from "@/components/ui/command";
-import {Blend, CirclePlus, PaintBucket, Settings, SwatchBook} from "lucide-react";
 import {useEffect, useState} from "react";
 import {MenuItem} from "@/types/MenuItem";
 import {router} from "next/client";

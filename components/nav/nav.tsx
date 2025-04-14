@@ -47,11 +47,11 @@ export default function Nav() {
     };
 
     return (
-        <div>
-            <Link href="/" className="normal-case text-xl font-bold kleur-title">
+        <div className='flex w-full p-5 sticky z-5 bg-white align-baseline items-baseline'>
+            <Link href="/" className="normal-case text-xl font-bold flex-1">
                 kleur
             </Link>
-            <NavigationMenu className="navbar bg-base-100 relative flex p-5 w-full">
+            <NavigationMenu>
                 <NavigationMenuList>
                     <NavigationMenuItem>
                         <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
@@ -82,14 +82,14 @@ export default function Nav() {
                     }
                 </div>
             )}
-            {/* Desktop Menu Items */}
+            <Search menuItems={menuItems} />
+            {/* Desktop Menu Items*/}
             {/*<div className="hidden lg:flex">*/}
             {/*    {*/}
             {/*        menuItems.map((item, index) => (*/}
-            {/*            <NavLink key={index} path={item.path} label={item.label} icon={item.icon}/>*/}
+            {/*            <NavLink key={index} href={item.href} label={item.label} icon={item.icon}/>*/}
             {/*        ))*/}
             {/*    }*/}
-            {/*    <Search menuItems={menuItems} />*/}
             {/*</div>*/}
         </div>
     );
