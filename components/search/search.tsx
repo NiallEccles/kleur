@@ -61,8 +61,8 @@ export const Search = ({ menuItems }: { menuItems: MenuItem[] }) => {
                             menuItems.map((item, index) => (
                                 <CommandItem
                                     key={index}
-                                    onSelect={() => navigateTo(item.path)}
-                                    onClick={() => navigateTo(item.path)}
+                                    onSelect={() => navigateTo(item.href)}
+                                    onClick={() => navigateTo(item.href)}
                                 >
                                     {item.icon}
                                     <span>{item.label}</span>
