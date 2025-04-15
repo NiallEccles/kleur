@@ -108,6 +108,13 @@ export default function NewRadialGradient(): JSX.Element {
                 </div>
             </div>
             <div className='flex flex-col gap-2 justify-end relative'>
+                <Input
+                    type="name"
+                    id="name"
+                    placeholder="Gradient name"
+                    value={name || ""}
+                    onChange={(e) => setName(e.target.value)}
+                />
                 <ColourPicker
                     controls={controls}
                     updateSingleControl={updateSingleControl}
