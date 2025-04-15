@@ -5,6 +5,9 @@ import PaletteManager from "../palette-manager/palette-manager";
 import ColourPicker from "../colour-picker/colour-picker";
 import { useRouter } from "next/router";
 import { PAGES } from "../../public/constants";
+import {Button} from "@/components/ui/button";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
 
 // Define the shape of a control if needed (here assumed to be just a hex string)
 type Control = string;
@@ -32,8 +35,8 @@ export default function NewPalette(): JSX.Element {
 
     return (
         <>
-            <div className={styles.paletteContainer}>
-                <div>
+            <div className='flex gap-4 justify-center items-center'>
+                <div className='flex flex-col gap-2'>
                     <PaletteManager
                         controls={controls}
                         setCurrentControl={setCurrentControl}
@@ -43,26 +46,24 @@ export default function NewPalette(): JSX.Element {
                         isGradientPalette={false}
                         previewGradient={false}
                     />
-                    <input
-                        type="text"
+                </div>
+                <div className='flex flex-col gap-2'>
+                    <Input
+                        type="name"
+                        id="name"
                         placeholder="Palette name"
-                        className="input w-full font-semibold mt-5 max-w-xs bg-gray-300 text-black placeholder-gray-800"
+                        value={name || ""}
                         onChange={(e) => setName(e.target.value)}
                     />
-                    <button
-                        className={`btn mt-4 w-full ${styles.addIcon}`}
-                        onClick={() => createPalette(controls, name, router)}
-                    >
-                        Create Palette
-                    </button>
+                    {currentControl > -1 && (
+                        <ColourPicker
+                            controls={controls}
+                            updateSingleControl={updateSingleControl}
+                            currentControlIndex={currentControl}
+                        />
+                    )}
+                    <Button onClick={() => createPalette(controls, name, router)}>Create Palette</Button>
                 </div>
-                {currentControl > -1 && (
-                    <ColourPicker
-                        controls={controls}
-                        updateSingleControl={updateSingleControl}
-                        currentControlIndex={currentControl}
-                    />
-                )}
             </div>
         </>
     );
