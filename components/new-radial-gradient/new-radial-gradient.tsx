@@ -79,7 +79,7 @@ export default function NewRadialGradient(): JSX.Element {
                                 }}
                             />
                             {
-                                controls.length > 1 && (
+                                controls.length > 2 && (
                                     <button
                                         style={{opacity: previewGradient ? 0 : 1}}
                                         className={styles.icon}
