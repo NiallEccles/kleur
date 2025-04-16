@@ -81,8 +81,8 @@ export default function Nav() {
             </Link>
             <NavigationMenu className="hidden sm:block">
                 <NavigationMenuList>
-                    <NavigationMenuItem>
-                        <NavigationMenuTrigger>Library</NavigationMenuTrigger>
+                    <NavigationMenuItem className="hover:[&_button]:text-blue-500!">
+                        <NavigationMenuTrigger className="data-[state=open]:text-blue-500!">Library</NavigationMenuTrigger>
                         <NavigationMenuContent>
                             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                                 {/*<li className="row-span-3">*/}
@@ -113,8 +113,8 @@ export default function Nav() {
                             </ul>
                         </NavigationMenuContent>
                     </NavigationMenuItem>
-                    <NavigationMenuItem>
-                        <NavigationMenuTrigger>Create</NavigationMenuTrigger>
+                    <NavigationMenuItem className="hover:[&_button]:text-red-500!">
+                        <NavigationMenuTrigger className="data-[state=open]:text-red-500!">Create</NavigationMenuTrigger>
                         <NavigationMenuContent>
                             {/*<ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">*/}
                             {/*    {menuItems.map((component) => (*/}

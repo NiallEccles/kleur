@@ -5,6 +5,8 @@ import PaletteManager from "../palette-manager/palette-manager";
 import { useUpdateControl } from "../../customHooks/useUpdateControl";
 import { useRouter } from "next/router";
 import {PAGES} from "../../public/constants";
+import {Button} from "@/components/ui/button";
+import {Input} from "@/components/ui/input";
 
 // Type for individual control color (e.g., a hex string)
 type Control = string;
@@ -31,39 +33,9 @@ export default function NewGradient(): JSX.Element {
     }, []);
 
     return (
-        <>
-            <div className="my-8 py-5 sm:py-15 rounded-3xl" />
-            <div className={styles.paletteContainer}>
-                <div className={styles.options}>
-                    <input
-                        type="text"
-                        placeholder="Gradient name"
-                        className="input w-full font-semibold max-w-xs bg-gray-300 text-black placeholder-gray-800"
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    <button
-                        className={`btn btn-active mt-4 w-auto ${
-                            previewGradient ? "" : "btn-ghost"
-                        }`}
-                        onClick={() => setPreviewGradient(!previewGradient)}
-                    >
-                        Preview {previewGradient ? "On" : "Off"}
-                    </button>
-                    <button
-                        className={`btn btn-active btn-ghost mt-4 w-full ${styles.addIcon}`}
-                        onClick={createControl}
-                    >
-                        Add Sliver
-                    </button>
-                    <button
-                        className={`btn mt-4 w-full ${styles.createButton}`}
-                        onClick={() => createPalette(controls, name, router)}
-                    >
-                        Create Gradient
-                    </button>
-                </div>
-
-                <div className={styles.colourPickerContainer}>
+        <div className='flex gap-4 justify-center'>
+            <div className='flex flex-row gap-4'>
+                <div className='flex gap-4'>
                     <PaletteManager
                         controls={controls}
                         setCurrentControl={setCurrentControl}
@@ -82,8 +54,30 @@ export default function NewGradient(): JSX.Element {
                         />
                     )}
                 </div>
+                <div className='flex flex-col gap-2'>
+                    <Input
+                        type="name"
+                        id="name"
+                        placeholder="Gradient name"
+                        value={name || ""}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <Button
+                        onClick={() => setPreviewGradient(!previewGradient)}
+                        variant="outline"
+                    >
+                        Preview {previewGradient ? "On" : "Off"}
+                    </Button>
+                    <Button
+                        onClick={createControl}
+                        variant="outline"
+                    >
+                        Add Sliver
+                    </Button>
+                    <Button onClick={() => createPalette(controls, name, router)}>Create Gradient</Button>
+                </div>
             </div>
-        </>
+        </div>
     );
 }
 
@@ -99,7 +93,7 @@ function createPalette(
 
     const createdAt = new Date().getTime();
 
-    const newGradient = [...prevLocalStorage, { controls, name, createdAt }];
+    const newGradient = [...prevLocalStorage, {controls, name, createdAt}];
 
     localStorage.setItem("gradients", JSON.stringify(newGradient));
 
