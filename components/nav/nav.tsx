@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import {cn} from "@/lib/utils";
 import {MobileNav} from "@/components/ui/mobile-nav";
+import {ThemeToggle} from "@/components/theme-toggle/theme-toggle";
 
 export default function Nav() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -159,6 +160,7 @@ export default function Nav() {
                 </div>
             )}
             <Search menuItems={menuItems}/>
+            <ThemeToggle />
             {/* Desktop Menu Items*/}
             {/*<div className="hidden lg:flex">*/}
             {/*    {*/}
