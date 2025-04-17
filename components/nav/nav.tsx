@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import {cn} from "@/lib/utils";
 import {MobileNav} from "@/components/ui/mobile-nav";
+import {ThemeToggle} from "@/components/theme-toggle/theme-toggle";
 
 export default function Nav() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -75,7 +76,7 @@ export default function Nav() {
     ListItem.displayName = "ListItem"
 
     return (
-        <div className='flex w-full p-5 sticky z-5 dark:bg-black bg-white justify-baseline top-0'>
+        <div className='flex w-full p-5 sticky z-5 dark:bg-black bg-white items-center top-0'>
             <Link href="/" className="normal-case text-xl font-bold flex-1">
                 kleur
             </Link>
@@ -158,7 +159,10 @@ export default function Nav() {
                     }
                 </div>
             )}
-            <Search menuItems={menuItems}/>
+            <div className='flex gap-3 items-center'>
+                <Search menuItems={menuItems}/>
+                <ThemeToggle />
+            </div>
             {/* Desktop Menu Items*/}
             {/*<div className="hidden lg:flex">*/}
             {/*    {*/}
