@@ -44,6 +44,11 @@ export const useMenuItems = () => {
                     label: 'Radial Gradient',
                     href: '/create/radial-gradient',
                     description: 'Create vibrant radial gradients'
+                },
+                {
+                    label: 'Mesh Gradient',
+                    href: '/create/mesh-gradient',
+                    description: 'Mesh gradients with total control'
                 }
             ]
         }
