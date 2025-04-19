@@ -12,10 +12,12 @@ import {MenuItem} from "@/types/MenuItem";
 import {router} from "next/client";
 import {useRouter} from "next/router";
 import {Button} from "@/components/ui/button";
+import {useCommandItems} from "@/customHooks/useCommandItems";
 
 export const Search = ({ menuItems }: { menuItems: MenuItem[] }) => {
     const [open, setOpen] = useState(false)
     const router = useRouter();
+    const commands = useCommandItems(setOpen);
 
     useEffect(() => {
         const down = (e: KeyboardEvent) => {
@@ -71,17 +73,20 @@ export const Search = ({ menuItems }: { menuItems: MenuItem[] }) => {
                         }
                     </CommandGroup>
                     <CommandSeparator/>
-                    {/*<CommandGroup heading="Colours">*/}
-                    {/*    <CommandItem>*/}
-                    {/*        <PaintBucket/>*/}
-                    {/*        <span>Colours</span>*/}
-                    {/*    </CommandItem>*/}
-                    {/*    <CommandItem>*/}
-                    {/*        <Blend/>*/}
-                    {/*        <span>Colour Harmony</span>*/}
-                    {/*        <CommandShortcut>⌘B</CommandShortcut>*/}
-                    {/*    </CommandItem>*/}
-                    {/*</CommandGroup>*/}
+                    <CommandGroup heading="Commands">
+                        {
+                            commands.map((command) => (
+                                <CommandItem
+                                    key={command.label}
+                                    onSelect={() => command.action()}
+                                    onClick={() => command.action()}
+                                >
+                                    {command.icon}
+                                    <span>{command.label}</span>
+                                </CommandItem>
+                            ))
+                        }
+                    </CommandGroup>
                 </CommandList>
             </CommandDialog>
         </div>
