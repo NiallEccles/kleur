@@ -12,6 +12,9 @@ import { Copy, Plus, Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 // import { useToast } from "@/hooks/use-toast"
 import {HexColorPicker} from "react-colorful";
+import {Input} from "@/components/ui/input";
+import {useRouter} from "next/router";
+import {PAGES} from "@/public/constants";
 
 type ColorPoint = {
     id: string
@@ -30,6 +33,8 @@ export default function MeshGradientGenerator() {
     const [opacity, setOpacity] = useState(100)
     const [cssCode, setCssCode] = useState("")
     const canvasRef = useRef<HTMLDivElement>(null)
+    const [name, setName] = useState<string | null>(null);
+    const router = useRouter();
     // const { toast } = useToast()
 
     // Generate a unique ID for new color points
@@ -191,7 +196,7 @@ opacity: ${opacity}%;`
                             </Button>
                         </div>
 
-                        <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2">
+                        <div className="space-y-3 max-h-[310px] overflow-y-auto pr-2">
                             {colorPoints.map((point) => (
                                 <Card key={point.id}>
                                     <CardContent className="p-3 space-y-3">
@@ -249,19 +254,47 @@ opacity: ${opacity}%;`
                         </div>
                     </TabsContent>
                 </Tabs>
-
-                <Card>
-                    <CardContent className="p-4 space-y-3">
-                        <div className="flex justify-between items-center">
-                            <h3 className="text-sm font-medium">CSS Code</h3>
-                            <Button variant="ghost" size="icon" onClick={copyToClipboard}>
-                                <Copy className="h-4 w-4" />
-                            </Button>
-                        </div>
-                        <pre className="text-xs bg-muted p-2 rounded overflow-x-auto">{cssCode}</pre>
-                    </CardContent>
-                </Card>
+                <div className='flex gap-2'>
+                    <Input
+                        type="name"
+                        id="name"
+                        placeholder="Mesh gradient name"
+                        value={name || ""}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <Button onClick={() => createPalette(colorPoints, name, router)}>Create</Button>
+                </div>
+                {/*<Card>*/}
+                {/*    <CardContent className="p-4 space-y-3">*/}
+                {/*        <div className="flex justify-between items-center">*/}
+                {/*            <h3 className="text-sm font-medium">CSS Code</h3>*/}
+                {/*            <Button variant="ghost" size="icon" onClick={copyToClipboard}>*/}
+                {/*                <Copy className="h-4 w-4" />*/}
+                {/*            </Button>*/}
+                {/*        </div>*/}
+                {/*        <pre className="text-xs bg-muted p-2 rounded overflow-x-auto">{cssCode}</pre>*/}
+                {/*    </CardContent>*/}
+                {/*</Card>*/}
             </div>
         </div>
     )
+}
+
+function createPalette(
+    controls: ColorPoint[],
+    name: string | null,
+    router: ReturnType<typeof useRouter>
+): void {
+    const prevLocalStorage =
+        localStorage.getItem("meshGradients") === null
+            ? []
+            : JSON.parse(localStorage.getItem("meshGradients") as string);
+
+    const createdAt = new Date().getTime();
+
+    const newPalette = [...prevLocalStorage, { controls, name, createdAt }];
+
+    localStorage.setItem("meshGradients", JSON.stringify(newPalette));
+
+    router.push(PAGES.HOME);
 }
