@@ -7,10 +7,10 @@ import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils";
 import {Button} from "@/components/ui/button";
 import {Drawer, DrawerContent, DrawerTrigger} from "@/components/ui/drawer";
-import {MenuItem} from "@/types/MenuItem";
+import {MenuItem, NewMenuItems} from "@/types/MenuItem";
 import {Menu} from "lucide-react";
 
-export function MobileNav({ menuItems }: { menuItems: MenuItem[] }){
+export function MobileNav({ menuItems }: { menuItems: NewMenuItems }){
     const [open, setOpen] = React.useState(false)
 
     const onOpenChange = React.useCallback(
@@ -49,18 +49,27 @@ export function MobileNav({ menuItems }: { menuItems: MenuItem[] }){
             <DrawerContent className="max-h-[80svh] p-0">
                 <div className="overflow-auto p-6">
                     <div className="flex flex-col space-y-3">
-                        {menuItems?.map(
-                            (item) =>
-                                item.href && (
-                                    <MobileLink
-                                        key={item.href}
-                                        href={item.href}
-                                        onOpenChange={setOpen}
-                                    >
-                                        {item.label}
-                                    </MobileLink>
-                                )
-                        )}
+                        {
+                            menuItems.map((menuItem) => (
+                                <>
+                                    <h2 className='text-xl mb-0' key={menuItem.label}>{menuItem.label}</h2>
+                                    <ol className='ml-3'>
+                                        {
+                                            menuItem.subItems.map((subItem) => (
+                                                <li className='my-2' key={subItem.href}>
+                                                    <MobileLink
+                                                        href={subItem.href}
+                                                        onOpenChange={setOpen}
+                                                    >
+                                                        {subItem.label}
+                                                    </MobileLink>
+                                                </li>
+                                            ))
+                                        }
+                                    </ol>
+                                </>
+                            ))
+                        }
                     </div>
                     <div className="flex flex-col space-y-2">
                         {/*{docsConfig.sidebarNav.map((item, index) => (*/}
