@@ -13,6 +13,7 @@ import {
 import {cn} from "@/lib/utils";
 import {MobileNav} from "@/components/ui/mobile-nav";
 import {ThemeToggle} from "@/components/theme-toggle/theme-toggle";
+import useMenuItems from "@/customHooks/useMenuItems";
 
 export default function Nav() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,6 +23,7 @@ export default function Nav() {
             href: '/colour-harmony',
             label: 'Colour Harmony',
             icon: <Blend />,
+
         },
         {
             href: '/colours',
@@ -48,6 +50,8 @@ export default function Nav() {
     const toggleMenu = () => {
         setIsMenuOpen(prev => !prev);
     };
+
+    const newMenuItems = useMenuItems();
 
     const ListItem = forwardRef<
         ElementRef<"a">,
@@ -82,72 +86,31 @@ export default function Nav() {
             </Link>
             <NavigationMenu className="hidden sm:block">
                 <NavigationMenuList>
-                    <NavigationMenuItem className="hover:[&_button]:text-blue-500!">
-                        <NavigationMenuTrigger className="data-[state=open]:text-blue-500!">Library</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                            <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                                {/*<li className="row-span-3">*/}
-                                {/*    <NavigationMenuLink asChild>*/}
-                                {/*        <a*/}
-                                {/*            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"*/}
-                                {/*            href="/"*/}
-                                {/*        >*/}
-                                {/*            <div className="mb-2 mt-4 text-lg font-medium">*/}
-                                {/*                kleur*/}
-                                {/*            </div>*/}
-                                {/*            <p className="text-sm leading-tight text-muted-foreground">*/}
-                                {/*                Beautifully designed components built with Radix UI and*/}
-                                {/*                Tailwind CSS.*/}
-                                {/*            </p>*/}
-                                {/*        </a>*/}
-                                {/*    </NavigationMenuLink>*/}
-                                {/*</li>*/}
-                                <ListItem href="/palettes" title="Palettes">
-                                    Explore curated color sets to spark your creativity
-                                </ListItem>
-                                <ListItem href="/gradients" title="Gradients">
-                                    Create smooth transitions between colors
-                                </ListItem>
-                                <ListItem href="/colours" title="Colours">
-                                    Browse and explore a wide range of colors
-                                </ListItem>
-                            </ul>
-                        </NavigationMenuContent>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem className="hover:[&_button]:text-red-500!">
-                        <NavigationMenuTrigger className="data-[state=open]:text-red-500!">Create</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                            {/*<ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">*/}
-                            {/*    {menuItems.map((component) => (*/}
-                            {/*        <ListItem*/}
-                            {/*            key={component.href}*/}
-                            {/*            title={component.label}*/}
-                            {/*            href={component.href}*/}
-                            {/*        >*/}
-                            {/*            {component.label}*/}
-                            {/*        </ListItem>*/}
-                            {/*    ))}*/}
-                            {/*</ul>*/}
-                            <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                                <ListItem href="/create/palette" title="Palette">
-                                    Build your own custom color palette
-                                </ListItem>
-                                <ListItem href="/create/gradient" title="Gradient">
-                                    Design your own linear gradients
-                                </ListItem>
-                                <ListItem href="/create/radial-gradient" title="Radial Gradient">
-                                    Create vibrant radial gradients
-                                </ListItem>
-                            </ul>
-                        </NavigationMenuContent>
-                    </NavigationMenuItem>
+                    {
+                        newMenuItems.map((menuItem, index) => (
+                            <NavigationMenuItem key={menuItem.label} className={`hover:[&_button]:${menuItem.colour}!`}>
+                                <NavigationMenuTrigger className={`data-[state=open]:${menuItem.colour}!`}>{menuItem.label}</NavigationMenuTrigger>
+                                <NavigationMenuContent>
+                                    <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                                        {
+                                            menuItem.subItems.map((subItem) => (
+                                                <ListItem key={subItem.label} href={subItem.href} title={subItem.label}>
+                                                    {subItem.description}
+                                                </ListItem>
+                                            ))
+                                        }
+                                    </ul>
+                                </NavigationMenuContent>
+                            </NavigationMenuItem>
+                        ))
+                    }
                 </NavigationMenuList>
             </NavigationMenu>
             {/* Mobile Menu Button */}
             {/*<div className='btn-circle lg:hidden' onClick={toggleMenu}>*/}
             {/*    <Menu/>*/}
             {/*</div>*/}
-            <MobileNav menuItems={menuItems} />
+            <MobileNav menuItems={newMenuItems} />
             {/* Menu Items */}
             {isMenuOpen && (
                 <div
