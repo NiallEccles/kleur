@@ -45,19 +45,18 @@ export default function Mesh({controls, name} : MeshProps) {
                 className={styles.gradient}
                 style={{background: cssCode}}
             >
-                {/*<button*/}
-                {/*    className={styles.copyIcon}*/}
-                {/*    onClick={() => {*/}
-                {/*        const gradient = `linear-gradient(${degrees}deg, ${colours.toString()})`;*/}
-                {/*        navigator.clipboard.writeText(gradient);*/}
-                {/*        setCopiedColour(colours.toString());*/}
-                {/*        setTimeout(() => {*/}
-                {/*            setCopiedColour("");*/}
-                {/*        }, 1500);*/}
-                {/*    }}*/}
-                {/*>*/}
-                {/*    {copiedColour === colours.toString() ? successIcon() : copyIcon()}*/}
-                {/*</button>*/}
+                <button
+                    className={styles.copyIcon}
+                    onClick={() => {
+                        navigator.clipboard.writeText(cssCode);
+                        setCopiedColour(cssCode.toString());
+                        setTimeout(() => {
+                            setCopiedColour("");
+                        }, 1500);
+                    }}
+                >
+                    {copiedColour === cssCode.toString() ? successIcon() : copyIcon()}
+                </button>
             </div>
             {name ? (
                 <div className={styles.sliver}>
