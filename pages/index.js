@@ -10,6 +10,7 @@ import LocalGradients from "../components/local-gradients/local-gradients";
 import LocalPalettes from "../components/local-palettes/local-gradients";
 import Nav from "../components/nav/nav";
 import {motion} from "framer-motion";
+import LocalMeshes from "../components/local-meshes/local-meshes";
 
 const container = {
     hidden: {opacity: 1, scale: 0},
@@ -75,6 +76,8 @@ export default function Home() {
             <LocalPalettes/>
             <br/>
             <LocalGradients/>
+            <br/>
+            <LocalMeshes/>
         </div>
     );
 }

@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Slider } from "@/components/ui/slider"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Copy, Plus, Trash2 } from "lucide-react"
+import {Copy, Pencil, Plus, Trash2} from "lucide-react"
 import { cn } from "@/lib/utils"
 // import { useToast } from "@/hooks/use-toast"
 import {HexColorPicker} from "react-colorful";
@@ -199,7 +199,7 @@ opacity: ${opacity}%;`
                         <div className="space-y-3 max-h-[310px] overflow-y-auto pr-2">
                             {colorPoints.map((point) => (
                                 <Card key={point.id}>
-                                    <CardContent className="p-3 space-y-3">
+                                    <CardContent>
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-3">
                                                 <Popover>
@@ -232,7 +232,7 @@ opacity: ${opacity}%;`
                                             </div>
                                             <Slider
                                                 value={[point.blurRadius]}
-                                                min={50}
+                                                min={10}
                                                 max={200}
                                                 step={1}
                                                 onValueChange={(value) => updateBlurRadius(point.id, value[0])}
