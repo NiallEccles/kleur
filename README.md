@@ -18,7 +18,7 @@ The goal of this project is to create an app that can be a central point for col
  #### 1.2.0
 - [x] Radial gradient generator
 #### 1.3.0
-- [ ] Mesh gradient generator
+- [x] Mesh gradient generator
 #### 1.4.0
 - [ ] CSS backgrounds
 #### 2.0.0
