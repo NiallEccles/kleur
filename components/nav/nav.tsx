@@ -80,7 +80,7 @@ export default function Nav() {
     ListItem.displayName = "ListItem"
 
     return (
-        <div className='flex w-full p-5 sticky z-5 dark:bg-black bg-white items-center top-0'>
+        <div className='flex w-full p-5 sticky z-5 dark:bg-transparent bg-white items-center top-0'>
             <Link href="/" className="normal-case text-xl font-bold flex-1">
                 kleur
             </Link>
