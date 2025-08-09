@@ -12,7 +12,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import {Download, Copy, Palette, Eye, EyeOff, ClipboardCopy} from "lucide-react"
-import { toast } from "sonner"
+import {toast} from "sonner"
 
 
 // Color utility functions
@@ -347,7 +347,19 @@ export default function PaletteGenerator() {
 
     const copyToClipboard = (text: string, format: string) => {
         navigator.clipboard.writeText(text);
-        toast("Copied");
+        console.log(format)
+        let toastData;
+        if (format != 'Color') {
+            toastData = {
+                description: format,
+            }
+        } else {
+            toastData = {
+                icon: <div className="w-6 h-6 rounded-full border-2 border-white shadow-sm"
+                           style={{backgroundColor: text}}/>
+            };
+        }
+        toast('Copied', toastData);
     }
 
     const downloadFile = (content: string, filename: string) => {
@@ -446,13 +458,15 @@ export default function PaletteGenerator() {
                                                             <div className="text-xs space-y-1">
                                                                 <div className="flex justify-between">
                                                                     <span>vs White:</span>
-                                                                    <span className={`px-1 rounded text-xs ${a11y.contrastWhite.level === "Fail" ? "bg-red-100 text-red-800" : "bg-green-100 text-green-800"}`}>
+                                                                    <span
+                                                                        className={`px-1 rounded text-xs ${a11y.contrastWhite.level === "Fail" ? "bg-red-100 text-red-800" : "bg-green-100 text-green-800"}`}>
                                                                         {a11y.contrastWhite.level}
                                                                     </span>
                                                                 </div>
                                                                 <div className="flex justify-between">
                                                                     <span>vs Black:</span>
-                                                                    <span className={`px-1 rounded text-xs ${a11y.contrastBlack.level === "Fail" ? "bg-red-100 text-red-800" : "bg-green-100 text-green-800"}`}>
+                                                                    <span
+                                                                        className={`px-1 rounded text-xs ${a11y.contrastBlack.level === "Fail" ? "bg-red-100 text-red-800" : "bg-green-100 text-green-800"}`}>
                                                                         {a11y.contrastBlack.level}
                                                                     </span>
                                                                 </div>
