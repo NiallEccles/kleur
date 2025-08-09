@@ -1,12 +1,19 @@
-import { useState, useCallback, useMemo } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-// import { Badge } from "@/components/ui/badge"
-import { Download, Copy, Palette, Eye, EyeOff } from "lucide-react"
-// import { toast } from "@/hooks/use-toast"
+import {useState, useCallback, useMemo} from "react"
+import {Button} from "@/components/ui/button"
+import {Input} from "@/components/ui/input"
+import {Label} from "@/components/ui/label"
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
+import {
+    Select,
+    SelectContent, SelectGroup,
+    SelectItem, SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import {Download, Copy, Palette, Eye, EyeOff, ClipboardCopy} from "lucide-react"
+import { toast } from "sonner"
+
 
 // Color utility functions
 const hexToHsl = (hex: string): [number, number, number] => {
@@ -73,6 +80,74 @@ const hslToHex = (h: number, s: number, l: number): string => {
     return `#${toHex(r)}${toHex(g)}${toHex(b)}`
 }
 
+const rgbToHex = (r: number, g: number, b: number): string => {
+    const toHex = (c: number) => {
+        const hex = Math.round(c).toString(16)
+        return hex.length === 1 ? "0" + hex : hex
+    }
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`
+}
+
+const hexToRgb = (hex: string): [number, number, number] => {
+    const r = Number.parseInt(hex.slice(1, 3), 16)
+    const g = Number.parseInt(hex.slice(3, 5), 16)
+    const b = Number.parseInt(hex.slice(5, 7), 16)
+    return [r, g, b]
+}
+
+const parseColorString = (colorStr: string): [number, number, number] | null => {
+    // Remove whitespace
+    colorStr = colorStr.trim()
+
+    // Hex format
+    if (colorStr.startsWith('#')) {
+        if (colorStr.length === 7) {
+            return hexToRgb(colorStr)
+        }
+    }
+
+    // RGB format
+    const rgbMatch = colorStr.match(/rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/)
+    if (rgbMatch) {
+        return [parseInt(rgbMatch[1]), parseInt(rgbMatch[2]), parseInt(rgbMatch[3])]
+    }
+
+    // HSL format
+    const hslMatch = colorStr.match(/hsl\s*\(\s*(\d+)\s*,\s*(\d+)%?\s*,\s*(\d+)%?\s*\)/)
+    if (hslMatch) {
+        const h = parseInt(hslMatch[1])
+        const s = parseInt(hslMatch[2])
+        const l = parseInt(hslMatch[3])
+        const hex = hslToHex(h, s, l)
+        return hexToRgb(hex)
+    }
+
+    return null
+}
+
+const convertColorToHex = (colorStr: string): string => {
+    const rgb = parseColorString(colorStr)
+    if (!rgb) return "#000000"
+    return rgbToHex(rgb[0], rgb[1], rgb[2])
+}
+
+const formatColor = (hex: string, format: string): string => {
+    switch (format) {
+        case 'hex':
+            return hex
+        case 'rgb': {
+            const [r, g, b] = hexToRgb(hex)
+            return `rgb(${r}, ${g}, ${b})`
+        }
+        case 'hsl': {
+            const [h, s, l] = hexToHsl(hex)
+            return `hsl(${h}, ${s}%, ${l}%)`
+        }
+        default:
+            return hex
+    }
+}
+
 const getContrastRatio = (color1: string, color2: string): number => {
     const getLuminance = (hex: string) => {
         const rgb = [
@@ -109,14 +184,19 @@ interface ColorPalette {
 }
 
 export default function PaletteGenerator() {
+    const [selectedColourFormat, setSelectedColourFormat] = useState("hex")
     const [baseColor, setBaseColor] = useState("#3b82f6")
     const [secondaryColor, setSecondaryColor] = useState("#10b981")
     const [tertiaryColor, setTertiaryColor] = useState("#f59e0b")
-    const [showAccessibility, setShowAccessibility] = useState(true)
+    const [showAccessibility, setShowAccessibility] = useState(false)
 
-    const [baseDisplayName, setBaseDisplayName] = useState("");
-    const [secondaryDisplayName, setSecondaryDisplayName] = useState("");
-    const [tertiaryDisplayName, setTertiaryDisplayName] = useState("");
+    const [baseDisplayName, setBaseDisplayName] = useState("")
+    const [secondaryDisplayName, setSecondaryDisplayName] = useState("")
+    const [tertiaryDisplayName, setTertiaryDisplayName] = useState("")
+
+    // Convert the stored hex values to the selected format for display
+    const getDisplayValue = (hexValue: string) => formatColor(hexValue, selectedColourFormat)
+    const getPlaceholder = (hexValue: string) => formatColor(hexValue, selectedColourFormat)
 
     const generateShades = useCallback((hex: string, count = 9) => {
         const [h, s, l] = hexToHsl(hex)
@@ -124,7 +204,7 @@ export default function PaletteGenerator() {
 
         // Define standard shade levels
         const shadeLevels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]
-        const lightnesses = [95, 85, 75, 65, 55, 45, 35, 25, 15, 5]
+        const lightnesses = [95, 85, 75, 65, 55, 45, 35, 25, 15, 10]
 
         // Find the closest shade level for the base color
         let baseShadeIndex = 5 // Default to 500
@@ -153,7 +233,7 @@ export default function PaletteGenerator() {
                 const lightness = lightnesses[i]
                 const saturation = i <= 1 ? Math.max(s - 20, 10) : s
                 newHex = hslToHex(h, saturation, lightness)
-                    ;[newH, newS, newL] = hexToHsl(newHex)
+                ;[newH, newS, newL] = hexToHsl(newHex)
             }
 
             shades.push({
@@ -169,9 +249,9 @@ export default function PaletteGenerator() {
 
     const palette = useMemo((): ColorPalette[] => {
         const colors = [
-            { name: "Primary", hex: baseColor, displayName: baseDisplayName },
-            { name: "Secondary", hex: secondaryColor, displayName: secondaryDisplayName },
-            { name: "Tertiary", hex: tertiaryColor, displayName: tertiaryDisplayName },
+            {name: "Primary", hex: baseColor, displayName: baseDisplayName},
+            {name: "Secondary", hex: secondaryColor, displayName: secondaryDisplayName},
+            {name: "Tertiary", hex: tertiaryColor, displayName: tertiaryDisplayName},
         ]
 
         return colors.map((color) => {
@@ -185,9 +265,7 @@ export default function PaletteGenerator() {
                 shades: generateShades(color.hex),
             }
         })
-    }, [baseColor, secondaryColor, tertiaryColor, generateShades])
-
-    console.log(palette);
+    }, [baseColor, secondaryColor, tertiaryColor, baseDisplayName, secondaryDisplayName, tertiaryDisplayName, generateShades])
 
     const exportFormats = useMemo(() => {
         const cssVariables = palette
@@ -268,15 +346,12 @@ export default function PaletteGenerator() {
     }, [palette])
 
     const copyToClipboard = (text: string, format: string) => {
-        navigator.clipboard.writeText(text)
-        // toast({
-        //   title: "Copied to clipboard",
-        //   description: `${format} format copied successfully`,
-        // })
+        navigator.clipboard.writeText(text);
+        toast("Copied");
     }
 
     const downloadFile = (content: string, filename: string) => {
-        const blob = new Blob([content], { type: "text/plain" })
+        const blob = new Blob([content], {type: "text/plain"})
         const url = URL.createObjectURL(blob)
         const a = document.createElement("a")
         a.href = url
@@ -311,8 +386,31 @@ export default function PaletteGenerator() {
         }
     }
 
+    const handleColorChange = (colorStr: string, setter: (value: string) => void) => {
+        // Convert input to hex for internal storage
+        const hexColor = convertColorToHex(colorStr)
+        setter(hexColor)
+    }
+
     return (
         <div>
+            <div className='flex mb-6 justify-end'>
+                <SelectGroup>
+                    <SelectLabel>Colour Format</SelectLabel>
+                    <Select value={selectedColourFormat} onValueChange={(value) => {
+                        setSelectedColourFormat(value)
+                    }}>
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue/>
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="hex">HEX</SelectItem>
+                            <SelectItem value="rgb">RGB</SelectItem>
+                            <SelectItem value="hsl">HSL</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </SelectGroup>
+            </div>
             <div className="grid grid-cols-12 gap-6">
                 <div className="col-span-9">
                     <div className="flex flex-col gap-6">
@@ -322,49 +420,41 @@ export default function PaletteGenerator() {
                                     <CardTitle className="flex items-center gap-3">
                                         <div
                                             className="w-6 h-6 rounded-full border-2 border-white shadow-sm"
-                                            style={{ backgroundColor: colorGroup.hex }}
+                                            style={{backgroundColor: colorGroup.hex}}
                                         />
                                         {colorGroup.name}
-                                        {/* <Badge variant="secondary">{colorGroup.hex}</Badge> */}
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 gap-3">
                                         {colorGroup.shades.map((shade) => {
                                             const a11y = getAccessibilityInfo(shade.hex)
+                                            const displayValue = formatColor(shade.hex, selectedColourFormat)
                                             return (
                                                 <div key={shade.name} className="space-y-2">
                                                     <div
-                                                        className="aspect-square rounded-lg border-2 border-white shadow-sm cursor-pointer hover:scale-105 transition-transform"
-                                                        style={{ backgroundColor: shade.hex }}
-                                                        onClick={() => copyToClipboard(shade.hex, "Hex color")}
+                                                        className="group aspect-square rounded-lg border-2 border-white shadow-sm cursor-pointer hover:scale-105 transition-transform flex items-center justify-center"
+                                                        style={{backgroundColor: shade.hex}}
+                                                        onClick={() => copyToClipboard(displayValue, "Color")}
                                                     />
                                                     <div className="text-center space-y-1">
                                                         <div className="font-medium text-sm">{shade.name}</div>
                                                         <div className="text-xs text-slate-600 space-y-0.5">
-                                                            <div>{shade.hex}</div>
-                                                            <div>{shade.hsl}</div>
-                                                            <div>{shade.rgb}</div>
+                                                            <div>{displayValue}</div>
                                                         </div>
                                                         {showAccessibility && (
                                                             <div className="text-xs space-y-1">
                                                                 <div className="flex justify-between">
                                                                     <span>vs White:</span>
-                                                                    {/* <Badge
-                                  variant={a11y.contrastWhite.level === "Fail" ? "destructive" : "secondary"}
-                                  className="text-xs px-1 py-0"
-                                >
-                                  {a11y.contrastWhite.level}
-                                </Badge>
-                              </div>
-                              <div className="flex justify-between">
-                                <span>vs Black:</span>
-                                <Badge
-                                  variant={a11y.contrastBlack.level === "Fail" ? "destructive" : "secondary"}
-                                  className="text-xs px-1 py-0"
-                                >
-                                  {a11y.contrastBlack.level}
-                                </Badge> */}
+                                                                    <span className={`px-1 rounded text-xs ${a11y.contrastWhite.level === "Fail" ? "bg-red-100 text-red-800" : "bg-green-100 text-green-800"}`}>
+                                                                        {a11y.contrastWhite.level}
+                                                                    </span>
+                                                                </div>
+                                                                <div className="flex justify-between">
+                                                                    <span>vs Black:</span>
+                                                                    <span className={`px-1 rounded text-xs ${a11y.contrastBlack.level === "Fail" ? "bg-red-100 text-red-800" : "bg-green-100 text-green-800"}`}>
+                                                                        {a11y.contrastBlack.level}
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         )}
@@ -378,13 +468,13 @@ export default function PaletteGenerator() {
                         ))}
                     </div>
                 </div>
-                <div className="col-span-3 max-h-min">
+                <div className="col-span-3 max-h-min sticky top-20">
                     <Card className="sticky top-20">
                         <CardHeader>
                             <CardTitle>Base Colors</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-6">
-                            <div className="flex flex-col">
+                            <div className="flex flex-col gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="base-color">Primary Color</Label>
                                     <div className="flex gap-2">
@@ -396,9 +486,9 @@ export default function PaletteGenerator() {
                                             className="w-16 h-10 p-1 border-2"
                                         />
                                         <Input
-                                            value={baseColor}
-                                            onChange={(e) => setBaseColor(e.target.value)}
-                                            placeholder="#3b82f6"
+                                            value={getDisplayValue(baseColor)}
+                                            onChange={(e) => handleColorChange(e.target.value, setBaseColor)}
+                                            placeholder={getPlaceholder("#3b82f6")}
                                             className="flex-1"
                                         />
                                     </div>
@@ -415,9 +505,9 @@ export default function PaletteGenerator() {
                                             className="w-16 h-10 p-1 border-2"
                                         />
                                         <Input
-                                            value={secondaryColor}
-                                            onChange={(e) => setSecondaryColor(e.target.value)}
-                                            placeholder="#10b981"
+                                            value={getDisplayValue(secondaryColor)}
+                                            onChange={(e) => handleColorChange(e.target.value, setSecondaryColor)}
+                                            placeholder={getPlaceholder("#10b981")}
                                             className="flex-1"
                                         />
                                     </div>
@@ -434,18 +524,19 @@ export default function PaletteGenerator() {
                                             className="w-16 h-10 p-1 border-2"
                                         />
                                         <Input
-                                            value={tertiaryColor}
-                                            onChange={(e) => setTertiaryColor(e.target.value)}
-                                            placeholder="#f59e0b"
+                                            value={getDisplayValue(tertiaryColor)}
+                                            onChange={(e) => handleColorChange(e.target.value, setTertiaryColor)}
+                                            placeholder={getPlaceholder("#f59e0b")}
                                             className="flex-1"
                                         />
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-2">
-                                <Button variant="outline" size="sm" onClick={() => setShowAccessibility(!showAccessibility)}>
-                                    {showAccessibility ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                            <div className="flex flex-col gap-2">
+                                <Button variant="outline" size="sm"
+                                        onClick={() => setShowAccessibility(!showAccessibility)}>
+                                    {showAccessibility ? <EyeOff className="w-4 h-4"/> : <Eye className="w-4 h-4"/>}
                                     {showAccessibility ? "Hide" : "Show"} Accessibility Info
                                 </Button>
                             </div>
@@ -453,166 +544,162 @@ export default function PaletteGenerator() {
                     </Card>
                 </div>
             </div>
-            <div className="max-w-7xl mx-auto space-y-8">
 
-                <div className="space-y-6">
+            <Card className="mt-8">
+                <CardHeader>
+                    <CardTitle>Export Palette</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <Tabs defaultValue="css-variables" className="w-full">
+                        <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6">
+                            <TabsTrigger value="css-variables">CSS Variables</TabsTrigger>
+                            <TabsTrigger value="css-classes">CSS Classes</TabsTrigger>
+                            <TabsTrigger value="tailwind">Tailwind</TabsTrigger>
+                            <TabsTrigger value="mantine">Mantine</TabsTrigger>
+                            <TabsTrigger value="daisyui">DaisyUI</TabsTrigger>
+                            <TabsTrigger value="json">JSON</TabsTrigger>
+                        </TabsList>
 
-                </div>
+                        <TabsContent value="css-variables" className="space-y-4">
+                            <div className="flex gap-2">
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => copyToClipboard(exportFormats.cssVariables, "CSS Variables")}
+                                >
+                                    <Copy className="w-4 h-4 mr-2"/>
+                                    Copy
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => downloadFile(exportFormats.cssVariables, "palette-variables.css")}
+                                >
+                                    <Download className="w-4 h-4 mr-2"/>
+                                    Download
+                                </Button>
+                            </div>
+                            <pre className="bg-slate-100 dark:bg-zinc-800 p-4 rounded-lg text-sm overflow-x-auto">
+                                <code>{exportFormats.cssVariables}</code>
+                            </pre>
+                        </TabsContent>
 
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Export Palette</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <Tabs defaultValue="css-variables" className="w-full">
-                            <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6">
-                                <TabsTrigger value="css-variables">CSS Variables</TabsTrigger>
-                                <TabsTrigger value="css-classes">CSS Classes</TabsTrigger>
-                                <TabsTrigger value="tailwind">Tailwind</TabsTrigger>
-                                <TabsTrigger value="mantine">Mantine</TabsTrigger>
-                                <TabsTrigger value="daisyui">DaisyUI</TabsTrigger>
-                                <TabsTrigger value="json">JSON</TabsTrigger>
-                            </TabsList>
+                        <TabsContent value="css-classes" className="space-y-4">
+                            <div className="flex gap-2">
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => copyToClipboard(exportFormats.cssClasses, "CSS Classes")}
+                                >
+                                    <Copy className="w-4 h-4 mr-2"/>
+                                    Copy
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => downloadFile(exportFormats.cssClasses, "palette-classes.css")}
+                                >
+                                    <Download className="w-4 h-4 mr-2"/>
+                                    Download
+                                </Button>
+                            </div>
+                            <pre className="bg-slate-100 dark:bg-zinc-800 p-4 rounded-lg text-sm overflow-x-auto">
+                                <code>{exportFormats.cssClasses}</code>
+                            </pre>
+                        </TabsContent>
 
-                            <TabsContent value="css-variables" className="space-y-4">
-                                <div className="flex gap-2">
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => copyToClipboard(exportFormats.cssVariables, "CSS Variables")}
-                                    >
-                                        <Copy className="w-4 h-4 mr-2" />
-                                        Copy
-                                    </Button>
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => downloadFile(exportFormats.cssVariables, "palette-variables.css")}
-                                    >
-                                        <Download className="w-4 h-4 mr-2" />
-                                        Download
-                                    </Button>
-                                </div>
-                                <pre className="bg-slate-100 dark:bg-zinc-800 p-4 rounded-lg text-sm overflow-x-auto">
-                                    <code>{exportFormats.cssVariables}</code>
-                                </pre>
-                            </TabsContent>
+                        <TabsContent value="tailwind" className="space-y-4">
+                            <div className="flex gap-2">
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => copyToClipboard(exportFormats.tailwindTheme, "Tailwind Theme")}
+                                >
+                                    <Copy className="w-4 h-4 mr-2"/>
+                                    Copy
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => downloadFile(exportFormats.tailwindTheme, "tailwind-theme.json")}
+                                >
+                                    <Download className="w-4 h-4 mr-2"/>
+                                    Download
+                                </Button>
+                            </div>
+                            <pre className="bg-slate-100 dark:bg-zinc-800 p-4 rounded-lg text-sm overflow-x-auto">
+                                <code>{exportFormats.tailwindTheme}</code>
+                            </pre>
+                        </TabsContent>
 
-                            <TabsContent value="css-classes" className="space-y-4">
-                                <div className="flex gap-2">
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => copyToClipboard(exportFormats.cssClasses, "CSS Classes")}
-                                    >
-                                        <Copy className="w-4 h-4 mr-2" />
-                                        Copy
-                                    </Button>
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => downloadFile(exportFormats.cssClasses, "palette-classes.css")}
-                                    >
-                                        <Download className="w-4 h-4 mr-2" />
-                                        Download
-                                    </Button>
-                                </div>
-                                <pre className="bg-slate-100 dark:bg-zinc-800 p-4 rounded-lg text-sm overflow-x-auto">
-                                    <code>{exportFormats.cssClasses}</code>
-                                </pre>
-                            </TabsContent>
+                        <TabsContent value="mantine" className="space-y-4">
+                            <div className="flex gap-2">
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => copyToClipboard(exportFormats.mantineTheme, "Mantine Theme")}
+                                >
+                                    <Copy className="w-4 h-4 mr-2"/>
+                                    Copy
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => downloadFile(exportFormats.mantineTheme, "mantine-theme.json")}
+                                >
+                                    <Download className="w-4 h-4 mr-2"/>
+                                    Download
+                                </Button>
+                            </div>
+                            <pre className="bg-slate-100 dark:bg-zinc-800 p-4 rounded-lg text-sm overflow-x-auto">
+                                <code>{exportFormats.mantineTheme}</code>
+                            </pre>
+                        </TabsContent>
 
-                            <TabsContent value="tailwind" className="space-y-4">
-                                <div className="flex gap-2">
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => copyToClipboard(exportFormats.tailwindTheme, "Tailwind Theme")}
-                                    >
-                                        <Copy className="w-4 h-4 mr-2" />
-                                        Copy
-                                    </Button>
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => downloadFile(exportFormats.tailwindTheme, "tailwind-theme.json")}
-                                    >
-                                        <Download className="w-4 h-4 mr-2" />
-                                        Download
-                                    </Button>
-                                </div>
-                                <pre className="bg-slate-100 dark:bg-zinc-800 p-4 rounded-lg text-sm overflow-x-auto">
-                                    <code>{exportFormats.tailwindTheme}</code>
-                                </pre>
-                            </TabsContent>
+                        <TabsContent value="daisyui" className="space-y-4">
+                            <div className="flex gap-2">
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => copyToClipboard(exportFormats.daisyUITheme, "DaisyUI Theme")}
+                                >
+                                    <Copy className="w-4 h-4 mr-2"/>
+                                    Copy
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => downloadFile(exportFormats.daisyUITheme, "daisyui-theme.json")}
+                                >
+                                    <Download className="w-4 h-4 mr-2"/>
+                                    Download
+                                </Button>
+                            </div>
+                            <pre className="bg-slate-100 dark:bg-zinc-800 p-4 rounded-lg text-sm overflow-x-auto">
+                                <code>{exportFormats.daisyUITheme}</code>
+                            </pre>
+                        </TabsContent>
 
-                            <TabsContent value="mantine" className="space-y-4">
-                                <div className="flex gap-2">
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => copyToClipboard(exportFormats.mantineTheme, "Mantine Theme")}
-                                    >
-                                        <Copy className="w-4 h-4 mr-2" />
-                                        Copy
-                                    </Button>
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => downloadFile(exportFormats.mantineTheme, "mantine-theme.json")}
-                                    >
-                                        <Download className="w-4 h-4 mr-2" />
-                                        Download
-                                    </Button>
-                                </div>
-                                <pre className="bg-slate-100 dark:bg-zinc-800 p-4 rounded-lg text-sm overflow-x-auto">
-                                    <code>{exportFormats.mantineTheme}</code>
-                                </pre>
-                            </TabsContent>
-
-                            <TabsContent value="daisyui" className="space-y-4">
-                                <div className="flex gap-2">
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => copyToClipboard(exportFormats.daisyUITheme, "DaisyUI Theme")}
-                                    >
-                                        <Copy className="w-4 h-4 mr-2" />
-                                        Copy
-                                    </Button>
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => downloadFile(exportFormats.daisyUITheme, "daisyui-theme.json")}
-                                    >
-                                        <Download className="w-4 h-4 mr-2" />
-                                        Download
-                                    </Button>
-                                </div>
-                                <pre className="bg-slate-100 dark:bg-zinc-800 p-4 rounded-lg text-sm overflow-x-auto">
-                                    <code>{exportFormats.daisyUITheme}</code>
-                                </pre>
-                            </TabsContent>
-
-                            <TabsContent value="json" className="space-y-4">
-                                <div className="flex gap-2">
-                                    <Button variant="outline" size="sm" onClick={() => copyToClipboard(exportFormats.json, "JSON")}>
-                                        <Copy className="w-4 h-4 mr-2" />
-                                        Copy
-                                    </Button>
-                                    <Button variant="outline" size="sm" onClick={() => downloadFile(exportFormats.json, "palette.json")}>
-                                        <Download className="w-4 h-4 mr-2" />
-                                        Download
-                                    </Button>
-                                </div>
-                                <pre className="bg-slate-100 dark:bg-zinc-800 p-4 rounded-lg text-sm overflow-x-auto">
-                                    <code>{exportFormats.json}</code>
-                                </pre>
-                            </TabsContent>
-                        </Tabs>
-                    </CardContent>
-                </Card>
-            </div>
+                        <TabsContent value="json" className="space-y-4">
+                            <div className="flex gap-2">
+                                <Button variant="outline" size="sm"
+                                        onClick={() => copyToClipboard(exportFormats.json, "JSON")}>
+                                    <Copy className="w-4 h-4 mr-2"/>
+                                    Copy
+                                </Button>
+                                <Button variant="outline" size="sm"
+                                        onClick={() => downloadFile(exportFormats.json, "palette.json")}>
+                                    <Download className="w-4 h-4 mr-2"/>
+                                    Download
+                                </Button>
+                            </div>
+                            <pre className="bg-slate-100 dark:bg-zinc-800 p-4 rounded-lg text-sm overflow-x-auto">
+                                <code>{exportFormats.json}</code>
+                            </pre>
+                        </TabsContent>
+                    </Tabs>
+                </CardContent>
+            </Card>
         </div>
     )
 }
