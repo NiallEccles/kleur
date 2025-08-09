@@ -51,7 +51,7 @@ export function MobileNav({ menuItems }: { menuItems: NewMenuItems }){
                     <div className="flex flex-col space-y-3">
                         {
                             menuItems.map((menuItem) => (
-                                <>
+                                <div key={menuItem.label}>
                                     <h2 className='text-xl mb-0' key={menuItem.label}>{menuItem.label}</h2>
                                     <ol className='ml-3'>
                                         {
@@ -67,7 +67,7 @@ export function MobileNav({ menuItems }: { menuItems: NewMenuItems }){
                                             ))
                                         }
                                     </ol>
-                                </>
+                                </div>
                             ))
                         }
                     </div>
