@@ -9,7 +9,7 @@ export default function PaletteNew() {
         <div className={styles.container}>
             <Nav/>
             <PageTitle title="Create Palette"/>
-            <NewPalette/>
+            {/*<NewPalette/>*/}
             <PaletteGenerator/>
         </div>
     );
