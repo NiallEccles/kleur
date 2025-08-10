@@ -11,7 +11,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {Download, Copy, Palette, Eye, EyeOff, ClipboardCopy} from "lucide-react"
+import {Download, Copy, Palette, Eye, EyeOff, ClipboardCopy, Pencil, Check} from "lucide-react"
 import {toast} from "sonner"
 
 
@@ -188,11 +188,21 @@ export default function PaletteGenerator() {
     const [baseColor, setBaseColor] = useState("#3b82f6")
     const [secondaryColor, setSecondaryColor] = useState("#10b981")
     const [tertiaryColor, setTertiaryColor] = useState("#f59e0b")
+
+    const [colors, setColors] = useState([
+        { name: "Primary", hex: "#3b82f6", displayName: "" },
+        { name: "Secondary", hex: "#10b981", displayName: "" },
+        { name: "Tertiary", hex: "#f59e0b", displayName: "" },
+    ])
+
     const [showAccessibility, setShowAccessibility] = useState(false)
 
     const [baseDisplayName, setBaseDisplayName] = useState("")
     const [secondaryDisplayName, setSecondaryDisplayName] = useState("")
     const [tertiaryDisplayName, setTertiaryDisplayName] = useState("")
+
+    const [editingNameIndex, setEditingNameIndex] = useState<number | null>(null)
+
 
     // Convert the stored hex values to the selected format for display
     const getDisplayValue = (hexValue: string) => formatColor(hexValue, selectedColourFormat)
@@ -248,12 +258,6 @@ export default function PaletteGenerator() {
     }, [])
 
     const palette = useMemo((): ColorPalette[] => {
-        const colors = [
-            {name: "Primary", hex: baseColor, displayName: baseDisplayName},
-            {name: "Secondary", hex: secondaryColor, displayName: secondaryDisplayName},
-            {name: "Tertiary", hex: tertiaryColor, displayName: tertiaryDisplayName},
-        ]
-
         return colors.map((color) => {
             const [h, s, l] = hexToHsl(color.hex)
             return {
@@ -261,11 +265,34 @@ export default function PaletteGenerator() {
                 displayName: color.displayName,
                 hex: color.hex,
                 hsl: `hsl(${h}, ${s}%, ${l}%)`,
-                rgb: `rgb(${Number.parseInt(color.hex.slice(1, 3), 16)}, ${Number.parseInt(color.hex.slice(3, 5), 16)}, ${Number.parseInt(color.hex.slice(5, 7), 16)})`,
+                rgb: `rgb(${parseInt(color.hex.slice(1, 3), 16)}, ${parseInt(color.hex.slice(3, 5), 16)}, ${parseInt(color.hex.slice(5, 7), 16)})`,
                 shades: generateShades(color.hex),
             }
         })
-    }, [baseColor, secondaryColor, tertiaryColor, baseDisplayName, secondaryDisplayName, tertiaryDisplayName, generateShades])
+    }, [colors, generateShades])
+
+    const updateColor = (index: number, newHex: string) => {
+        setColors((prev) => {
+            const newColors = [...prev]
+            newColors[index] = { ...newColors[index], hex: convertColorToHex(newHex) }
+            return newColors
+        })
+    }
+
+    const updateColorName = (index: number, newName: string) => {
+        setColors((prev) => {
+            const newColors = [...prev]
+            newColors[index] = { ...newColors[index], name: newName }
+            return newColors
+        })
+    }
+
+    const addColor = () => {
+        setColors((prev) => [
+            ...prev,
+            { name: `Color ${prev.length + 1}`, hex: "#000000", displayName: "" },
+        ])
+    }
 
     const exportFormats = useMemo(() => {
         const cssVariables = palette
@@ -482,70 +509,80 @@ export default function PaletteGenerator() {
                         ))}
                     </div>
                 </div>
-                <div className="col-span-3 max-h-min sticky top-20">
-                    <Card className="sticky top-20">
+                <div className="col-span-3 max-h-[60vh] sticky top-20">
+                    <Card className="sticky top-20 max-h-[60vh] overflow-scroll">
                         <CardHeader>
                             <CardTitle>Base Colors</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <div className="flex flex-col gap-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="base-color">Primary Color</Label>
-                                    <div className="flex gap-2">
-                                        <Input
-                                            id="base-color"
-                                            type="color"
-                                            value={baseColor}
-                                            onChange={(e) => setBaseColor(e.target.value)}
-                                            className="w-16 h-10 p-1 border-2"
-                                        />
-                                        <Input
-                                            value={getDisplayValue(baseColor)}
-                                            onChange={(e) => handleColorChange(e.target.value, setBaseColor)}
-                                            placeholder={getPlaceholder("#3b82f6")}
-                                            className="flex-1"
-                                        />
-                                    </div>
-                                </div>
+                                <div className="flex flex-col gap-4">
+                                    {colors.map((color, index) => (
+                                        <div className="space-y-2" key={index}>
+                                            <div className="flex flex-col gap-2">
+                                                <div className="flex items-center">
+                                                    {editingNameIndex === index ? (
+                                                        <form
+                                                            onSubmit={(e) => {
+                                                                e.preventDefault(); // prevent page reload
+                                                                updateColorName(index, color.name);
+                                                                // setEditingNameIndex(null); // optional, exit edit mode
+                                                            }}
+                                                            className="flex flex-1 mr-2"
+                                                        >
+                                                            <Input
+                                                                value={color.name}
+                                                                onChange={(e) => updateColorName(index, e.target.value)}
+                                                                // onBlur={() => setEditingNameIndex(null)}
+                                                                className="flex-1 mr-2"
+                                                                autoFocus
+                                                            />
+                                                            <Button
+                                                                size="icon"
+                                                                variant="ghost"
+                                                                onClick={() => setEditingNameIndex(null)}
+                                                            >
+                                                                <Check/>
+                                                            </Button>
+                                                        </form>
+                                                    ) : (
+                                                        <>
+                                                            <span className="flex-1 truncate">{color.name}</span>
+                                                            <Button
+                                                                size="icon"
+                                                                variant="ghost"
+                                                                onClick={() => setEditingNameIndex(index)}
+                                                            >
+                                                                <Pencil/>
+                                                            </Button>
+                                                        </>
+                                                    )}
+                                                </div>
 
-                                <div className="space-y-2">
-                                    <Label htmlFor="secondary-color">Secondary Color</Label>
-                                    <div className="flex gap-2">
-                                        <Input
-                                            id="secondary-color"
-                                            type="color"
-                                            value={secondaryColor}
-                                            onChange={(e) => setSecondaryColor(e.target.value)}
-                                            className="w-16 h-10 p-1 border-2"
-                                        />
-                                        <Input
-                                            value={getDisplayValue(secondaryColor)}
-                                            onChange={(e) => handleColorChange(e.target.value, setSecondaryColor)}
-                                            placeholder={getPlaceholder("#10b981")}
-                                            className="flex-1"
-                                        />
-                                    </div>
-                                </div>
+                                                <div className="flex">
+                                                    <Input
+                                                        type="color"
+                                                        value={color.hex}
+                                                        onChange={(e) => updateColor(index, e.target.value)}
+                                                        className="w-16 h-10 p-1 border-2"
+                                                    />
+                                                    <Input
+                                                        value={getDisplayValue(color.hex)}
+                                                        onChange={(e) => updateColor(index, e.target.value)}
+                                                        placeholder={getPlaceholder(color.hex)}
+                                                        className="flex-1"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
 
-                                <div className="space-y-2">
-                                    <Label htmlFor="tertiary-color">Tertiary Color</Label>
-                                    <div className="flex gap-2">
-                                        <Input
-                                            id="tertiary-color"
-                                            type="color"
-                                            value={tertiaryColor}
-                                            onChange={(e) => setTertiaryColor(e.target.value)}
-                                            className="w-16 h-10 p-1 border-2"
-                                        />
-                                        <Input
-                                            value={getDisplayValue(tertiaryColor)}
-                                            onChange={(e) => handleColorChange(e.target.value, setTertiaryColor)}
-                                            placeholder={getPlaceholder("#f59e0b")}
-                                            className="flex-1"
-                                        />
-                                    </div>
+                                    <Button variant="outline" size="sm" onClick={addColor}>
+                                        + Add Color
+                                    </Button>
                                 </div>
                             </div>
+
 
                             <div className="flex flex-col gap-2">
                                 <Button variant="outline" size="sm"
