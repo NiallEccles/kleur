@@ -11,7 +11,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {Download, Copy, Palette, Eye, EyeOff, ClipboardCopy, Pencil, Check} from "lucide-react"
+import {Download, Copy, Palette, Eye, EyeOff, ClipboardCopy, Pencil, Check, Save, LoaderCircle} from "lucide-react"
 import {toast} from "sonner"
 
 
@@ -202,6 +202,11 @@ export default function PaletteGenerator() {
     const [tertiaryDisplayName, setTertiaryDisplayName] = useState("")
 
     const [editingNameIndex, setEditingNameIndex] = useState<number | null>(null)
+
+    const [paletteName, setPaletteName] = useState("New Palette");
+    const [editingPaletteName, setEditingPaletteName] = useState(false);
+
+    const [isSaving, setIsSaving] = useState(false);
 
 
     // Convert the stored hex values to the selected format for display
@@ -433,22 +438,90 @@ export default function PaletteGenerator() {
 
     return (
         <div>
-            <div className='flex mb-6 justify-end'>
-                <SelectGroup>
-                    <SelectLabel>Colour Format</SelectLabel>
-                    <Select value={selectedColourFormat} onValueChange={(value) => {
-                        setSelectedColourFormat(value)
-                    }}>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue/>
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="hex">HEX</SelectItem>
-                            <SelectItem value="rgb">RGB</SelectItem>
-                            <SelectItem value="hsl">HSL</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </SelectGroup>
+            <div className='flex mb-6 justify-between items-center'>
+                <div className="flex items-center">
+                    {editingPaletteName ? (
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault(); // prevent page reload
+                                // setEditingNameIndex(null); // optional, exit edit mode
+                            }}
+                            className="flex flex-1 mr-2 font-semibold"
+                        >
+                            <Input
+                                value={paletteName}
+                                onChange={(e) => setPaletteName(e.target.value)}
+                                // onBlur={() => setEditingNameIndex(null)}
+                                className="flex flex-1 mr-2"
+                                autoFocus
+                            />
+                            <Button
+                                size="icon"
+                                variant="ghost"
+                                onClick={() => setEditingPaletteName(false)}
+                            >
+                                <Check/>
+                            </Button>
+                        </form>
+                    ) : (
+                        <div className="flex flex-1 gap-3">
+                            <span className="flex-1 leading-none font-semibold flex items-center">{paletteName}</span>
+                            <Button
+                                size="icon"
+                                variant="ghost"
+                                onClick={() => setEditingPaletteName(true)}
+                            >
+                                <Pencil/>
+                            </Button>
+                        </div>
+                    )}
+                </div>
+                <div className='flex items-end gap-2'>
+                    <SelectGroup>
+                        <SelectLabel>Colour Format</SelectLabel>
+                        <Select value={selectedColourFormat} onValueChange={(value) => {
+                            setSelectedColourFormat(value)
+                        }}>
+                            <SelectTrigger className="w-30">
+                                <SelectValue/>
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="hex">HEX</SelectItem>
+                                <SelectItem value="rgb">RGB</SelectItem>
+                                <SelectItem value="hsl">HSL</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </SelectGroup>
+                    <div className='flex items-end gap-2'>
+                        <Button
+                            onClick={() => downloadFile(exportFormats.cssVariables, "palette-variables.css")}
+                            disabled={isSaving}
+                            variant="outline"
+                        >
+                            <Download className="w-4 h-4 mr-2"/>
+                            Export
+                        </Button>
+                        <Button
+                            onClick={() => downloadFile(exportFormats.cssVariables, "palette-variables.css")}
+                            disabled={isSaving}
+                        >
+
+                            {
+                                isSaving ? (
+                                    <>
+                                        <LoaderCircle className="w-4 h-4 mr-2 animate-spin"/>
+                                        Saving
+                                    </>
+                                ) : (
+                                    <>
+                                        <Save className="w-4 h-4 mr-2"/>
+                                        Save
+                                    </>
+                                )
+                            }
+                        </Button>
+                    </div>
+                </div>
             </div>
             <div className="grid grid-cols-12 gap-6">
                 <div className="col-span-9">
@@ -547,7 +620,7 @@ export default function PaletteGenerator() {
                                                         </form>
                                                     ) : (
                                                         <>
-                                                            <span className="flex-1 truncate">{color.name}</span>
+                                                            <span className="flex-1 truncate leading-none font-semibold flex items-center gap-3">{color.name}</span>
                                                             <Button
                                                                 size="icon"
                                                                 variant="ghost"
