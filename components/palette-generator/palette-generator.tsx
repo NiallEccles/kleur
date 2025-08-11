@@ -13,6 +13,13 @@ import {
 } from "@/components/ui/select"
 import {Download, Copy, Palette, Eye, EyeOff, ClipboardCopy, Pencil, Check, Save, LoaderCircle} from "lucide-react"
 import {toast} from "sonner"
+import {
+    ColorPicker,
+    ColorPickerAlpha, ColorPickerEyeDropper, ColorPickerFormat,
+    ColorPickerHue, ColorPickerOutput,
+    ColorPickerSelection
+} from "@/components/ui/shadcn-io/color-picker";
+import ColorSelect from "@/components/colour-select/color-select";
 
 
 // Color utility functions
@@ -184,7 +191,7 @@ interface ColorPalette {
 }
 
 export default function PaletteGenerator() {
-    const [selectedColourFormat, setSelectedColourFormat] = useState("hex")
+    const [selectedColourFormat, setSelectedColourFormat] = useState<'hex' | 'rgb' | 'hsl'>("hex")
     const [baseColor, setBaseColor] = useState("#3b82f6")
     const [secondaryColor, setSecondaryColor] = useState("#10b981")
     const [tertiaryColor, setTertiaryColor] = useState("#f59e0b")
@@ -207,6 +214,19 @@ export default function PaletteGenerator() {
     const [editingPaletteName, setEditingPaletteName] = useState(false);
 
     const [isSaving, setIsSaving] = useState(false);
+
+    const [colorValue, setColorValue] = useState([0, 0, 0, 1]); // Example initial RGBA
+    const [colorMode, setColorMode] = useState<'hex' | 'rgb' | 'hsl'>('hex');
+
+    const handleColorPickerChange = (newRgba: number[]) => {
+        setColorValue(newRgba);
+        console.log("New RGBA:", newRgba);
+    };
+
+    const handleModeChange = (newMode: 'hex' | 'rgb' | 'hsl') => {
+        setColorMode(newMode);
+        console.log("New Mode:", newMode);
+    };
 
 
     // Convert the stored hex values to the selected format for display
@@ -300,11 +320,24 @@ export default function PaletteGenerator() {
     }
 
     const exportFormats = useMemo(() => {
+
+        const getShadeValue = (shade: { hex: string; hsl: string; rgb: string }) => {
+            switch (selectedColourFormat) {
+                case 'rgb':
+                    return shade.rgb
+                case 'hsl':
+                    return shade.hsl
+                case 'hex':
+                default:
+                    return shade.hex
+            }
+        }
+
         const cssVariables = palette
             .map(
                 (color) =>
                     `/* ${color.name} */\n` +
-                    color.shades.map((shade) => `  --color-${color.name.toLowerCase()}-${shade.name}: ${shade.hex};`).join("\n"),
+                    color.shades.map((shade) => `  --color-${color.name.toLowerCase()}-${shade.name}: ${getShadeValue(shade)};`).join("\n"),
             )
             .join("\n\n")
 
@@ -313,8 +346,8 @@ export default function PaletteGenerator() {
                 color.shades
                     .map(
                         (shade) =>
-                            `.bg-${color.name.toLowerCase()}-${shade.name} { background-color: ${shade.hex}; }\n` +
-                            `.text-${color.name.toLowerCase()}-${shade.name} { color: ${shade.hex}; }`,
+                            `.bg-${color.name.toLowerCase()}-${shade.name} { background-color: ${getShadeValue(shade)}; }\n` +
+                            `.text-${color.name.toLowerCase()}-${shade.name} { color: ${getShadeValue(shade)}; }`,
                     )
                     .join("\n"),
             )
@@ -325,7 +358,7 @@ export default function PaletteGenerator() {
                 (acc, color) => {
                     acc[color.name.toLowerCase()] = color.shades.reduce(
                         (shadeAcc, shade) => {
-                            shadeAcc[shade.name] = shade.hex
+                            shadeAcc[shade.name] = getShadeValue(shade)
                             return shadeAcc
                         },
                         {} as Record<string, string>,
@@ -339,7 +372,7 @@ export default function PaletteGenerator() {
         const mantineTheme = {
             colors: palette.reduce(
                 (acc, color) => {
-                    acc[color.name.toLowerCase()] = color.shades.map((shade) => shade.hex)
+                    acc[color.name.toLowerCase()] = color.shades.map((shade) => getShadeValue(shade))
                     return acc
                 },
                 {} as Record<string, string[]>,
@@ -350,7 +383,7 @@ export default function PaletteGenerator() {
             (acc, color, index) => {
                 const colorNames = ["primary", "secondary", "accent"]
                 if (index < colorNames.length) {
-                    acc[colorNames[index]] = color.hex
+                    acc[colorNames[index]] = getShadeValue(color)
                 }
                 return acc
             },
@@ -375,7 +408,7 @@ export default function PaletteGenerator() {
             daisyUITheme: JSON.stringify(daisyUITheme, null, 2),
             json: JSON.stringify(jsonExport, null, 2),
         }
-    }, [palette])
+    }, [palette, selectedColourFormat])
 
     const copyToClipboard = (text: string, format: string) => {
         navigator.clipboard.writeText(text);
@@ -523,6 +556,31 @@ export default function PaletteGenerator() {
                     </div>
                 </div>
             </div>
+            {/*<div>*/}
+            {/*    <ColorSelect mode={selectedColourFormat}/>*/}
+            {/*</div>*/}
+            {/*<div>*/}
+            {/*    <ColorPicker*/}
+            {/*        value={colorValue}*/}
+            {/*        onChange={(e) => {*/}
+            {/*            console.log(e)}}*/}
+            {/*        mode={selectedColourFormat} // Pass the controlled mode*/}
+            {/*        // If you wanted an uncontrolled default mode, you could use defaultMode="rgb" instead*/}
+            {/*    >*/}
+            {/*        <div className="flex flex-col gap-4">*/}
+            {/*            <ColorPickerSelection className="h-60 w-60" />*/}
+            {/*            <div className="flex flex-col gap-4">*/}
+            {/*                <ColorPickerHue />*/}
+            {/*                <ColorPickerAlpha />*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*        <div className="flex items-center gap-2">*/}
+            {/*            <ColorPickerEyeDropper />*/}
+            {/*            <ColorPickerOutput /> /!* This component still allows internal mode changes *!/*/}
+            {/*            <ColorPickerFormat />*/}
+            {/*        </div>*/}
+            {/*    </ColorPicker>*/}
+            {/*</div>*/}
             <div className="grid grid-cols-12 gap-6">
                 <div className="col-span-9">
                     <div className="flex flex-col gap-6">
@@ -582,8 +640,8 @@ export default function PaletteGenerator() {
                         ))}
                     </div>
                 </div>
-                <div className="col-span-3 max-h-[60vh] sticky top-20">
-                    <Card className="sticky top-20 max-h-[60vh] overflow-scroll">
+                <div className="col-span-3">
+                    <Card>
                         <CardHeader>
                             <CardTitle>Base Colors</CardTitle>
                         </CardHeader>
