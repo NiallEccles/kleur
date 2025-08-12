@@ -209,6 +209,7 @@ export default function PaletteGenerator() {
     const [tertiaryDisplayName, setTertiaryDisplayName] = useState("")
 
     const [editingNameIndex, setEditingNameIndex] = useState<number | null>(null)
+    const [colourIndex, setColourIndex] = useState<number | null>(null);
 
     const [paletteName, setPaletteName] = useState("New Palette");
     const [editingPaletteName, setEditingPaletteName] = useState(false);
@@ -489,22 +490,22 @@ export default function PaletteGenerator() {
                                 autoFocus
                             />
                             <Button
-                                size="icon"
                                 variant="ghost"
                                 onClick={() => setEditingPaletteName(false)}
                             >
                                 <Check/>
+                                Save
                             </Button>
                         </form>
                     ) : (
                         <div className="flex flex-1 gap-3">
-                            <span className="flex-1 leading-none font-semibold flex items-center">{paletteName}</span>
+                            <span className="flex flex-1 leading-none font-semibold items-center">{paletteName}</span>
                             <Button
-                                size="icon"
                                 variant="ghost"
                                 onClick={() => setEditingPaletteName(true)}
                             >
-                                <Pencil/>
+                                <Pencil className="w-4 h-4 mr-2"/>
+                                Edit
                             </Button>
                         </div>
                     )}
@@ -556,42 +557,45 @@ export default function PaletteGenerator() {
                     </div>
                 </div>
             </div>
-            {/*<div>*/}
-            {/*    <ColorSelect mode={selectedColourFormat}/>*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*    <ColorPicker*/}
-            {/*        value={colorValue}*/}
-            {/*        onChange={(e) => {*/}
-            {/*            console.log(e)}}*/}
-            {/*        mode={selectedColourFormat} // Pass the controlled mode*/}
-            {/*        // If you wanted an uncontrolled default mode, you could use defaultMode="rgb" instead*/}
-            {/*    >*/}
-            {/*        <div className="flex flex-col gap-4">*/}
-            {/*            <ColorPickerSelection className="h-60 w-60" />*/}
-            {/*            <div className="flex flex-col gap-4">*/}
-            {/*                <ColorPickerHue />*/}
-            {/*                <ColorPickerAlpha />*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*        <div className="flex items-center gap-2">*/}
-            {/*            <ColorPickerEyeDropper />*/}
-            {/*            <ColorPickerOutput /> /!* This component still allows internal mode changes *!/*/}
-            {/*            <ColorPickerFormat />*/}
-            {/*        </div>*/}
-            {/*    </ColorPicker>*/}
-            {/*</div>*/}
             <div className="grid grid-cols-12 gap-6">
                 <div className="col-span-9">
                     <div className="flex flex-col gap-6">
-                        {palette.map((colorGroup) => (
+                        {palette.map((colorGroup, index) => (
                             <Card key={colorGroup.name}>
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-3">
-                                        <div
-                                            className="w-6 h-6 rounded-full border-2 border-white shadow-sm"
+                                        <button
+                                            className="relative w-8 h-8 rounded-full border-4 border-white shadow-sm hover:border-6 hover:transition-all focus:border-6 focus:transition-all transition-all"
                                             style={{backgroundColor: colorGroup.hex}}
-                                        />
+                                            onClick={()=>setColourIndex(index)}
+                                        >
+                                            {
+                                                colourIndex === index && (
+                                                    <div className="absolute top-2 left-2 bg-white shadow-sm p-2 rounded-md z-10">
+                                                        <ColorPicker
+                                                            value={colorValue}
+                                                            onChange={(e) => {
+                                                                console.log(e)}}
+                                                            mode={selectedColourFormat} // Pass the controlled mode
+                                                            // If you wanted an uncontrolled default mode, you could use defaultMode="rgb" instead
+                                                        >
+                                                            <div className="flex flex-col gap-4">
+                                                                <ColorPickerSelection className="h-60 w-60" />
+                                                                <div className="flex flex-col gap-4">
+                                                                    <ColorPickerHue />
+                                                                    <ColorPickerAlpha />
+                                                                </div>
+                                                            </div>
+                                                            <div className="flex items-center gap-2">
+                                                                <ColorPickerEyeDropper />
+                                                                <ColorPickerOutput /> {/* This component still allows internal mode changes */}
+                                                                <ColorPickerFormat />
+                                                            </div>
+                                                        </ColorPicker>
+                                                    </div>
+                                                )
+                                            }
+                                        </button>
                                         {colorGroup.name}
                                     </CardTitle>
                                 </CardHeader>
