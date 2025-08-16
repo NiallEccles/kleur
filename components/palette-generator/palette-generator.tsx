@@ -1,7 +1,6 @@
 import {useState, useCallback, useMemo} from "react"
 import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
-import {Label} from "@/components/ui/label"
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import {
@@ -11,7 +10,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {Download, Copy, Palette, Eye, EyeOff, ClipboardCopy, Pencil, Check, Save, LoaderCircle} from "lucide-react"
+import {Download, Copy, Eye, EyeOff, Pencil, Check, Save, LoaderCircle} from "lucide-react"
 import {toast} from "sonner"
 import {
     ColorPicker,
@@ -19,7 +18,6 @@ import {
     ColorPickerHue, ColorPickerOutput,
     ColorPickerSelection
 } from "@/components/ui/shadcn-io/color-picker";
-import ColorSelect from "@/components/colour-select/color-select";
 
 
 // Color utility functions
@@ -190,11 +188,10 @@ interface ColorPalette {
     }>
 }
 
+type SupportedColourFormats = 'hex' | 'rgb' | 'hsl';
+
 export default function PaletteGenerator() {
-    const [selectedColourFormat, setSelectedColourFormat] = useState<'hex' | 'rgb' | 'hsl'>("hex")
-    const [baseColor, setBaseColor] = useState("#3b82f6")
-    const [secondaryColor, setSecondaryColor] = useState("#10b981")
-    const [tertiaryColor, setTertiaryColor] = useState("#f59e0b")
+    const [selectedColourFormat, setSelectedColourFormat] = useState<SupportedColourFormats>("hex")
 
     const [colors, setColors] = useState([
         { name: "Primary", hex: "#3b82f6", displayName: "" },
@@ -202,33 +199,24 @@ export default function PaletteGenerator() {
         { name: "Tertiary", hex: "#f59e0b", displayName: "" },
     ])
 
-    const [showAccessibility, setShowAccessibility] = useState(false)
+    const defaultPaletteName = "New Palette";
 
-    const [baseDisplayName, setBaseDisplayName] = useState("")
-    const [secondaryDisplayName, setSecondaryDisplayName] = useState("")
-    const [tertiaryDisplayName, setTertiaryDisplayName] = useState("")
+    const [showAccessibility, setShowAccessibility] = useState(false)
 
     const [editingNameIndex, setEditingNameIndex] = useState<number | null>(null)
     const [colourIndex, setColourIndex] = useState<number | null>(null);
 
-    const [paletteName, setPaletteName] = useState("New Palette");
+    const [paletteName, setPaletteName] = useState(defaultPaletteName);
     const [editingPaletteName, setEditingPaletteName] = useState(false);
 
     const [isSaving, setIsSaving] = useState(false);
 
     const [colorValue, setColorValue] = useState([0, 0, 0, 1]); // Example initial RGBA
-    const [colorMode, setColorMode] = useState<'hex' | 'rgb' | 'hsl'>('hex');
 
     const handleColorPickerChange = (newRgba: number[]) => {
         setColorValue(newRgba);
         console.log("New RGBA:", newRgba);
     };
-
-    const handleModeChange = (newMode: 'hex' | 'rgb' | 'hsl') => {
-        setColorMode(newMode);
-        console.log("New Mode:", newMode);
-    };
-
 
     // Convert the stored hex values to the selected format for display
     const getDisplayValue = (hexValue: string) => formatColor(hexValue, selectedColourFormat)
@@ -491,7 +479,12 @@ export default function PaletteGenerator() {
                             />
                             <Button
                                 variant="ghost"
-                                onClick={() => setEditingPaletteName(false)}
+                                onClick={() => {
+                                    setEditingPaletteName(false);
+                                    if (paletteName.length <= 0) {
+                                        setPaletteName(defaultPaletteName)
+                                    }
+                                }}
                             >
                                 <Check/>
                                 Save
@@ -513,14 +506,14 @@ export default function PaletteGenerator() {
                 <div className='flex items-end gap-2'>
                     <SelectGroup>
                         <SelectLabel>Colour Format</SelectLabel>
-                        <Select value={selectedColourFormat} onValueChange={(value) => {
+                        <Select value={selectedColourFormat} onValueChange={(value: SupportedColourFormats) => {
                             setSelectedColourFormat(value)
                         }}>
                             <SelectTrigger className="w-30">
                                 <SelectValue/>
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="hex">HEX</SelectItem>
+                                <SelectItem value="hex">Hex</SelectItem>
                                 <SelectItem value="rgb">RGB</SelectItem>
                                 <SelectItem value="hsl">HSL</SelectItem>
                             </SelectContent>
