@@ -551,6 +551,91 @@ export default function PaletteGenerator() {
                 </div>
             </div>
             <div className="grid grid-cols-12 gap-6">
+                <div className="col-span-3">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Base Colours</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-6">
+                            <div className="flex flex-col gap-4">
+                                <div className="flex flex-col gap-4">
+                                    {colors.map((color, index) => (
+                                        <div className="space-y-2" key={index}>
+                                            <div className="flex flex-col gap-2">
+                                                <div className="flex items-center">
+                                                    {editingNameIndex === index ? (
+                                                        <form
+                                                            onSubmit={(e) => {
+                                                                e.preventDefault(); // prevent page reload
+                                                                updateColorName(index, color.name);
+                                                                // setEditingNameIndex(null); // optional, exit edit mode
+                                                            }}
+                                                            className="flex flex-1 mr-2"
+                                                        >
+                                                            <Input
+                                                                value={color.name}
+                                                                onChange={(e) => updateColorName(index, e.target.value)}
+                                                                // onBlur={() => setEditingNameIndex(null)}
+                                                                className="flex-1 mr-2"
+                                                                autoFocus
+                                                            />
+                                                            <Button
+                                                                size="icon"
+                                                                variant="ghost"
+                                                                onClick={() => setEditingNameIndex(null)}
+                                                            >
+                                                                <Check/>
+                                                            </Button>
+                                                        </form>
+                                                    ) : (
+                                                        <>
+                                                            <span className="flex-1 truncate leading-none font-semibold flex items-center gap-3">{color.name}</span>
+                                                            <Button
+                                                                size="icon"
+                                                                variant="ghost"
+                                                                onClick={() => setEditingNameIndex(index)}
+                                                            >
+                                                                <Pencil/>
+                                                            </Button>
+                                                        </>
+                                                    )}
+                                                </div>
+
+                                                <div className="flex">
+                                                    <Input
+                                                        type="color"
+                                                        value={color.hex}
+                                                        onChange={(e) => updateColor(index, e.target.value)}
+                                                        className="w-16 h-10 p-1 border-2"
+                                                    />
+                                                    <Input
+                                                        value={getDisplayValue(color.hex)}
+                                                        onChange={(e) => updateColor(index, e.target.value)}
+                                                        placeholder={getPlaceholder(color.hex)}
+                                                        className="flex-1"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                    <Button variant="outline" size="sm" onClick={addColor}>
+                                        + Add Color
+                                    </Button>
+                                </div>
+                            </div>
+
+
+                            <div className="flex flex-col gap-2">
+                                <Button variant="outline" size="sm"
+                                        onClick={() => setShowAccessibility(!showAccessibility)}>
+                                    {showAccessibility ? <EyeOff className="w-4 h-4"/> : <Eye className="w-4 h-4"/>}
+                                    {showAccessibility ? "Hide" : "Show"} Accessibility Info
+                                </Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
                 <div className="col-span-9">
                     <div className="flex flex-col gap-6">
                         {palette.map((colorGroup, index) => (
@@ -636,91 +721,6 @@ export default function PaletteGenerator() {
                             </Card>
                         ))}
                     </div>
-                </div>
-                <div className="col-span-3">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Base Colors</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-6">
-                            <div className="flex flex-col gap-4">
-                                <div className="flex flex-col gap-4">
-                                    {colors.map((color, index) => (
-                                        <div className="space-y-2" key={index}>
-                                            <div className="flex flex-col gap-2">
-                                                <div className="flex items-center">
-                                                    {editingNameIndex === index ? (
-                                                        <form
-                                                            onSubmit={(e) => {
-                                                                e.preventDefault(); // prevent page reload
-                                                                updateColorName(index, color.name);
-                                                                // setEditingNameIndex(null); // optional, exit edit mode
-                                                            }}
-                                                            className="flex flex-1 mr-2"
-                                                        >
-                                                            <Input
-                                                                value={color.name}
-                                                                onChange={(e) => updateColorName(index, e.target.value)}
-                                                                // onBlur={() => setEditingNameIndex(null)}
-                                                                className="flex-1 mr-2"
-                                                                autoFocus
-                                                            />
-                                                            <Button
-                                                                size="icon"
-                                                                variant="ghost"
-                                                                onClick={() => setEditingNameIndex(null)}
-                                                            >
-                                                                <Check/>
-                                                            </Button>
-                                                        </form>
-                                                    ) : (
-                                                        <>
-                                                            <span className="flex-1 truncate leading-none font-semibold flex items-center gap-3">{color.name}</span>
-                                                            <Button
-                                                                size="icon"
-                                                                variant="ghost"
-                                                                onClick={() => setEditingNameIndex(index)}
-                                                            >
-                                                                <Pencil/>
-                                                            </Button>
-                                                        </>
-                                                    )}
-                                                </div>
-
-                                                <div className="flex">
-                                                    <Input
-                                                        type="color"
-                                                        value={color.hex}
-                                                        onChange={(e) => updateColor(index, e.target.value)}
-                                                        className="w-16 h-10 p-1 border-2"
-                                                    />
-                                                    <Input
-                                                        value={getDisplayValue(color.hex)}
-                                                        onChange={(e) => updateColor(index, e.target.value)}
-                                                        placeholder={getPlaceholder(color.hex)}
-                                                        className="flex-1"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-
-                                    <Button variant="outline" size="sm" onClick={addColor}>
-                                        + Add Color
-                                    </Button>
-                                </div>
-                            </div>
-
-
-                            <div className="flex flex-col gap-2">
-                                <Button variant="outline" size="sm"
-                                        onClick={() => setShowAccessibility(!showAccessibility)}>
-                                    {showAccessibility ? <EyeOff className="w-4 h-4"/> : <Eye className="w-4 h-4"/>}
-                                    {showAccessibility ? "Hide" : "Show"} Accessibility Info
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
                 </div>
             </div>
 
