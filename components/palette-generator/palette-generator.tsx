@@ -1,4 +1,4 @@
-import {useState, useCallback, useMemo} from "react"
+import {useState, useCallback, useMemo, KeyboardEvent} from "react"
 import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
@@ -12,13 +12,11 @@ import {
 } from "@/components/ui/select"
 import {Download, Copy, Eye, EyeOff, Pencil, Check, Save, LoaderCircle} from "lucide-react"
 import {toast} from "sonner"
-import {
-    ColorPicker,
-    ColorPickerAlpha, ColorPickerEyeDropper, ColorPickerFormat,
-    ColorPickerHue, ColorPickerOutput,
-    ColorPickerSelection
-} from "@/components/ui/shadcn-io/color-picker";
 import { hexToHsl, hslToHex, rgbToHex, hexToRgb } from "@/lib/utils";
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
+import Link from "next/link";
+import saveToStorage from "@/hooks/saveToStorage.hook";
+import {editStorageKey} from "@/hooks/editStorageKey.hook";
 
 const parseColorString = (colorStr: string): [number, number, number] | null => {
     // Remove whitespace
@@ -129,9 +127,13 @@ export default function PaletteGenerator() {
     const [paletteName, setPaletteName] = useState(defaultPaletteName);
     const [editingPaletteName, setEditingPaletteName] = useState(false);
 
+    const [editedPaletteName, setEditedPaletteName] = useState<string | null>(null);
+
     const [isSaving, setIsSaving] = useState(false);
 
     const [colorValue, setColorValue] = useState([0, 0, 0, 1]); // Example initial RGBA
+
+    const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
 
     const handleColorPickerChange = (newRgba: number[]) => {
         setColorValue(newRgba);
@@ -378,6 +380,12 @@ export default function PaletteGenerator() {
         setter(hexColor)
     }
 
+    const save = () => {
+        setIsSaving(true);
+        saveToStorage('palettes', {paletteName, colors});
+        setIsSaving(false);
+    };
+
     return (
         <div>
             <div className='flex mb-6 justify-between items-center'>
@@ -385,14 +393,29 @@ export default function PaletteGenerator() {
                     {editingPaletteName ? (
                         <form
                             onSubmit={(e) => {
+                                console.log('jnkjn')
+                                setEditingPaletteName(true);
                                 e.preventDefault(); // prevent page reload
                                 // setEditingNameIndex(null); // optional, exit edit mode
+                                console.log(e)
                             }}
                             className="flex flex-1 mr-2 font-semibold"
                         >
                             <Input
                                 value={paletteName}
-                                onChange={(e) => setPaletteName(e.target.value)}
+                                onChange={(e) => {
+                                    setPaletteName(e.target.value);
+                                    setEditedPaletteName(e.target.value);
+                                }}
+                                onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
+                                    if(e.key === 'Enter') {
+                                        e.preventDefault();
+                                        setEditingPaletteName(false);
+                                        if(editedPaletteName) {
+                                            editStorageKey('palettes', paletteName, editedPaletteName);
+                                        }
+                                    }
+                                }}
                                 // onBlur={() => setEditingNameIndex(null)}
                                 className="flex flex-1 mr-2"
                                 autoFocus
@@ -403,6 +426,9 @@ export default function PaletteGenerator() {
                                     setEditingPaletteName(false);
                                     if (paletteName.length <= 0) {
                                         setPaletteName(defaultPaletteName)
+                                        if(editedPaletteName) {
+                                            editStorageKey('palettes', paletteName, editedPaletteName);
+                                        }
                                     }
                                 }}
                             >
@@ -441,15 +467,17 @@ export default function PaletteGenerator() {
                     </SelectGroup>
                     <div className='flex items-end gap-2'>
                         <Button
-                            onClick={() => downloadFile(exportFormats.cssVariables, "palette-variables.css")}
                             disabled={isSaving}
                             variant="outline"
+                            asChild
                         >
-                            <Download className="w-4 h-4 mr-2"/>
-                            Export
+                            <Link href="#export">
+                                <Download className="w-4 h-4 mr-2"/>
+                                Export
+                            </Link>
                         </Button>
                         <Button
-                            onClick={() => downloadFile(exportFormats.cssVariables, "palette-variables.css")}
+                            onClick={save}
                             disabled={isSaving}
                         >
 
@@ -562,38 +590,11 @@ export default function PaletteGenerator() {
                             <Card key={colorGroup.name}>
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-3">
-                                        <button
-                                            className="relative w-8 h-8 rounded-full border-4 border-white shadow-sm hover:border-6 hover:transition-all focus:border-6 focus:transition-all transition-all"
+                                        <div
+                                            className="relative w-8 h-8 rounded-full border-4 border-white shadow-sm"
                                             style={{backgroundColor: colorGroup.hex}}
-                                            onClick={()=>setColourIndex(index)}
                                         >
-                                            {
-                                                colourIndex === index && (
-                                                    <div className="absolute top-2 left-2 bg-white shadow-sm p-2 rounded-md z-10">
-                                                        <ColorPicker
-                                                            value={colorValue}
-                                                            onChange={(e) => {
-                                                                console.log(e)}}
-                                                            mode={selectedColourFormat} // Pass the controlled mode
-                                                            // If you wanted an uncontrolled default mode, you could use defaultMode="rgb" instead
-                                                        >
-                                                            <div className="flex flex-col gap-4">
-                                                                <ColorPickerSelection className="h-60 w-60" />
-                                                                <div className="flex flex-col gap-4">
-                                                                    <ColorPickerHue />
-                                                                    <ColorPickerAlpha />
-                                                                </div>
-                                                            </div>
-                                                            <div className="flex items-center gap-2">
-                                                                <ColorPickerEyeDropper />
-                                                                <ColorPickerOutput /> {/* This component still allows internal mode changes */}
-                                                                <ColorPickerFormat />
-                                                            </div>
-                                                        </ColorPicker>
-                                                    </div>
-                                                )
-                                            }
-                                        </button>
+                                        </div>
                                         {colorGroup.name}
                                     </CardTitle>
                                 </CardHeader>
@@ -644,6 +645,16 @@ export default function PaletteGenerator() {
                 </div>
             </div>
 
+            <Dialog open={isExportDialogOpen}>
+                <DialogHeader className="sr-only">
+                    <DialogTitle>test</DialogTitle>
+                    <DialogDescription>test</DialogDescription>
+                </DialogHeader>
+                <DialogContent>
+                    <h1>h</h1>
+                </DialogContent>
+            </Dialog>
+            <div id="export"></div>
             <Card className="mt-8">
                 <CardHeader>
                     <CardTitle>Export Palette</CardTitle>
