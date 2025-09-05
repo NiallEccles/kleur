@@ -57,7 +57,7 @@ export type ColorPickerProps = HTMLAttributes<HTMLDivElement> & {
   onChange?: (value: Parameters<typeof Color.rgb>[0]) => void;
 };
 
-export const ColorPicker = ({
+export const ColourPicker = ({
   value,
   defaultValue = '#000000',
   onChange,
@@ -374,12 +374,12 @@ export const ColorPickerFormat = ({
         {...props}
       >
         <Input
-          className="h-8 rounded-r-none bg-secondary px-2 text-xs shadow-none"
+          className="h-8 bg-secondary px-2 text-xs shadow-none"
           readOnly
           type="text"
           value={hex}
         />
-        <PercentageInput value={alpha} />
+        {/*<PercentageInput value={alpha} />*/}
       </div>
     );
   }
