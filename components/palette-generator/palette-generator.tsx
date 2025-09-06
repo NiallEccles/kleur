@@ -10,13 +10,17 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {Download, Copy, Eye, EyeOff, Pencil, Check, Save, LoaderCircle} from "lucide-react"
+import {Label} from "@/components/ui/label";
+import {Download, Copy, Eye, EyeOff, Pencil, Check, Save, LoaderCircle, X, Trash2, Plus} from "lucide-react"
 import {toast} from "sonner"
 import { hexToHsl, hslToHex, rgbToHex, hexToRgb } from "@/lib/utils";
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch"
 import Link from "next/link";
 import saveToStorage from "@/hooks/saveToStorage.hook";
 import {editStorageKey} from "@/hooks/editStorageKey.hook";
+import {usePathname, useSearchParams} from "next/navigation";
+import {useRouter} from "next/router";
 
 const parseColorString = (colorStr: string): [number, number, number] | null => {
     // Remove whitespace
@@ -106,16 +110,27 @@ interface ColorPalette {
     }>
 }
 
+interface Color {
+    name: string
+    displayName: string
+    hex: string
+}
+
 type SupportedColourFormats = 'hex' | 'rgb' | 'hsl';
 
-export default function PaletteGenerator() {
+interface PaletteGeneratorProps {
+    name: string;
+    cols: Color[];
+}
+
+export default function PaletteGenerator({name, cols}: PaletteGeneratorProps) {
     const [selectedColourFormat, setSelectedColourFormat] = useState<SupportedColourFormats>("hex")
 
-    const [colors, setColors] = useState([
+    const [colors, setColors] = useState(cols ?? [
         { name: "Primary", hex: "#3b82f6", displayName: "" },
         { name: "Secondary", hex: "#10b981", displayName: "" },
         { name: "Tertiary", hex: "#f59e0b", displayName: "" },
-    ])
+    ]);
 
     const defaultPaletteName = "New Palette";
 
@@ -124,7 +139,7 @@ export default function PaletteGenerator() {
     const [editingNameIndex, setEditingNameIndex] = useState<number | null>(null)
     const [colourIndex, setColourIndex] = useState<number | null>(null);
 
-    const [paletteName, setPaletteName] = useState(defaultPaletteName);
+    const [paletteName, setPaletteName] = useState(name ?? defaultPaletteName);
     const [editingPaletteName, setEditingPaletteName] = useState(false);
 
     const [editedPaletteName, setEditedPaletteName] = useState<string | null>(null);
@@ -229,6 +244,14 @@ export default function PaletteGenerator() {
             { name: `Color ${prev.length + 1}`, hex: "#000000", displayName: "" },
         ])
     }
+
+    const removeColor = (index: number) => {
+        setColors((prev) => prev.filter((_, i) => i !== index))
+    }
+
+    const searchParams = useSearchParams();
+    const { replace } = useRouter();
+    const pathname = usePathname();
 
     const exportFormats = useMemo(() => {
 
@@ -382,13 +405,21 @@ export default function PaletteGenerator() {
 
     const save = () => {
         setIsSaving(true);
-        saveToStorage('palettes', {paletteName, colors});
-        setIsSaving(false);
+        setTimeout(() => {
+            saveToStorage('palettes', {paletteName, colors});
+            setIsSaving(false);
+            toast('Saved');
+        }, 500);
+        console.log(pathname);
+        const params = new URLSearchParams(searchParams);
+        params.set('name', paletteName);
+        console.log(paletteName, params.toString());
+        replace(`/palette?${params.toString()}`);
     };
 
     return (
         <div>
-            <div className='flex mb-6 justify-between items-center'>
+            <div className='flex justify-between items-center'>
                 <div className="flex items-center">
                     {editingPaletteName ? (
                         <form
@@ -498,6 +529,20 @@ export default function PaletteGenerator() {
                     </div>
                 </div>
             </div>
+            <div className='flex items-center justify-end gap-4 mt-6 mb-6'>
+                <div className='flex items-center justify-end gap-2'>
+                    <Label htmlFor="a11y">
+                        Show Accessibility Info
+                    </Label>
+                    <Switch id="a11y" checked={showAccessibility} onCheckedChange={() => setShowAccessibility(!showAccessibility)} />
+                </div>
+                <Button
+                    variant="outline"
+                >
+                    <Plus className="w-4 h-4 mr-2"/>
+                    Add Color
+                </Button>
+            </div>
             <div className="grid grid-cols-12 gap-6">
                 <div className="col-span-3">
                     <Card>
@@ -539,11 +584,11 @@ export default function PaletteGenerator() {
                                                         <>
                                                             <span className="flex-1 truncate leading-none font-semibold flex items-center gap-3">{color.name}</span>
                                                             <Button
-                                                                size="icon"
                                                                 variant="ghost"
                                                                 onClick={() => setEditingNameIndex(index)}
                                                             >
-                                                                <Pencil/>
+                                                                <Pencil className="w-4 h-4 mr-2"/>
+                                                                Edit
                                                             </Button>
                                                         </>
                                                     )}
@@ -589,13 +634,23 @@ export default function PaletteGenerator() {
                         {palette.map((colorGroup, index) => (
                             <Card key={colorGroup.name}>
                                 <CardHeader>
-                                    <CardTitle className="flex items-center gap-3">
-                                        <div
-                                            className="relative w-8 h-8 rounded-full border-4 border-white shadow-sm"
-                                            style={{backgroundColor: colorGroup.hex}}
-                                        >
+                                    <CardTitle className="flex items-center justify-between gap-3">
+                                        <div className="flex items-center gap-3">
+                                            <div
+                                                className="relative w-8 h-8 rounded-full border-4 border-white shadow-sm"
+                                                style={{backgroundColor: colorGroup.hex}}
+                                            >
+                                            </div>
+                                            {colorGroup.name}
                                         </div>
-                                        {colorGroup.name}
+                                        <Button
+                                            className="hover:bg-red-500 hover:text-white focus:bg-red-500 dark:hover:text-red-400"
+                                            variant="ghost"
+                                            onClick={() => removeColor(index)}
+                                        >
+                                            <Trash2 className="w-4 h-4 mr-2"/>
+                                            Delete
+                                        </Button>
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent>
