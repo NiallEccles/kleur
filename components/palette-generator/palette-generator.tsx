@@ -13,7 +13,7 @@ import {
 import {Label} from "@/components/ui/label";
 import {Download, Copy, Eye, EyeOff, Pencil, Check, Save, LoaderCircle, X, Trash2, Plus} from "lucide-react"
 import {toast} from "sonner"
-import { hexToHsl, hslToHex, rgbToHex, hexToRgb } from "@/lib/utils";
+import {hexToHsl, hslToHex, rgbToHex, hexToRgb, parseColorString, convertColorToHex} from "@/lib/utils";
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch"
 import Link from "next/link";
@@ -21,42 +21,6 @@ import saveToStorage from "@/hooks/saveToStorage.hook";
 import {editStorageKey} from "@/hooks/editStorageKey.hook";
 import {usePathname, useSearchParams} from "next/navigation";
 import {useRouter} from "next/router";
-
-const parseColorString = (colorStr: string): [number, number, number] | null => {
-    // Remove whitespace
-    colorStr = colorStr.trim()
-
-    // Hex format
-    if (colorStr.startsWith('#')) {
-        if (colorStr.length === 7) {
-            return hexToRgb(colorStr)
-        }
-    }
-
-    // RGB format
-    const rgbMatch = colorStr.match(/rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/)
-    if (rgbMatch) {
-        return [parseInt(rgbMatch[1]), parseInt(rgbMatch[2]), parseInt(rgbMatch[3])]
-    }
-
-    // HSL format
-    const hslMatch = colorStr.match(/hsl\s*\(\s*(\d+)\s*,\s*(\d+)%?\s*,\s*(\d+)%?\s*\)/)
-    if (hslMatch) {
-        const h = parseInt(hslMatch[1])
-        const s = parseInt(hslMatch[2])
-        const l = parseInt(hslMatch[3])
-        const hex = hslToHex(h, s, l)
-        return hexToRgb(hex)
-    }
-
-    return null
-}
-
-const convertColorToHex = (colorStr: string): string => {
-    const rgb = parseColorString(colorStr)
-    if (!rgb) return "#000000"
-    return rgbToHex(rgb[0], rgb[1], rgb[2])
-}
 
 const formatColor = (hex: string, format: string): string => {
     switch (format) {
@@ -642,6 +606,21 @@ export default function PaletteGenerator({name, cols}: PaletteGeneratorProps) {
                                             >
                                             </div>
                                             {colorGroup.name}
+                                            <Button
+                                                variant="ghost"
+                                                onClick={() => {
+                                                    setEditingPaletteName(false);
+                                                    if (paletteName.length <= 0) {
+                                                        setPaletteName(defaultPaletteName)
+                                                        if(editedPaletteName) {
+                                                            editStorageKey('palettes', paletteName, editedPaletteName);
+                                                        }
+                                                    }
+                                                }}
+                                            >
+                                                <Pencil/>
+                                                Edit
+                                            </Button>
                                         </div>
                                         <Button
                                             className="hover:bg-red-500 hover:text-white focus:bg-red-500 dark:hover:text-red-400"
