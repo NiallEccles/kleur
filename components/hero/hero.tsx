@@ -52,7 +52,7 @@ export const Hero = () => {
           centerY={0}
           zoom={0.9}
         />
-        <div className="pointer-events-none absolute -bottom-0.5 z-10 left-0 h-30 w-full bg-gradient-to-t from-white to-transparent"></div>
+        <div className="pointer-events-none absolute -bottom-2 z-10 left-0 h-30 w-full bg-gradient-to-t from-white to-transparent"></div>
       </div>
     </div>
   );
