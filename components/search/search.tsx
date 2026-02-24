@@ -9,8 +9,7 @@ import {
 } from "@/components/ui/command";
 import {useEffect, useState} from "react";
 import {MenuItem} from "@/types/MenuItem";
-import {router} from "next/client";
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
 import {Button} from "@/components/ui/button";
 import {useCommandItems} from "@/customHooks/useCommandItems";
 
