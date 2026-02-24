@@ -1,13 +1,17 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import Hero from './hero';
+import Hero from './hero'
+
+jest.mock('@/components/Grainient', () => () => null)
 
 describe('Hero', () => {
-    it('renders a heading', () => {
+    it('renders the main heading', () => {
         render(<Hero />)
+        expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
+    })
 
-        const heading = screen.getByRole('heading', { level: 1, name: 'kleur' })
-
-        expect(heading).toBeInTheDocument()
+    it('renders a link to explore tools', () => {
+        render(<Hero />)
+        expect(screen.getByRole('link', { name: 'Explore Tools' })).toBeInTheDocument()
     })
 })
