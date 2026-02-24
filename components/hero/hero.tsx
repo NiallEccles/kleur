@@ -27,8 +27,9 @@ export const Hero = () => {
           </Button>
         </div>
       </div>
-      <div className="w-full absolute top-0 left-0 h-dvh">
+      <div className="w-full absolute top-0 left-0 h-dvh overflow-hidden">
         <Grainient
+          className="h-full"
           color1="#E9D5FF"
           color2="#93C5FD"
           color3="#6EE7B7"
