@@ -6,14 +6,14 @@ export const Hero = () => {
   return (
     <div className="relative flex items-center justify-center h-dvh">
       <div className="relative z-10">
-        <div className="text-center max-w-4xl mx-auto ">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-20 font-bold tracking-tight text-slate-900 dark:text-slate-100 mb-6">
+        <div className="text-center max-w-4xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl md:leading-18 font-bold tracking-tight text-slate-900 dark:text-slate-100 mb-6">
             <span className="block text-slate-900 dark:text-slate-100 mt-2">
               Master Colour <br /> Like Never Before
             </span>
           </h1>
         </div>
-        <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto text-center leading-relaxed">
+        <p className="text-md sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto text-center leading-relaxed">
           A comprehensive suite of color tools <br /> designed for designers and
           developers
         </p>
@@ -27,7 +27,7 @@ export const Hero = () => {
           </Button>
         </div>
       </div>
-      <div className="w-full absolute top-0 left-0 h-full overflow-hidden">
+      <div className="w-full absolute top-0 left-0 h-dvh">
         <Grainient
           color1="#E9D5FF"
           color2="#93C5FD"
