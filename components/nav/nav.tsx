@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link";
-import NavLink from "../nav-link/nav-link";
 import {
   PaletteIcon,
   SwatchBook,
@@ -10,7 +9,6 @@ import {
   Blend,
 } from "lucide-react";
 import {
-  useState,
   forwardRef,
   ElementRef,
   ComponentPropsWithoutRef,
@@ -27,12 +25,9 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { MobileNav } from "@/components/ui/mobile-nav";
-import { ThemeToggle } from "@/components/theme-toggle/theme-toggle";
 import useMenuItems from "@/customHooks/useMenuItems";
 
 export default function Nav() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const menuItems: MenuItem[] = [
     {
       href: "/colour-harmony",
@@ -60,10 +55,6 @@ export default function Nav() {
       icon: <CirclePlus />,
     },
   ];
-
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
-  };
 
   const newMenuItems = useMenuItems();
 
@@ -127,18 +118,6 @@ export default function Nav() {
         </NavigationMenuList>
       </NavigationMenu>
       <MobileNav menuItems={newMenuItems} />
-      {isMenuOpen && (
-        <div className="flex flex-col lg:hidden absolute right-2 top-16 bg-white p-3 rounded-lg shadow-2xl z-10 items-start">
-          {menuItems.map((item, index) => (
-            <NavLink
-              key={index}
-              href={item.href}
-              label={item.label}
-              icon={item.icon}
-            />
-          ))}
-        </div>
-      )}
       <div className="flex gap-3 items-center">
         <Search menuItems={menuItems} />
       </div>

@@ -1,6 +1,5 @@
 import styles from "../../styles/Home.module.css";
 import { useEffect, useState } from "react";
-import Gradient from "../gradient/gradient";
 import Mesh from "@/components/mesh/mesh";
 
 export default function LocalMeshes() {
@@ -25,8 +24,6 @@ export default function LocalMeshes() {
             if (storedMeshes) {
                 setLocalMeshes(JSON.parse(storedMeshes));
             }
-
-            console.log(storedMeshes)
         }
     }, []);
 
