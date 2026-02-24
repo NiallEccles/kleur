@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils"
 // import { useToast } from "@/hooks/use-toast"
 import {HexColorPicker} from "react-colorful";
 import {Input} from "@/components/ui/input";
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
 import {PAGES} from "@/public/constants";
 
 type ColorPoint = {
