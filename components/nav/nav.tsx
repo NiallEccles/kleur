@@ -6,13 +6,11 @@ import {
   PaletteIcon,
   SwatchBook,
   CirclePlus,
-  Menu,
   PaintBucket,
   Blend,
 } from "lucide-react";
 import {
   useState,
-  ReactElement,
   forwardRef,
   ElementRef,
   ComponentPropsWithoutRef,
@@ -128,12 +126,7 @@ export default function Nav() {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
-      {/* Mobile Menu Button */}
-      {/*<div className='btn-circle lg:hidden' onClick={toggleMenu}>*/}
-      {/*    <Menu/>*/}
-      {/*</div>*/}
       <MobileNav menuItems={newMenuItems} />
-      {/* Menu Items */}
       {isMenuOpen && (
         <div className="flex flex-col lg:hidden absolute right-2 top-16 bg-white p-3 rounded-lg shadow-2xl z-10 items-start">
           {menuItems.map((item, index) => (
@@ -148,16 +141,7 @@ export default function Nav() {
       )}
       <div className="flex gap-3 items-center">
         <Search menuItems={menuItems} />
-        <ThemeToggle />
       </div>
-      {/* Desktop Menu Items*/}
-      {/*<div className="hidden lg:flex">*/}
-      {/*    {*/}
-      {/*        menuItems.map((item, index) => (*/}
-      {/*            <NavLink key={index} href={item.href} label={item.label} icon={item.icon}/>*/}
-      {/*        ))*/}
-      {/*    }*/}
-      {/*</div>*/}
     </div>
   );
 }
