@@ -1,17 +1,14 @@
 import {JSX, useState} from "react";
 import styles from "./new-radial-gradient.module.css";
 import ColourPicker from "../colour-picker/colour-picker";
-import PaletteManager from "../palette-manager/palette-manager";
 import {useUpdateControl} from "../../customHooks/useUpdateControl";
-import {useRouter} from "next/router";
-import {motion} from "framer-motion";
+import {useRouter} from "next/navigation";
 import {hexStringSanitizer} from "../../utils/paletteUtils";
 import RemoveIcon from "../icons/removeIcon";
 import PaletteIcon from "../icons/paletteIcon";
 import {PAGES} from "../../public/constants";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
 
 type ControlType = string;
 

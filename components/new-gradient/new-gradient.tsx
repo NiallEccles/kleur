@@ -1,9 +1,8 @@
 import { useState, useEffect, JSX } from "react";
-import styles from "./new-gradient.module.css";
 import ColourPicker from "../colour-picker/colour-picker";
 import PaletteManager from "../palette-manager/palette-manager";
 import { useUpdateControl } from "../../customHooks/useUpdateControl";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import {PAGES} from "../../public/constants";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
