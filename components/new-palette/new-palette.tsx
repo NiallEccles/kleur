@@ -1,13 +1,11 @@
 import { useState, useEffect, JSX } from "react";
-import styles from "./new-palette.module.css";
 import { useUpdateControl } from "../../customHooks/useUpdateControl";
 import PaletteManager from "../palette-manager/palette-manager";
 import ColourPicker from "../colour-picker/colour-picker";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { PAGES } from "../../public/constants";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
 
 // Define the shape of a control if needed (here assumed to be just a hex string)
 type Control = string;
