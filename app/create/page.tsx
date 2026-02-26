@@ -14,6 +14,10 @@ export default function CreatePage() {
       route: "/create/gradient",
     },
     {
+      name: "Mesh Gradient",
+      route: "/create/mesh-gradient",
+    },
+    {
       name: "Radial Gradient",
       route: "/create/radial-gradient",
     },
