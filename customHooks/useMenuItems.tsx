@@ -1,4 +1,4 @@
-import {PaletteIcon, SwatchBook} from "lucide-react";
+import {PaletteIcon, SwatchBook, Briefcase, ArrowLeftRight} from "lucide-react";
 import {NewMenuItems} from "@/types/MenuItem";
 
 export const useMenuItems = () => {
@@ -20,9 +20,21 @@ export const useMenuItems = () => {
                     icon: <SwatchBook />
                 },
                 {
+                    label: 'Brand Kit',
+                    href: '/brand-kit',
+                    description: 'Analyse your palette — shades, components, A11y, dark mode',
+                    icon: <Briefcase />
+                },
+                {
                     label: 'Colours',
                     href: '/colours',
                     description: 'Browse and explore a wide range of colors'
+                },
+                {
+                    label: 'Convert',
+                    href: '/convert',
+                    description: 'Convert colours between HEX, RGB, HSL and OKLCH',
+                    icon: <ArrowLeftRight />
                 }
             ]
         },
