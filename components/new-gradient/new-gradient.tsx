@@ -86,7 +86,7 @@ export default function NewGradient() {
         <Button size="sm" variant="outline" onClick={() => addEntry()} className="flex-1">
           <Plus className="h-3 w-3 mr-1" /> Add
         </Button>
-        <Button size="sm" variant="outline" onClick={randomiseUnlocked} className="flex-1">
+        <Button size="sm" variant="outline" onClick={() => randomiseUnlocked()} className="flex-1">
           <Shuffle className="h-3 w-3 mr-1" /> Randomise
         </Button>
       </div>
