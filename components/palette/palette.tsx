@@ -1,65 +1,62 @@
-import { useState } from "react";
-import styles from "./palette.module.css";
+'use client'
 
-export default function Palette({ colours, name }: { colours: string[], name: string }) {
-  console.log(colours);
-  const [copiedColour, setCopiedColour] = useState("");
+import { useState } from 'react'
+import Link from 'next/link'
+import { Copy, Check } from 'lucide-react'
+import { relativeLuminance } from '@/utils/colorUtils'
+
+function textColorFor(hex: string): string {
+  try {
+    const lum = relativeLuminance({ space: 'hex', value: hex })
+    return lum > 0.35 ? '#1a1a1a' : '#ffffff'
+  } catch {
+    return '#1a1a1a'
+  }
+}
+
+export default function Palette({ colours, name, analyseHref }: { colours: string[]; name: string; analyseHref?: string }) {
+  const [copied, setCopied] = useState('')
+
+  function copy(colour: string) {
+    navigator.clipboard.writeText(colour)
+    setCopied(colour)
+    setTimeout(() => setCopied(''), 1500)
+  }
+
   return (
-    <div className={styles.palette} aria-label="Palette">
-      <div>
-        {colours.map((colour: string, index: number) => {
-          return (
-            <div
-              className={styles.sliver}
-              style={{ background: colour }}
-              key={index}
-              aria-label="Palette Sliver"
-            >
-              <span tabIndex={0}>{colour}</span>
-              <button
-                className={styles.copyIcon}
-                aria-label="Copy to clipboard"
-                onClick={() => {
-                  navigator.clipboard.writeText(colour);
-                  setCopiedColour(colour);
-                  setTimeout(() => {
-                    setCopiedColour("");
-                  }, 1500);
-                }}
-              >
-                {copiedColour === colour ? successIcon() : copyIcon()}
-              </button>
-            </div>
-          );
-        })}
-      </div>
-      {
-        name ? <div className={styles.sliver}><span>{name}</span></div> : null
-      }
+    <div className="w-full rounded-xl overflow-hidden border border-border shadow-sm">
+      {colours.map((colour, i) => {
+        const fg = textColorFor(colour)
+        const isCopied = copied === colour
+        return (
+          <button
+            key={i}
+            className="group w-full flex items-center justify-between px-3 py-3.5 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+            style={{ backgroundColor: colour }}
+            onClick={() => copy(colour)}
+            aria-label={`Copy ${colour}`}
+          >
+            <span className="font-mono text-xs" style={{ color: fg }}>
+              {colour.toLowerCase()}
+            </span>
+            <span style={{ color: fg }} className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+              {isCopied
+                ? <Check className="h-3.5 w-3.5" />
+                : <Copy className="h-3.5 w-3.5" />}
+            </span>
+          </button>
+        )
+      })}
+      {(name || analyseHref) && (
+        <div className="px-3 py-2.5 bg-card border-t border-border flex items-center justify-between">
+          {name && <p className="text-sm font-medium truncate">{name}</p>}
+          {analyseHref && (
+            <Link href={analyseHref} className="text-xs text-muted-foreground hover:text-foreground transition-colors shrink-0 ml-auto">
+              Analyse →
+            </Link>
+          )}
+        </div>
+      )}
     </div>
-  );
-}
-
-function copyIcon() {
-  return (
-    <svg
-      id="Layer_1"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 37.65 43.6"
-    >
-      <path d="M12,36.2c-1.27,0-2.34-.46-3.23-1.38s-1.33-1.97-1.33-3.17V4.55c0-1.2,.44-2.26,1.33-3.17,.88-.92,1.96-1.38,3.23-1.38h21.05c1.27,0,2.35,.46,3.25,1.38,.9,.92,1.35,1.97,1.35,3.17V31.65c0,1.2-.45,2.26-1.35,3.17s-1.98,1.38-3.25,1.38H12Zm0-4.55h21.05V4.55H12V31.65h0Zm-7.4,11.95c-1.27,0-2.35-.46-3.25-1.38s-1.35-1.98-1.35-3.17V9.6H4.6v29.45H27.55v4.55H4.6ZM12,4.55h0V31.65h0V4.55h0Z" />
-    </svg>
-  );
-}
-
-function successIcon() {
-  return (
-    <svg
-      id="Layer_1"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 34.65 25.65"
-    >
-      <path d="M12.25,25.65L0,13.4l3.3-3.3,8.95,9L31.35,0l3.3,3.25L12.25,25.65Z" />
-    </svg>
-  );
+  )
 }
