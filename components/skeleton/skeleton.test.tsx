@@ -6,7 +6,7 @@ describe('Skeleton', () => {
     it('renders a skeleton', () => {
         render(<Skeleton route={'/'} />)
 
-        const skeleton = screen.getByRole('button', { name: 'Create your own' })
+        const skeleton = screen.getByRole('link', { name: /create your own/i })
 
         expect(skeleton).toBeInTheDocument()
     })
