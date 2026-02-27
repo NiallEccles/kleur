@@ -176,7 +176,7 @@ export default function ExplorePage() {
         }
       `}</style>
 
-      <div className="mx-auto space-y-12">
+      <div className="mx-5 my-25 space-y-12">
         <PageTitle title="Explore" />
 
         {/* ── Palette of the Day ── */}

@@ -19,7 +19,7 @@ function BrandKitContent() {
 
 export default function BrandKitPage() {
   return (
-    <div className="mx-auto space-y-6">
+    <div className="mx-5 my-25 space-y-12">
       <PageTitle title="Brand Kit" />
       <Suspense fallback={<div className="py-12 text-center text-muted-foreground">Loading…</div>}>
         <BrandKitContent />

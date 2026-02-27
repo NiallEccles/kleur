@@ -24,7 +24,7 @@ export default function CreatePage() {
   ]
 
   return (
-    <div className="mx-auto">
+    <div className="mx-5 my-25 space-y-12">
       <PageTitle title="Create" />
       <div className="grid grid-flow-row-dense grid-cols-2 grid-rows-2 gap-4">
         {actionItems.map((item, index) => (
