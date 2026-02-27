@@ -21,10 +21,14 @@ export default function CreatePage() {
       name: "Radial Gradient",
       route: "/create/radial-gradient",
     },
+    {
+      name: "Image Palette",
+      route: "/create/image-palette",
+    },
   ]
 
   return (
-    <div className="mx-5 my-25 space-y-12">
+    <div className="mx-5 space-y-12">
       <PageTitle title="Create" />
       <div className="grid grid-flow-row-dense grid-cols-2 grid-rows-2 gap-4">
         {actionItems.map((item, index) => (

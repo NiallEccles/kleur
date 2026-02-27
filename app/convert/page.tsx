@@ -62,7 +62,7 @@ export default function ConvertPage() {
   }, [])
 
   return (
-    <div className="mx-5 my-25 space-y-12">
+    <div className="mx-5 space-y-12">
       <PageTitle title="Convert" />
 
       <div className="flex flex-col gap-8 px-5">

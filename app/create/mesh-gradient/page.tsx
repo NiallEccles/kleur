@@ -5,7 +5,7 @@ import PageTitle from "@/components/page-title/page-title"
 
 export default function CreateMeshGradientPage() {
   return (
-    <div className="mx-5 my-25 space-y-12">
+    <div className="mx-5 space-y-12">
       <PageTitle title="Mesh Gradient" />
       <MeshGradientGenerator />
     </div>
