@@ -61,7 +61,7 @@ export default function LocalPalettes() {
   if (items.length === 0) return null
 
   return (
-    <section className="mx-5 my-25 space-y-12">
+    <section className="mx-5 space-y-12">
       <h2 className="text-xl font-bold px-1">My Palettes</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {items.map((palette, i) => {
