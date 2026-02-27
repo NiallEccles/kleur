@@ -35,7 +35,7 @@ export default function Home() {
       <Hero />
 
       {/* Featured Palettes */}
-      <section className="mx-5 my-25 space-y-12">
+      <section className="mx-5 space-y-12">
         <SectionHeader title="Featured Palettes" href={PAGES.PALETTES} />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {palettes.slice(0, 3).map((palette, i) => (
@@ -51,7 +51,7 @@ export default function Home() {
       </section>
 
       {/* Featured Gradients */}
-      <section className="mx-5 my-25 space-y-12">
+      <section className="mx-5 space-y-12">
         <SectionHeader title="Featured Gradients" href={PAGES.GRADIENTS} />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {gradients.slice(0, 3).map((gradient, i) => (
