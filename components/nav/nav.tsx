@@ -84,7 +84,7 @@ export default function Nav() {
   ListItem.displayName = "ListItem";
 
   return (
-    <div className="flex w-full p-5 fixed z-5 dark:bg-transparent bg-transparent items-center top-0">
+    <div className="flex w-full p-5 fixed z-20 dark:bg-transparent bg-transparent items-center top-0">
       <Link href="/" className="normal-case text-xl font-bold flex-1">
         kleur
       </Link>
