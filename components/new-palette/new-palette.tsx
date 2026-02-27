@@ -80,7 +80,7 @@ export default function NewPalette() {
   }
 
   const canvas = (
-    <div className="w-full rounded-lg overflow-hidden border" style={{ height: '200px' }}>
+    <div className="w-full rounded-lg overflow-hidden h-full border">
       <div className="flex h-full">
         {entries.map(e => (
           <div
