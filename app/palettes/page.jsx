@@ -7,7 +7,7 @@ import { buildAnalyseHref } from "@/utils/brandKitUtils"
 
 export default function PalettesPage() {
   return (
-    <div className="mx-5 my-25 space-y-12">
+    <div className="mx-5 space-y-12">
       <PageTitle title="Palettes" />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {palettes.map((palette, index) => (
