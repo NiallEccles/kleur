@@ -11,7 +11,7 @@ export default function PageTitle({title}: {title: string}) {
 
     return (
         <div className="my-4 rounded-3xl">
-            <h1 className="text-2xl font-bold ml-5">{title}</h1>
+            <h1 className="text-2xl font-bold mb-10">{title}</h1>
         </div>
     );
 }
