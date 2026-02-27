@@ -61,6 +61,11 @@ export const useMenuItems = () => {
                     label: 'Mesh Gradient',
                     href: '/create/mesh-gradient',
                     description: 'Mesh gradients with total control'
+                },
+                {
+                    label: 'Image Palette',
+                    href: '/create/image-palette',
+                    description: 'Extract a palette from any image'
                 }
             ]
         }
