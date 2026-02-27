@@ -4,6 +4,7 @@ export const PAGES = {
   GRADIENTS: "/gradients",
   BRAND_KIT: "/brand-kit",
   CONVERT: "/convert",
+  IMAGE_PALETTE: "/create/image-palette",
   NEW: {
     PALETTE: "/create/palette",
     GRADIENT: "/create/gradient"
