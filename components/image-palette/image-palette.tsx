@@ -125,16 +125,18 @@ export default function ImagePalette() {
   }
 
   const canvas = (
-    <div className="space-y-4">
+    <div className="space-y-4 h-full flex flex-col">
       {imageUrl ? (
         <>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={imageUrl}
-            alt="Uploaded"
-            className="w-full rounded-lg object-cover border"
-            style={{ height: '240px' }}
-          />
+          <div>
+            <img
+              src={imageUrl}
+              alt="Uploaded"
+              className="w-full h-full rounded-lg object-scale-down border flex-1"
+              // style={{ height: '240px' }}
+            />
+          </div>
           <div className="w-full rounded-lg overflow-hidden border" style={{ height: '60px' }}>
             <div className="flex h-full">
               {entries.map(e => (
@@ -149,7 +151,7 @@ export default function ImagePalette() {
           </div>
           <label
             className="flex items-center justify-center gap-2 text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
-            htmlFor="image-upload-replace"
+            htmlFor="image-upload-replace h-full"
           >
             <Upload className="h-4 w-4" />
             Replace image
@@ -165,12 +167,11 @@ export default function ImagePalette() {
       ) : (
         <label
           htmlFor="image-upload"
-          className={`flex flex-col items-center justify-center gap-3 w-full rounded-lg border-2 border-dashed cursor-pointer transition-colors ${
+          className={`flex flex-col items-center justify-center gap-3 w-full rounded-lg border-2 border-dashed cursor-pointer transition-colors h-full ${
             isDragging
               ? 'border-primary bg-primary/5'
               : 'border-muted-foreground/25 hover:border-muted-foreground/50'
           }`}
-          style={{ height: '320px' }}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
@@ -194,9 +195,14 @@ export default function ImagePalette() {
 
   const colorsTab = (
     <>
-      <Button size="sm" variant="outline" onClick={() => addEntry()} className="w-full">
+      { entries.length === 0 && (
+        <p className="text-sm text-muted-foreground mb-2">
+          Select an image to get started.
+        </p>
+      ) }
+      {/* <Button size="sm" variant="outline" onClick={() => addEntry()} className="w-full">
         <Plus className="h-3 w-3 mr-1" /> Add color
-      </Button>
+      </Button> */}
       <ColorEntryList
         entries={entries}
         displaySpace={displaySpace}
@@ -275,7 +281,7 @@ export default function ImagePalette() {
   )
 
   return (
-    <GeneratorLayout
+  <GeneratorLayout
       canvas={canvas}
       panel={
         <GeneratorPanel
