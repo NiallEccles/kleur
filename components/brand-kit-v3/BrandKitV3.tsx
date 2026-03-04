@@ -75,12 +75,10 @@ export default function BrandKitV3() {
 
   return (
     <div className="mx-5 space-y-8 pb-12">
-      <div className='flex flex-row justify-between items-baseline'>
-        <PageTitle title="Brand Kit" />
-        <Button variant="outline" size="sm" onClick={handleAdd}>
-          <Plus className="h-4 w-4 mr-1" /> Add colour
-        </Button>
-      </div>
+      <PageTitle title="Brand Kit" />
+      <Button variant="outline" size="sm" onClick={handleAdd}>
+        <Plus className="h-4 w-4 mr-1" /> Add colour
+      </Button>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {entries.map(entry => (
           <BrandShades
